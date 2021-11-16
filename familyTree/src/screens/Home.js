@@ -42,11 +42,11 @@ export default function HomeScreen() {
           </TouchableOpacity>
           <TouchableOpacity style={styles.rowItem2}>
             <Icon name="comment" style={styles.icon} />
-            <Text style={styles.school}>chat</Text>
+            <Text style={styles.school}>Чат</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.rowItem3}>
-            <FeatherIcon name="more-horizontal" style={styles.icon} />
-            <Text style={styles.school}>more</Text>
+            <FeatherIcon name="calendar" style={styles.icon} />
+            <Text style={styles.school}>Үйл явдал нэмэх</Text>
           </TouchableOpacity>
         </View>
       </View>
