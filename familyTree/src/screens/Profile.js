@@ -9,23 +9,20 @@ import {
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import Icon from 'react-native-vector-icons/FontAwesome5';
-import FeatherIcon from 'react-native-vector-icons/Feather';
 import BigCardItem from '../components/BigCardItem';
 import List from '../components/List';
 import SmallCircleItem from '../components/SmallCircleItem';
 import {COLORS} from '../constants';
-import {data2, datafriends} from '../testData';
-import {data} from '../testData';
+import {data, datafriends} from '../testData';
 
-export default function HomeScreen() {
+const Profile = () => {
   return (
     <ScrollView style={styles.container}>
       <LinearGradient
         start={{x: 0.0, y: 0.5}}
         end={{x: 1, y: 0.5}}
         style={styles.header}
-        colors={['#9BAEFF', '#FF9BFC']}
-      />
+        colors={['#9BAEFF', '#FF9BFC']}></LinearGradient>
       <View style={styles.headerInfo}>
         <View style={styles.imageContainer}>
           <Image
@@ -37,29 +34,29 @@ export default function HomeScreen() {
         <Text style={styles.school}>Монгол улсын их сургууль</Text>
         <View style={styles.row}>
           <TouchableOpacity style={styles.rowItem}>
-            <Icon name="user-friends" style={styles.icon} />
-            <Text style={styles.school}>Найз болох</Text>
+            <Icon name="clock" style={styles.icon} />
+            <Text style={styles.school}>5 мин</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.rowItem2}>
             <Icon name="comment" style={styles.icon} />
-            <Text style={styles.school}>chat</Text>
+            <Text style={styles.school}>message</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.rowItem3}>
-            <FeatherIcon name="more-horizontal" style={styles.icon} />
-            <Text style={styles.school}>more</Text>
+            <Icon name="location-arrow" style={styles.icon} />
+            <Text style={styles.school}>location</Text>
           </TouchableOpacity>
         </View>
       </View>
       <View style={styles.intro}>
         <Text style={styles.school}>
           Намайг блоөыабрөда ыблоөралоы өалоы бөлоар лорөалоырбөдлоарылобөр алыо
-          рөал рылбөо ралорбө
+          рөал рылбөо ралорбө{' '}
         </Text>
       </View>
       <View style={styles.detail}>
         <List
           title="Дэлгэрэнгүй мэдээлэл"
-          data={data2}
+          data={data}
           renderItem={function (item) {
             return <BigCardItem item={item} />;
           }}
@@ -76,7 +73,9 @@ export default function HomeScreen() {
       </View>
     </ScrollView>
   );
-}
+};
+
+export default Profile;
 
 const styles = StyleSheet.create({
   container: {

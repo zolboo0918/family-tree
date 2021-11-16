@@ -2,17 +2,14 @@ import Axios from 'axios';
 import React, {useState} from 'react';
 import {
   Alert,
-  Button,
-  Dimensions,
   ImageBackground,
   KeyboardAvoidingView,
   StyleSheet,
   Text,
+  View,
   TextInput,
   TouchableOpacity,
-  View,
 } from 'react-native';
-import Icon from 'react-native-vector-icons/Entypo';
 import {COLORS} from '../constants';
 
 const Register = props => {
@@ -51,53 +48,60 @@ const Register = props => {
     <ImageBackground
       source={require('../assets/img/background.jpg')}
       style={styles.backgroundImg}>
-      <KeyboardAvoidingView behavior="height" style={styles.body}>
-        <Text style={styles.loginText}>Бүртгүүлэх</Text>
-        <Text style={styles.inputLabel}>Регистрийн дугаар</Text>
-        <TextInput
-          style={styles.input}
-          value={RegNumber}
-          onChangeText={setRegNumber}
-        />
-        <Text style={styles.inputLabel}>Овог</Text>
-        <TextInput
-          style={styles.input}
-          value={lName}
-          onChangeText={setLastName}
-        />
-        <Text style={styles.inputLabel}>Нэр</Text>
-        <TextInput
-          style={styles.input}
-          value={fName}
-          onChangeText={setFirstName}
-        />
-        <Text style={styles.inputLabel}>И-мэйл</Text>
-        <TextInput style={styles.input} value={email} onChangeText={setEmail} />
-        <Text style={styles.inputLabel}>Нууц Үг</Text>
-        <TextInput
-          style={styles.input}
-          value={Password}
-          onChangeText={setPassword}
-        />
-        <Text style={styles.inputLabel}>Системд ашиглагдах нэр</Text>
-        <TextInput
-          style={styles.input}
-          value={UserName}
-          onChangeText={setUserName}
-        />
-        <TouchableOpacity
-          style={styles.button}
-          color={COLORS.BASE_COLOR}
-          onPress={handleRegister}>
-          <Text style={styles.buttonText}>Бүртгүүлэх</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.registerContainer}
-          color={COLORS.BASE_COLOR}
-          onPress={() => props.navigation.goBack()}>
-          <Text style={styles.register}>Нэвтрэх</Text>
-        </TouchableOpacity>
-      </KeyboardAvoidingView>
+      <View style={styles.body}>
+        <KeyboardAvoidingView
+          behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
+          <Text style={styles.loginText}>Бүртгүүлэх</Text>
+          <Text style={styles.inputLabel}>Регистрийн дугаар</Text>
+          <TextInput
+            style={styles.input}
+            value={RegNumber}
+            onChangeText={setRegNumber}
+          />
+          <Text style={styles.inputLabel}>Овог</Text>
+          <TextInput
+            style={styles.input}
+            value={lName}
+            onChangeText={setLastName}
+          />
+          <Text style={styles.inputLabel}>Нэр</Text>
+          <TextInput
+            style={styles.input}
+            value={fName}
+            onChangeText={setFirstName}
+          />
+          <Text style={styles.inputLabel}>И-мэйл</Text>
+          <TextInput
+            style={styles.input}
+            value={email}
+            onChangeText={setEmail}
+          />
+          <Text style={styles.inputLabel}>Нууц Үг</Text>
+          <TextInput
+            style={styles.input}
+            value={Password}
+            onChangeText={setPassword}
+          />
+          <Text style={styles.inputLabel}>Системд ашиглагдах нэр</Text>
+          <TextInput
+            style={styles.input}
+            value={UserName}
+            onChangeText={setUserName}
+          />
+          <TouchableOpacity
+            style={styles.button}
+            color={COLORS.BASE_COLOR}
+            onPress={handleRegister}>
+            <Text style={styles.buttonText}>Бүртгүүлэх</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.registerContainer}
+            color={COLORS.BASE_COLOR}
+            onPress={() => props.navigation.goBack()}>
+            <Text style={styles.register}>Нэвтрэх</Text>
+          </TouchableOpacity>
+        </KeyboardAvoidingView>
+      </View>
     </ImageBackground>
   );
 };
@@ -113,7 +117,7 @@ const styles = StyleSheet.create({
     bottom: 0,
     height: 'auto',
     width: '100%',
-    paddingLeft: 40,
+    paddingHorizontal: 40,
     borderTopLeftRadius: 30,
     borderTopRightRadius: 30,
     backgroundColor: '#fff',
@@ -126,9 +130,9 @@ const styles = StyleSheet.create({
     color: COLORS.BASE_COLOR,
   },
   input: {
-    width: '90%',
+    width: '100%',
     padding: 10,
-    height: 40,
+    height: 35,
     borderBottomWidth: 1,
     borderBottomColor: COLORS.BASE_COLOR,
   },
@@ -145,10 +149,9 @@ const styles = StyleSheet.create({
   button: {
     borderRadius: 30,
     alignSelf: 'center',
-    marginTop: 50,
+    marginTop: 40,
     width: 200,
-    height: 50,
-    marginLeft: -40,
+    height: 40,
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: COLORS.BASE_COLOR,
@@ -164,12 +167,11 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     color: '#fff',
-    fontSize: 18,
+    fontSize: 16,
     fontWeight: 'bold',
   },
   registerContainer: {
-    marginTop: 50,
-    marginLeft: -40,
+    marginTop: 40,
   },
   register: {
     marginBottom: 30,
