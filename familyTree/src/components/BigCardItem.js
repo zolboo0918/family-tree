@@ -1,12 +1,16 @@
 import React from 'react';
-import {StyleSheet, Text, Image, View} from 'react-native';
+import {StyleSheet, Text, Image, View, TouchableOpacity} from 'react-native';
 
 const BigCardItem = props => {
   return (
-    <View style={styles.container}>
-      <Image style={styles.listImage} source={{uri: props.item.img}} />
+    <TouchableOpacity style={styles.container}>
+      <Image
+        resizeMode="cover"
+        style={styles.listImage}
+        source={{uri: props.item.img}}
+      />
       <Text style={styles.listText}>{props.item.title}</Text>
-    </View>
+    </TouchableOpacity>
   );
 };
 
@@ -14,10 +18,12 @@ export default BigCardItem;
 
 const styles = StyleSheet.create({
   container: {
-    height: 130,
-    width: 100,
+    borderWidth: 1,
+    borderColor: '#e1e1e1',
+    height: 90,
+    width: 90,
     backgroundColor: '#fff',
-    marginHorizontal: 4,
+    marginHorizontal: 10,
     borderRadius: 10,
     justifyContent: 'center',
     alignItems: 'center',
@@ -25,12 +31,15 @@ const styles = StyleSheet.create({
   listImage: {
     height: '80%',
     width: '100%',
+    padding: 3,
     borderTopLeftRadius: 10,
     borderTopRightRadius: 10,
   },
   listText: {
     alignSelf: 'flex-start',
+    fontSize: 12,
     paddingLeft: 5,
+    paddingBottom: 5,
     marginVertical: 5,
   },
 });

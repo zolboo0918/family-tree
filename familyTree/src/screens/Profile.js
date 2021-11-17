@@ -9,6 +9,7 @@ import {
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import Icon from 'react-native-vector-icons/FontAwesome5';
+import FIcon from 'react-native-vector-icons/Feather';
 import BigCardItem from '../components/BigCardItem';
 import List from '../components/List';
 import SmallCircleItem from '../components/SmallCircleItem';
@@ -39,11 +40,11 @@ const Profile = () => {
           </TouchableOpacity>
           <TouchableOpacity style={styles.rowItem2}>
             <Icon name="comment" style={styles.icon} />
-            <Text style={styles.school}>message</Text>
+            <Text style={styles.school}>Чат</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.rowItem3}>
-            <Icon name="location-arrow" style={styles.icon} />
-            <Text style={styles.school}>location</Text>
+            <FIcon name="more-horizontal" style={styles.icon} />
+            <Text style={styles.school}>Дэлгэрэнгүй</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -55,6 +56,7 @@ const Profile = () => {
       </View>
       <View style={styles.detail}>
         <List
+          horizontal={true}
           title="Дэлгэрэнгүй мэдээлэл"
           data={data}
           renderItem={function (item) {
@@ -64,6 +66,7 @@ const Profile = () => {
       </View>
       <View style={styles.detail}>
         <List
+          horizontal={true}
           title="Найзууд"
           data={datafriends}
           renderItem={function (item) {

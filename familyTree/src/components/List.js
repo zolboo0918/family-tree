@@ -7,7 +7,9 @@ const List = props => {
     <View>
       <Text style={styles.title}>{props.title}</Text>
       <FlatList
-        horizontal
+        showsHorizontalScrollIndicator={false}
+        showsVerticalScrollIndicator={false}
+        horizontal={props.horizontal}
         data={props.data}
         renderItem={({item, index}) => props.renderItem(item)}
         keyExtractor={(item, index) => index}

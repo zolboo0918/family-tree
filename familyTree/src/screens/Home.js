@@ -14,8 +14,9 @@ import BigCardItem from '../components/BigCardItem';
 import List from '../components/List';
 import SmallCircleItem from '../components/SmallCircleItem';
 import {COLORS} from '../constants';
-import {data2, datafriends} from '../testData';
+import {data2, dataEvent, datafriends} from '../testData';
 import {data} from '../testData';
+import ListItem from '../components/ListItem';
 
 export default function HomeScreen() {
   return (
@@ -27,15 +28,15 @@ export default function HomeScreen() {
         colors={['#9BAEFF', '#FF9BFC']}
       />
       <View style={styles.headerInfo}>
-        <View style={styles.imageContainer}>
+        {/* <View style={styles.imageContainer}>
           <Image
             source={{uri: 'https://wallpaperaccess.com/full/2213424.jpg'}}
             style={styles.profileImage}
           />
-        </View>
+        </View> */}
         <Text style={styles.name}>А.Солонго</Text>
-        <Text style={styles.school}>Монгол улсын их сургууль</Text>
-        <View style={styles.row}>
+        <Text style={styles.vaccine}>Вакцинд хамрагдсан</Text>
+        {/* <View style={styles.row}>
           <TouchableOpacity style={styles.rowItem}>
             <Icon name="user-friends" style={styles.icon} />
             <Text style={styles.school}>Найз болох</Text>
@@ -48,29 +49,31 @@ export default function HomeScreen() {
             <FeatherIcon name="calendar" style={styles.icon} />
             <Text style={styles.school}>Үйл явдал нэмэх</Text>
           </TouchableOpacity>
-        </View>
+        </View> */}
       </View>
-      <View style={styles.intro}>
+      {/* <View style={styles.intro}>
         <Text style={styles.school}>
           Намайг блоөыабрөда ыблоөралоы өалоы бөлоар лорөалоырбөдлоарылобөр алыо
           рөал рылбөо ралорбө
         </Text>
-      </View>
+      </View> */}
       <View style={styles.detail}>
         <List
           title="Дэлгэрэнгүй мэдээлэл"
           data={data2}
+          horizontal={true}
           renderItem={function (item) {
             return <BigCardItem item={item} />;
           }}
         />
       </View>
-      <View style={styles.detail}>
+      <View style={styles.events}>
         <List
-          title="Найзууд"
-          data={datafriends}
+          title="Үйл явдлууд"
+          data={dataEvent}
           renderItem={function (item) {
-            return <SmallCircleItem item={item} />;
+            return <ListItem data={datafriends} item={item} />;
+            // return <SmallCircleItem item={item} />;
           }}
         />
       </View>
@@ -88,12 +91,12 @@ const styles = StyleSheet.create({
     height: 200,
   },
   headerInfo: {
-    backgroundColor: '#fff',
+    backgroundColor: '#d1e7ff',
     width: '80%',
-    height: 200,
+    height: 100,
     position: 'absolute',
     alignSelf: 'center',
-    top: 100,
+    top: 150,
     alignItems: 'center',
     borderRadius: 20,
     shadowColor: '#000',
@@ -123,10 +126,20 @@ const styles = StyleSheet.create({
     width: 80,
   },
   name: {
-    marginTop: 10,
-    fontSize: 18,
+    alignSelf: 'flex-start',
+    marginLeft: 20,
+    marginTop: 20,
+    fontSize: 14,
     color: COLORS.TEXT_COLOR,
     fontWeight: 'bold',
+  },
+  vaccine: {
+    alignSelf: 'flex-start',
+    marginLeft: 20,
+    fontSize: 20,
+    color: COLORS.TEXT_COLOR,
+    fontWeight: 'bold',
+    marginTop: 15,
   },
   school: {
     fontSize: 12,
@@ -174,10 +187,14 @@ const styles = StyleSheet.create({
     fontSize: 18,
   },
   intro: {
-    marginTop: 120,
+    marginTop: 60,
     marginHorizontal: '10%',
   },
   detail: {
+    marginTop: 70,
+    marginHorizontal: '10%',
+  },
+  events: {
     marginTop: 20,
     marginHorizontal: '10%',
   },
