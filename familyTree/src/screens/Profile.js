@@ -50,8 +50,7 @@ const Profile = () => {
       </View>
       <View style={styles.intro}>
         <Text style={styles.school}>
-          Намайг блоөыабрөда ыблоөралоы өалоы бөлоар лорөалоырбөдлоарылобөр алыо
-          рөал рылбөо ралорбө{' '}
+          Намайг Солонго гэдэг. 22 настай МУИС-д сурдаг.{' '}
         </Text>
       </View>
       <View style={styles.detail}>

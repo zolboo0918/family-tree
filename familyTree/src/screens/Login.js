@@ -22,24 +22,24 @@ const Login = props => {
   const [passwordShow, setpasswordShow] = useState(true);
 
   const handleLogin = () => {
-    // Axios.post('http://192.168.193.87:3001/Login', {
-    //   UserName: userName,
-    //   Password: password,
-    // })
-    //   .then(response => {
-    //     // alert(JSON.stringify(response.data));
-    //     console.log(response.data);
-    //     // Toast.show('This is a toast.');
-    //     if (response.data.status == 'success') {
-    //       props.navigation.navigate('Home');
-    //     } else {
-    //       Alert.alert('aldaa', response.data.response);
-    //     }
-    //   })
-    //   .catch(err => {
-    //     console.log(err);
-    //     // Toast.show('This is a error.');
-    //   });
+    Axios.post('http://192.168.193.87:3001/Login', {
+      UserName: userName,
+      Password: password,
+    })
+      .then(response => {
+        // alert(JSON.stringify(response.data));
+        console.log(response.data);
+        // Toast.show('This is a toast.');
+        if (response.data.status == 'success') {
+          props.navigation.navigate('Home');
+        } else {
+          Alert.alert('aldaa', response.data.response);
+        }
+      })
+      .catch(err => {
+        console.log(err);
+        // Toast.show('This is a error.');
+      });
     props.navigation.navigate('Bottom');
   };
 
