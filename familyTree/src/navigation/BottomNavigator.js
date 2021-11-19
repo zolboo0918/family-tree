@@ -10,6 +10,7 @@ import Tree from '../screens/TreeModel';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import FontIsto from 'react-native-vector-icons/Fontisto';
+import AddPeople from '../screens/AddPeople';
 
 const Tab = createBottomTabNavigator();
 const options = {headerShown: false};
@@ -47,6 +48,7 @@ function Bottomtabs() {
         component={Profile}
         options={options}
       />
+      <Tab.Screen name="Хүн нэмэх" component={AddPeople} options={options} />
     </Tab.Navigator>
   );
 }

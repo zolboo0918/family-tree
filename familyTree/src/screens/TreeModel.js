@@ -1,87 +1,51 @@
-import {useNavigation} from '@react-navigation/native';
 import React from 'react';
-import {
-  Image,
-  ScrollView,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-} from 'react-native';
-import LinearGradient from 'react-native-linear-gradient';
+import {ScrollView, StyleSheet} from 'react-native';
 import FamilyTree from '../components/FamilyTree';
 import {COLORS} from '../constants';
-import {TreeData} from '../testData';
+import {AllTreeData, TreeData} from '../testData';
 
 const Tree = () => {
-  const navigation = useNavigation();
-  const goBack = () => {
-    navigation.goBack();
-  };
   return (
-    <ScrollView>
+    <ScrollView style={{backgroundColor: '#fff'}}>
       <FamilyTree
         title="Rethinam and Family"
-        pathColor="black"
+        pathColor={COLORS.TREE_COLOR}
         siblingGap={10}
-        nodeStyle={{
-          borderRadius: 50,
-          width: 100,
-          height: 100,
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}
+        nodeStyle={styles.nodeStyle}
+        imageStyle={styles.imageStyle}
+        titleStyle={styles.titleStyle}
         data={TreeData}
-        nodeTitleColor="blue"
+        nodeTitleColor="#585858"
         familyGap={5}
-        strokeWidth={2}
-        titleColor="green"
+        strokeWidth={1}
+        titleColor="#585858"
       />
     </ScrollView>
-    // <LinearGradient
-    //   start={{x: 0.0, y: 0.5}}
-    //   end={{x: 1, y: 0.5}}
-    //   colors={['#9BAEFF', '#FF9BFC']}
-    //   style={styles.background}>
-    //   <Image
-    //     source={require('../../assets/working.png')}
-    //     style={{height: 280, width: 260}}
-    //   />
-    //   <Text style={styles.text}>ЭНЭ ХУУДАС ХӨГЖҮҮЛЭГДЭЖ БАЙНА</Text>
-    //   <TouchableOpacity style={styles.button} onPress={goBack}>
-    //     <Text style={styles.buttonText}>Буцах</Text>
-    //   </TouchableOpacity>
-    // </LinearGradient>
   );
 };
 
 export default Tree;
 
 const styles = StyleSheet.create({
-  background: {
-    height: '100%',
-    width: '100%',
+  nodeStyle: {
+    width: 60,
+    height: 60,
     justifyContent: 'center',
     alignItems: 'center',
+    flexDirection: 'row',
+    borderWidth: 2,
+    borderRadius: 50,
+    borderColor: COLORS.TREE_COLOR,
   },
-  text: {
-    marginTop: '10%',
-    color: '#fff',
-    fontSize: 14,
-    fontWeight: 'bold',
+  imageStyle: {
     width: '50%',
+    height: '50%',
+    borderRadius: 50,
+    resizeMode: 'cover',
+  },
+  titleStyle: {
     textAlign: 'center',
-  },
-  button: {
-    backgroundColor: '#fff',
-    borderRadius: 30,
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginTop: '10%',
-    height: 55,
-    width: '45%',
-  },
-  buttonText: {
-    fontWeight: '700',
-    fontSize: 20,
+    fontSize: 18,
+    fontWeight: 'bold',
   },
 });

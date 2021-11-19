@@ -21,7 +21,7 @@ const StackNavigator = () => {
   return (
     <SafeAreaProvider>
       <NavigationContainer>
-        <StatusBar backgroundColor={COLORS.BASE_COLOR} />
+        <StatusBar backgroundColor={'#fff'} barStyle="dark-content" />
         <Stack.Navigator initialRouteName="Login">
           <Stack.Screen name="Login" component={Login} options={options} />
           <Stack.Screen

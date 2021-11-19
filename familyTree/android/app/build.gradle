@@ -129,13 +129,15 @@ android {
     ndkVersion rootProject.ext.ndkVersion
 
     compileSdkVersion rootProject.ext.compileSdkVersion
-
+    buildToolsVersion "27.0.3"
     defaultConfig {
+        vectorDrawables.useSupportLibrary = true
         applicationId "com.familytree"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
         versionName "1.0"
+        targetSdkVersion 27
     }
     splits {
         abi {
