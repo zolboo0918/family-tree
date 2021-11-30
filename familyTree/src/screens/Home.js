@@ -1,23 +1,11 @@
 import React from 'react';
-import {
-  Image,
-  ScrollView,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from 'react-native';
-import LinearGradient from 'react-native-linear-gradient';
-import Icon from 'react-native-vector-icons/FontAwesome5';
-import FeatherIcon from 'react-native-vector-icons/Feather';
+import {ScrollView, StyleSheet, View} from 'react-native';
+import BigCardItem from '../components/BigCardItem';
 import CardItem from '../components/CardItem';
 import List from '../components/List';
 import SmallCircleItem from '../components/SmallCircleItem';
 import {COLORS} from '../constants';
-import {data2, dataEvent, datafriends, dataPost} from '../testData';
-import {data} from '../testData';
-import ListItem from '../components/ListItem';
-import BigCardItem from '../components/BigCardItem';
+import {dataEvent, datafriends, dataPost} from '../testData';
 
 export default function HomeScreen() {
   return (

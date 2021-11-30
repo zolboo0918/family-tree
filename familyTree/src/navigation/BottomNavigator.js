@@ -1,16 +1,15 @@
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import {NavigationContainer} from '@react-navigation/native';
 import React from 'react';
-import {StatusBar} from 'react-native';
-import {SafeAreaProvider} from 'react-native-safe-area-context';
-import {COLORS} from '../constants';
-import HomeScreen from '../screens/Home';
-import Profile from '../screens/Profile';
-import Tree from '../screens/TreeModel';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import Feather from 'react-native-vector-icons/Feather';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import FontIsto from 'react-native-vector-icons/Fontisto';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import {COLORS} from '../constants';
 import AddPeople from '../screens/AddPeople';
+import HomeScreen from '../screens/Home';
+import Profile from '../screens/Profile';
+import Search from '../screens/Search';
+import Tree from '../screens/TreeModel';
 
 const Tab = createBottomTabNavigator();
 const options = {headerShown: false};
@@ -18,37 +17,25 @@ const options = {headerShown: false};
 function Bottomtabs() {
   return (
     <Tab.Navigator
-      screenOptions={({route}) => ({
-        tabBarIcon: ({focused, color, size}) => {
-          if (route.name === 'Нүүр') {
-            return (
-              <MaterialCommunityIcons
-                name={'home-outline'}
-                size={size}
-                color={color}
-              />
-            );
-          } else if (route.name === 'Хувийн мэдээлэл') {
-            return (
-              <FontAwesome name={'user-circle-o'} size={size} color={color} />
-            );
-          } else if (route.name === 'Ургийн мод') {
-            return <FontIsto name={'sourcetree'} size={size} color={color} />;
-          }
-        },
-      })}
       tabBarOptions={{
-        activeTintColor: COLORS.BASE_COLOR,
-        inactiveTintColor: 'gray',
+        inactiveBackgroundColor: '#fff',
+        showIcon: true,
       }}>
       <Tab.Screen
         name="Нүүр"
         component={HomeScreen}
         options={{
+          tabBarShowLabel: false,
           headerTitle: 'Нүүр',
           headerTitleAlign: 'center',
           headerShadowVisible: false,
-          headerTitleStyle: {color: '#585858'},
+          headerTitleStyle: {color: '#585858', fontSize: 18},
+          tabBarHideOnKeyboard: true,
+          tabBarActiveTintColor: COLORS.TREE_COLOR,
+          tabBarInactiveTintColor: '#585858',
+          tabBarIcon: ({color, size}) => (
+            <Feather name={'home'} color={color} size={20} />
+          ),
           headerRight: () => (
             <FontIsto
               name={'search'}
@@ -67,13 +54,71 @@ function Bottomtabs() {
           ),
         }}
       />
-      <Tab.Screen name="Ургийн мод" component={Tree} options={options} />
+      <Tab.Screen
+        name="Хайлт"
+        component={Search}
+        options={{
+          tabBarShowLabel: false,
+          headerTitle: 'Овог',
+          headerTitleAlign: 'center',
+          headerShadowVisible: false,
+          headerTitleStyle: {color: '#585858', fontSize: 18},
+          tabBarActiveTintColor: COLORS.TREE_COLOR,
+          tabBarInactiveTintColor: '#585858',
+          tabBarIcon: ({color, size}) => (
+            <FontIsto name={'search'} size={20} color={color} />
+          ),
+          headerRight: () => (
+            <FontIsto
+              name={'search'}
+              size={18}
+              color={'#585858'}
+              style={{marginRight: 20}}
+            />
+          ),
+          headerLeft: () => (
+            <MaterialCommunityIcons
+              name={'menu'}
+              size={18}
+              color={'#585858'}
+              style={{marginLeft: 20}}
+            />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="Ургийн мод"
+        component={Tree}
+        options={{
+          tabBarShowLabel: false,
+          tabBarActiveTintColor: COLORS.TREE_COLOR,
+          tabBarInactiveTintColor: '#585858',
+          tabBarIcon: ({color, size}) => (
+            <FontIsto name={'sourcetree'} size={20} color={color} />
+          ),
+        }}
+      />
       <Tab.Screen
         name="Хувийн мэдээлэл"
         component={Profile}
-        options={options}
+        options={{
+          tabBarShowLabel: false,
+          tabBarActiveTintColor: COLORS.TREE_COLOR,
+          tabBarInactiveTintColor: '#585858',
+          tabBarIcon: ({color, size}) => (
+            <FontAwesome name={'user-circle-o'} size={20} color={color} />
+          ),
+        }}
       />
-      <Tab.Screen name="Хүн нэмэх" component={AddPeople} options={options} />
+      <Tab.Screen
+        name="Хүн нэмэх"
+        component={AddPeople}
+        options={{
+          tabBarShowLabel: false,
+          tabBarActiveTintColor: COLORS.TREE_COLOR,
+          tabBarInactiveTintColor: '#585858',
+        }}
+      />
     </Tab.Navigator>
   );
 }

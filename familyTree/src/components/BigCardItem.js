@@ -55,21 +55,21 @@ const styles = StyleSheet.create({
   },
   userName: {
     fontWeight: 'bold',
-    fontSize: 15,
+    fontSize: 14,
   },
   description: {
-    fontSize: 13,
+    fontSize: 12,
     color: '#a0a0a0',
   },
   listImage: {
     marginTop: 10,
-    height: 220,
+    height: 315,
     width: '95%',
     borderRadius: 15,
   },
   profileImg: {
-    height: 40,
-    width: 40,
+    height: 42,
+    width: 42,
     borderRadius: 50,
     borderWidth: 1,
     borderColor: '#fff',

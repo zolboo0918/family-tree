@@ -34,14 +34,14 @@ export default CardItem;
 
 const styles = StyleSheet.create({
   container: {
-    width: 190,
+    width: 215,
     backgroundColor: '#fff',
     marginHorizontal: 10,
     borderRadius: 10,
   },
   listImage: {
     // marginTop: 70,
-    height: 120,
+    height: 128,
     width: '100%',
     borderRadius: 10,
   },
@@ -57,12 +57,14 @@ const styles = StyleSheet.create({
     zIndex: 1,
   },
   title: {
+    fontSize: 14,
     fontWeight: 'bold',
     color: '#585858',
   },
   listText: {
     alignSelf: 'flex-start',
     fontSize: 12,
+    color: '#a0a0a0',
     paddingLeft: 5,
     paddingBottom: 5,
   },

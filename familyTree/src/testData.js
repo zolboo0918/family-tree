@@ -394,3 +394,41 @@ export const dataPost = [
     commentCount: '13',
   },
 ];
+
+export const dataFamily = [
+  {
+    name: 'Боржигон',
+    count: '503',
+    color: '#FB6E50',
+  },
+  {
+    name: 'Сартуул',
+    count: '256',
+    color: '#A0D467',
+  },
+  {
+    name: 'Тайж',
+    count: '200',
+    color: '#4EC1E8',
+  },
+  {
+    name: 'Монгол',
+    count: '123',
+    color: '#AC92ED',
+  },
+  {
+    name: 'Шарнууд',
+    count: '431',
+    color: '#FFCF54',
+  },
+  {
+    name: 'Бэсүд',
+    count: '234',
+    color: '#EC88C1',
+  },
+  {
+    name: 'Харчин',
+    count: '43',
+    color: '#48CFAD',
+  },
+];
