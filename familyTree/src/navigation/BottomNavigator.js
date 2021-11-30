@@ -41,7 +41,32 @@ function Bottomtabs() {
         activeTintColor: COLORS.BASE_COLOR,
         inactiveTintColor: 'gray',
       }}>
-      <Tab.Screen name="Нүүр" component={HomeScreen} options={options} />
+      <Tab.Screen
+        name="Нүүр"
+        component={HomeScreen}
+        options={{
+          headerTitle: 'Нүүр',
+          headerTitleAlign: 'center',
+          headerShadowVisible: false,
+          headerTitleStyle: {color: '#585858'},
+          headerRight: () => (
+            <FontIsto
+              name={'search'}
+              size={18}
+              color={'#585858'}
+              style={{marginRight: 20}}
+            />
+          ),
+          headerLeft: () => (
+            <MaterialCommunityIcons
+              name={'menu'}
+              size={18}
+              color={'#585858'}
+              style={{marginLeft: 20}}
+            />
+          ),
+        }}
+      />
       <Tab.Screen name="Ургийн мод" component={Tree} options={options} />
       <Tab.Screen
         name="Хувийн мэдээлэл"

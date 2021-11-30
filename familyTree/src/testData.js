@@ -33,6 +33,18 @@ export const datafriends = [
     img: 'https://lumiere-a.akamaihd.net/v1/images/ct_frozen_elsa_18466_22a50822.jpeg?region=0,0,600,600',
     title: 'Elsa',
   },
+  {
+    img: 'https://lumiere-a.akamaihd.net/v1/images/ct_frozen_elsa_18466_22a50822.jpeg?region=0,0,600,600',
+    title: 'Elsa',
+  },
+  {
+    img: 'https://lumiere-a.akamaihd.net/v1/images/ct_frozen_elsa_18466_22a50822.jpeg?region=0,0,600,600',
+    title: 'Elsa',
+  },
+  {
+    img: 'https://lumiere-a.akamaihd.net/v1/images/ct_frozen_elsa_18466_22a50822.jpeg?region=0,0,600,600',
+    title: 'Elsa',
+  },
 ];
 export const data2 = [
   {
@@ -50,18 +62,27 @@ export const data2 = [
 ];
 export const dataEvent = [
   {
-    event: 'Батын гэр бүлд шинэ хүн мэндлэв',
-    title: 'Шинэ хүн мэндлэв',
+    img: 'https://www.howtogeek.com/wp-content/uploads/2021/08/birthday-cake-multicolor-sprinkles.jpg?height=200p&trim=2,2,2,2',
+    userProfile:
+      'https://i.pinimg.com/originals/71/78/00/717800c23ce2d510518b491d5754f116.jpg',
+    user: 'Б.Бат-Эрдэнэ',
+    title: 'Төрсөн өдөр',
     date: '2021.11.10',
   },
   {
-    event: 'Цэнд-ийн хүү Баярбат-ын сэвлэг үргээх ёслол болов.',
-    title: 'Даахь үргээх ёслол',
+    img: 'https://www.howtogeek.com/wp-content/uploads/2021/08/birthday-cake-multicolor-sprinkles.jpg?height=200p&trim=2,2,2,2',
+    userProfile:
+      'https://i.pinimg.com/originals/71/78/00/717800c23ce2d510518b491d5754f116.jpg',
+    user: 'Б.Бат-Эрдэнэ',
+    title: 'Төрсөн өдөр',
     date: '2021.11.10',
   },
   {
-    event: 'Зуны эхэн сард ургийн баяр болно.',
-    title: 'Ургийн баяр',
+    img: 'https://www.howtogeek.com/wp-content/uploads/2021/08/birthday-cake-multicolor-sprinkles.jpg?height=200p&trim=2,2,2,2',
+    userProfile:
+      'https://i.pinimg.com/originals/71/78/00/717800c23ce2d510518b491d5754f116.jpg',
+    user: 'Б.Бат-Эрдэнэ',
+    title: 'Төрсөн өдөр',
     date: '2021.11.10',
   },
 ];
@@ -334,3 +355,42 @@ export const TreeData = [
 ];
 
 export const AllTreeData = [];
+
+export const dataPost = [
+  {
+    img: 'https://www.jigsawexplorer.com/puzzles/subjects/purple-mountain-470x300.jpg',
+    userProfile:
+      'https://static01.nyt.com/images/2019/11/17/books/review/17Salam/Salam1-superJumbo.jpg',
+    user: 'Ч.Ариунаа',
+    description: '88843366',
+    likeCount: '10',
+    commentCount: '13',
+  },
+  {
+    img: 'https://www.jigsawexplorer.com/puzzles/subjects/purple-mountain-470x300.jpg',
+    userProfile:
+      'https://static01.nyt.com/images/2019/11/17/books/review/17Salam/Salam1-superJumbo.jpg',
+    user: 'Ч.Ариунаа',
+    description: '88843366',
+    likeCount: '10',
+    commentCount: '13',
+  },
+  {
+    img: 'https://www.jigsawexplorer.com/puzzles/subjects/purple-mountain-470x300.jpg',
+    userProfile:
+      'https://static01.nyt.com/images/2019/11/17/books/review/17Salam/Salam1-superJumbo.jpg',
+    user: 'Ч.Ариунаа',
+    description: '88843366',
+    likeCount: '10',
+    commentCount: '13',
+  },
+  {
+    img: 'https://www.jigsawexplorer.com/puzzles/subjects/purple-mountain-470x300.jpg',
+    userProfile:
+      'https://static01.nyt.com/images/2019/11/17/books/review/17Salam/Salam1-superJumbo.jpg',
+    user: 'Ч.Ариунаа',
+    description: '88843366',
+    likeCount: '10',
+    commentCount: '13',
+  },
+];

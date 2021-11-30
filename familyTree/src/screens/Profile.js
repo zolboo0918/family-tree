@@ -10,7 +10,7 @@ import {
 import LinearGradient from 'react-native-linear-gradient';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import FIcon from 'react-native-vector-icons/Feather';
-import BigCardItem from '../components/BigCardItem';
+import CardItem from '../components/CardItem';
 import List from '../components/List';
 import SmallCircleItem from '../components/SmallCircleItem';
 import {COLORS} from '../constants';
@@ -59,7 +59,7 @@ const Profile = () => {
           title="Дэлгэрэнгүй мэдээлэл"
           data={data}
           renderItem={function (item) {
-            return <BigCardItem item={item} />;
+            return <CardItem item={item} />;
           }}
         />
       </View>

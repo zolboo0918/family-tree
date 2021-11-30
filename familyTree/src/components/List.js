@@ -4,7 +4,7 @@ import {COLORS} from '../constants';
 
 const List = props => {
   return (
-    <View>
+    <View style={props.style}>
       <Text style={styles.title}>{props.title}</Text>
       <FlatList
         showsHorizontalScrollIndicator={false}

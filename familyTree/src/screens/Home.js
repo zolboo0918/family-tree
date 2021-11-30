@@ -10,70 +10,49 @@ import {
 import LinearGradient from 'react-native-linear-gradient';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import FeatherIcon from 'react-native-vector-icons/Feather';
-import BigCardItem from '../components/BigCardItem';
+import CardItem from '../components/CardItem';
 import List from '../components/List';
 import SmallCircleItem from '../components/SmallCircleItem';
 import {COLORS} from '../constants';
-import {data2, dataEvent, datafriends} from '../testData';
+import {data2, dataEvent, datafriends, dataPost} from '../testData';
 import {data} from '../testData';
 import ListItem from '../components/ListItem';
+import BigCardItem from '../components/BigCardItem';
 
 export default function HomeScreen() {
   return (
     <ScrollView style={styles.container}>
-      <LinearGradient
-        start={{x: 0.0, y: 0.5}}
-        end={{x: 1, y: 0.5}}
-        style={styles.header}
-        colors={['#9BAEFF', '#FF9BFC']}
-      />
-      <View style={styles.headerInfo}>
-        {/* <View style={styles.imageContainer}>
-          <Image
-            source={{uri: 'https://wallpaperaccess.com/full/2213424.jpg'}}
-            style={styles.profileImage}
-          />
-        </View> */}
-        <Text style={styles.name}>А.Солонго</Text>
-        <Text style={styles.vaccine}>Вакцинд хамрагдсан</Text>
-        {/* <View style={styles.row}>
-          <TouchableOpacity style={styles.rowItem}>
-            <Icon name="user-friends" style={styles.icon} />
-            <Text style={styles.school}>Найз болох</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.rowItem2}>
-            <Icon name="comment" style={styles.icon} />
-            <Text style={styles.school}>Чат</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.rowItem3}>
-            <FeatherIcon name="calendar" style={styles.icon} />
-            <Text style={styles.school}>Үйл явдал нэмэх</Text>
-          </TouchableOpacity>
-        </View> */}
-      </View>
-      {/* <View style={styles.intro}>
-        <Text style={styles.school}>
-          Намайг блоөыабрөда ыблоөралоы өалоы бөлоар лорөалоырбөдлоарылобөр алыо
-          рөал рылбөо ралорбө
-        </Text>
-      </View> */}
-      <View style={styles.detail}>
+      <View style={styles.story}>
+        <SmallCircleItem
+          item={{
+            img: 'https://i1.trekearth.com/photos/5205/boy.jpg',
+            title: 'Чиний түүх',
+          }}
+          user={true}
+        />
         <List
-          title="Дэлгэрэнгүй мэдээлэл"
-          data={data2}
+          data={datafriends}
           horizontal={true}
+          style={{marginTop: -30}}
           renderItem={function (item) {
-            return <BigCardItem item={item} />;
+            return <SmallCircleItem item={item} />;
           }}
         />
       </View>
       <View style={styles.events}>
         <List
-          title="Үйл явдлууд"
           data={dataEvent}
+          horizontal={true}
           renderItem={function (item) {
-            return <ListItem data={datafriends} item={item} />;
-            // return <SmallCircleItem item={item} />;
+            return <CardItem item={item} />;
+          }}
+        />
+      </View>
+      <View style={styles.events}>
+        <List
+          data={dataPost}
+          renderItem={function (item) {
+            return <BigCardItem item={item} />;
           }}
         />
       </View>
@@ -81,10 +60,77 @@ export default function HomeScreen() {
   );
 }
 
+// export default function HomeScreen() {
+//   return (
+//     <ScrollView style={styles.container}>
+//       <LinearGradient
+//         start={{x: 0.0, y: 0.5}}
+//         end={{x: 1, y: 0.5}}
+//         style={styles.header}
+//         colors={['#9BAEFF', '#FF9BFC']}
+//       />
+//       <View style={styles.headerInfo}>
+//         {/* <View style={styles.imageContainer}>
+//           <Image
+//             source={{uri: 'https://wallpaperaccess.com/full/2213424.jpg'}}
+//             style={styles.profileImage}
+//           />
+//         </View> */}
+//         <Text style={styles.name}>А.Солонго</Text>
+//         <Text style={styles.vaccine}>Вакцинд хамрагдсан</Text>
+//         {/* <View style={styles.row}>
+//           <TouchableOpacity style={styles.rowItem}>
+//             <Icon name="user-friends" style={styles.icon} />
+//             <Text style={styles.school}>Найз болох</Text>
+//           </TouchableOpacity>
+//           <TouchableOpacity style={styles.rowItem2}>
+//             <Icon name="comment" style={styles.icon} />
+//             <Text style={styles.school}>Чат</Text>
+//           </TouchableOpacity>
+//           <TouchableOpacity style={styles.rowItem3}>
+//             <FeatherIcon name="calendar" style={styles.icon} />
+//             <Text style={styles.school}>Үйл явдал нэмэх</Text>
+//           </TouchableOpacity>
+//         </View> */}
+//       </View>
+//       {/* <View style={styles.intro}>
+//         <Text style={styles.school}>
+//           Намайг блоөыабрөда ыблоөралоы өалоы бөлоар лорөалоырбөдлоарылобөр алыо
+//           рөал рылбөо ралорбө
+//         </Text>
+//       </View> */}
+//       <View style={styles.detail}>
+//         <List
+//           title="Дэлгэрэнгүй мэдээлэл"
+//           data={data2}
+//           horizontal={true}
+//           renderItem={function (item) {
+//             return <BigCardItem item={item} />;
+//           }}
+//         />
+//       </View>
+//       <View style={styles.events}>
+//         <List
+//           title="Үйл явдлууд"
+//           data={dataEvent}
+//           renderItem={function (item) {
+//             return <ListItem data={datafriends} item={item} />;
+//             // return <SmallCircleItem item={item} />;
+//           }}
+//         />
+//       </View>
+//     </ScrollView>
+//   );
+// }
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
+    paddingHorizontal: 20,
+  },
+  story: {
+    flexDirection: 'row',
   },
   header: {
     backgroundColor: 'yellow',
@@ -194,10 +240,7 @@ const styles = StyleSheet.create({
     marginTop: 70,
     marginHorizontal: '10%',
   },
-  events: {
-    marginTop: 20,
-    marginHorizontal: '10%',
-  },
+  events: {},
 });
 
 // import React from 'react';
