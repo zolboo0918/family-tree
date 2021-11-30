@@ -1,16 +1,31 @@
 import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
+import Icon from 'react-native-vector-icons/FontAwesome';
 import {COLORS} from '../constants';
 
 const HorizontalListItem = props => {
   return (
     <View style={styles.container}>
-      <View style={[styles.leftContainer, {backgroundColor: props.item.color}]}>
-        <Text style={styles.leftText}>{props.item.name.charAt(0)}</Text>
-      </View>
+      {props.item.color ? (
+        <View
+          style={[styles.leftContainer, {backgroundColor: props.item.color}]}>
+          <Text style={styles.leftText}>{props.item.name.charAt(0)}</Text>
+        </View>
+      ) : (
+        <View style={[styles.leftContainer, {backgroundColor: '#B2E392'}]}>
+          <Icon name="user-o" style={styles.leftText} />
+        </View>
+      )}
       <View style={styles.right}>
-        <Text style={styles.name}>{props.item.name}</Text>
-        <Text style={styles.count}>{props.item.count}</Text>
+        <View>
+          <Text style={styles.name}>{props.item.name}</Text>
+          {props.item.description && (
+            <Text style={styles.description}>{props.item.description}</Text>
+          )}
+        </View>
+        {props.item.count && (
+          <Text style={styles.count}>{props.item.count}</Text>
+        )}
       </View>
     </View>
   );
@@ -55,5 +70,9 @@ const styles = StyleSheet.create({
   count: {
     fontSize: 16,
     color: COLORS.TREE_COLOR,
+  },
+  description: {
+    fontSize: 14,
+    color: '#a0a0a0',
   },
 });

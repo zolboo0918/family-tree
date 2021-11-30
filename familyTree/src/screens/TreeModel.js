@@ -6,7 +6,7 @@ import {AllTreeData, TreeData} from '../testData';
 
 const Tree = () => {
   return (
-    <ScrollView style={{backgroundColor: '#fff'}}>
+    <ScrollView style={{backgroundColor: '#F3F5F6'}}>
       <FamilyTree
         title="Rethinam and Family"
         pathColor={COLORS.TREE_COLOR}

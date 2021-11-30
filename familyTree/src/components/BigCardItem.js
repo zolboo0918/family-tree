@@ -56,6 +56,7 @@ const styles = StyleSheet.create({
   userName: {
     fontWeight: 'bold',
     fontSize: 14,
+    color: '#585858',
   },
   description: {
     fontSize: 12,
@@ -77,7 +78,7 @@ const styles = StyleSheet.create({
   bottom: {
     flexDirection: 'row',
     justifyContent: 'flex-start',
-    marginTop: 10,
+    marginTop: 15,
   },
   bottomItem: {
     flexDirection: 'row',
@@ -88,9 +89,11 @@ const styles = StyleSheet.create({
   icon: {
     fontSize: 18,
     marginRight: 10,
+    color: '#585858',
   },
   bottomItemText: {
     fontSize: 16,
+    color: '#585858',
   },
   listText: {
     alignSelf: 'flex-start',

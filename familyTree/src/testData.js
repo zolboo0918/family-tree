@@ -432,3 +432,26 @@ export const dataFamily = [
     color: '#48CFAD',
   },
 ];
+
+export const dataProfileFamily = [
+  {
+    name: 'Б.Бат-Эрдэнэ',
+    description: 'Хүү',
+  },
+  {
+    name: 'Б.Мөнхтуяа',
+    description: 'Охин',
+  },
+  {
+    name: 'Б.Отгонбаатар',
+    description: 'Хүү',
+  },
+  {
+    name: 'Б.Саруултуяа',
+    description: 'Охин',
+  },
+  {
+    name: 'Б.Баатар',
+    description: 'Хүү',
+  },
+];

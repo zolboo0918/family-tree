@@ -10,6 +10,7 @@ import HomeScreen from '../screens/Home';
 import Profile from '../screens/Profile';
 import Search from '../screens/Search';
 import Tree from '../screens/TreeModel';
+import {BottomFabBar} from 'rn-wave-bottom-bar';
 
 const Tab = createBottomTabNavigator();
 const options = {headerShown: false};
@@ -17,10 +18,32 @@ const options = {headerShown: false};
 function Bottomtabs() {
   return (
     <Tab.Navigator
-      tabBarOptions={{
-        inactiveBackgroundColor: '#fff',
-        showIcon: true,
-      }}>
+      screenOptions={{
+        tabBarActiveTintColor: '#5F0B65',
+        tabBarActiveBackgroundColor: '#FFF',
+        tabBarInactiveBackgroundColor: 'red',
+      }}
+      tabBar={props => (
+        <BottomFabBar
+          focusedButtonStyle={{
+            shadowColor: '#000',
+            shadowOffset: {
+              width: 0,
+              height: 7,
+            },
+            shadowOpacity: 0.41,
+            shadowRadius: 9.11,
+            elevation: 14,
+          }}
+          bottomBarContainerStyle={{
+            position: 'absolute',
+            bottom: 0,
+            left: 0,
+            right: 0,
+          }}
+          {...props}
+        />
+      )}>
       <Tab.Screen
         name="Нүүр"
         component={HomeScreen}
@@ -60,8 +83,8 @@ function Bottomtabs() {
         options={{
           tabBarShowLabel: false,
           headerTitle: 'Овог',
-          headerTitleAlign: 'center',
           headerShadowVisible: false,
+          headerTitleAlign: 'center',
           headerTitleStyle: {color: '#585858', fontSize: 18},
           tabBarActiveTintColor: COLORS.TREE_COLOR,
           tabBarInactiveTintColor: '#585858',
@@ -90,6 +113,7 @@ function Bottomtabs() {
         name="Ургийн мод"
         component={Tree}
         options={{
+          headerShown: false,
           tabBarShowLabel: false,
           tabBarActiveTintColor: COLORS.TREE_COLOR,
           tabBarInactiveTintColor: '#585858',
@@ -105,8 +129,19 @@ function Bottomtabs() {
           tabBarShowLabel: false,
           tabBarActiveTintColor: COLORS.TREE_COLOR,
           tabBarInactiveTintColor: '#585858',
+          headerShadowVisible: false,
+          headerTitleAlign: 'center',
+          headerTitleStyle: {color: '#585858', fontSize: 18},
           tabBarIcon: ({color, size}) => (
             <FontAwesome name={'user-circle-o'} size={20} color={color} />
+          ),
+          headerLeft: () => (
+            <MaterialCommunityIcons
+              name={'menu'}
+              size={18}
+              color={'#585858'}
+              style={{marginLeft: 20}}
+            />
           ),
         }}
       />
@@ -114,6 +149,7 @@ function Bottomtabs() {
         name="Хүн нэмэх"
         component={AddPeople}
         options={{
+          headerShown: false,
           tabBarShowLabel: false,
           tabBarActiveTintColor: COLORS.TREE_COLOR,
           tabBarInactiveTintColor: '#585858',

@@ -1,79 +1,31 @@
 import React from 'react';
-import {
-  Image,
-  ScrollView,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from 'react-native';
-import LinearGradient from 'react-native-linear-gradient';
-import Icon from 'react-native-vector-icons/FontAwesome5';
-import FIcon from 'react-native-vector-icons/Feather';
-import CardItem from '../components/CardItem';
-import List from '../components/List';
-import SmallCircleItem from '../components/SmallCircleItem';
-import {COLORS} from '../constants';
-import {data, datafriends} from '../testData';
+import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import TabViewExample from '../navigation/TabNavigator';
+// import MyTabs from '../navigation/TabNavigator';
 
 const Profile = () => {
   return (
-    <ScrollView style={styles.container}>
-      <LinearGradient
-        start={{x: 0.0, y: 0.5}}
-        end={{x: 1, y: 0.5}}
-        style={styles.header}
-        colors={['#9BAEFF', '#FF9BFC']}></LinearGradient>
-      <View style={styles.headerInfo}>
-        <View style={styles.imageContainer}>
-          <Image
-            source={{uri: 'https://wallpaperaccess.com/full/2213424.jpg'}}
-            style={styles.profileImage}
-          />
-        </View>
-        <Text style={styles.name}>А.Солонго</Text>
-        <Text style={styles.school}>Монгол улсын их сургууль</Text>
-        <View style={styles.row}>
-          <TouchableOpacity style={styles.rowItem}>
-            <Icon name="clock" style={styles.icon} />
-            <Text style={styles.school}>5 мин</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.rowItem2}>
-            <Icon name="comment" style={styles.icon} />
-            <Text style={styles.school}>Чат</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.rowItem3}>
-            <FIcon name="more-horizontal" style={styles.icon} />
-            <Text style={styles.school}>Дэлгэрэнгүй</Text>
-          </TouchableOpacity>
-        </View>
-      </View>
-      <View style={styles.intro}>
-        <Text style={styles.school}>
-          Намайг Солонго гэдэг. 22 настай МУИС-д сурдаг.{' '}
-        </Text>
-      </View>
-      <View style={styles.detail}>
-        <List
-          horizontal={true}
-          title="Дэлгэрэнгүй мэдээлэл"
-          data={data}
-          renderItem={function (item) {
-            return <CardItem item={item} />;
+    <View style={styles.container}>
+      <View style={styles.topSection}>
+        <Image
+          source={{
+            uri: 'https://static01.nyt.com/images/2019/11/17/books/review/17Salam/Salam1-superJumbo.jpg',
           }}
+          style={styles.profileImage}
         />
+        <View style={{marginLeft: 20, justifyContent: 'center'}}>
+          <Text style={styles.userName}>Б.Батсайхан</Text>
+          <Text style={styles.phone}>99105421</Text>
+          <Text style={styles.phone}>@98475</Text>
+        </View>
+        <TouchableOpacity style={styles.removeBtn}>
+          <Text style={styles.removeBtnText}>Хасах</Text>
+        </TouchableOpacity>
       </View>
-      <View style={styles.detail}>
-        <List
-          horizontal={true}
-          title="Найзууд"
-          data={datafriends}
-          renderItem={function (item) {
-            return <SmallCircleItem item={item} />;
-          }}
-        />
+      <View style={{height: '100%', width: '100%'}}>
+        <TabViewExample />
       </View>
-    </ScrollView>
+    </View>
   );
 };
 
@@ -81,105 +33,38 @@ export default Profile;
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: '#f9f9f9',
-  },
-  header: {
-    backgroundColor: 'yellow',
-    height: 200,
-  },
-  headerInfo: {
+    paddingHorizontal: 20,
     backgroundColor: '#fff',
-    width: '80%',
-    height: 200,
-    position: 'absolute',
-    alignSelf: 'center',
-    top: 100,
-    alignItems: 'center',
-    borderRadius: 20,
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-    elevation: 15,
   },
-  imageContainer: {
-    borderRadius: 50,
-    marginTop: -40,
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-    elevation: 25,
+  topSection: {
+    flexDirection: 'row',
   },
   profileImage: {
+    height: 88,
+    width: 88,
     borderRadius: 50,
-    height: 80,
-    width: 80,
   },
-  name: {
-    marginTop: 10,
+  userName: {
     fontSize: 18,
-    color: COLORS.TEXT_COLOR,
-    fontWeight: 'bold',
+    color: '#585858',
   },
-  school: {
-    fontSize: 12,
-    color: COLORS.TEXT_COLOR,
-    fontWeight: 'bold',
-    marginTop: 5,
+  phone: {
+    fontSize: 14,
+    color: '#a0a0a0',
   },
-  row: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    width: '100%',
+  removeBtn: {
+    borderRadius: 30,
+    width: 85,
+    height: 36,
+    backgroundColor: '#fb6e50',
+    justifyContent: 'center',
+    alignItems: 'center',
     position: 'absolute',
+    right: 0,
     bottom: 0,
   },
-  rowItem: {
-    width: '33.3%',
-    height: 70,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#fff',
-    borderWidth: 1,
-    borderColor: '#e1e1e1',
-    borderBottomLeftRadius: 10,
-  },
-  rowItem2: {
-    width: '33.3%',
-    height: 70,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#fff',
-    borderWidth: 1,
-    borderColor: '#e1e1e1',
-  },
-  rowItem3: {
-    width: '33.3%',
-    height: 70,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#fff',
-    borderWidth: 1,
-    borderColor: '#e1e1e1',
-    borderBottomRightRadius: 10,
-  },
-  icon: {
-    fontSize: 18,
-  },
-  intro: {
-    marginTop: 120,
-    marginHorizontal: '10%',
-  },
-  detail: {
-    marginTop: 20,
-    marginHorizontal: '10%',
+  removeBtnText: {
+    fontSize: 14,
+    color: '#fff',
   },
 });
