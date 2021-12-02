@@ -16,15 +16,17 @@ const CardItem = props => {
           source={{uri: props.item.userProfile}}
         />
       </View>
-      <Text style={styles.title}>{props.item.title}</Text>
-      <View
-        style={{
-          flexDirection: 'row',
-          justifyContent: 'space-between',
-          marginTop: 5,
-        }}>
-        <Text style={styles.listText}>{props.item.user}</Text>
-        <Text style={styles.listText}>{props.item.date}</Text>
+      <View style={{padding: 5}}>
+        <Text style={styles.title}>{props.item.title}</Text>
+        <View
+          style={{
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            marginTop: 5,
+          }}>
+          <Text style={styles.listText}>{props.item.user}</Text>
+          <Text style={styles.listText}>{props.item.date}</Text>
+        </View>
       </View>
     </TouchableOpacity>
   );

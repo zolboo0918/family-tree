@@ -34,6 +34,7 @@ function Bottomtabs() {
             shadowOpacity: 0.41,
             shadowRadius: 9.11,
             elevation: 14,
+            backgroundColor: '#fff',
           }}
           bottomBarContainerStyle={{
             position: 'absolute',
