@@ -41,7 +41,9 @@ export default BigCardItem;
 
 const styles = StyleSheet.create({
   container: {
-    width: '100%',
+    padding: 10,
+    borderRadius: 16,
+    width: '97%',
     backgroundColor: '#fff',
     marginHorizontal: 10,
     marginBottom: 30,
@@ -65,7 +67,7 @@ const styles = StyleSheet.create({
   listImage: {
     marginTop: 10,
     height: 315,
-    width: '95%',
+    width: '100%',
     borderRadius: 15,
   },
   profileImg: {
