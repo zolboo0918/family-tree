@@ -1,9 +1,30 @@
-import React from 'react';
+import axios from 'axios';
+import React, {Children, useContext, useEffect, useState} from 'react';
 import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {ProfileContext} from '../context/ProfileContext';
 import TabViewExample from '../navigation/TabNavigator';
 // import MyTabs from '../navigation/TabNavigator';
 
 const Profile = () => {
+  const [father, setFather] = useState();
+  const [wife, setWife] = useState();
+  // const [child, setChild] = useState();
+  const [family, setFamily] = useState();
+
+  useEffect(() => {
+    console.log('eeeee');
+    axios
+      .get('http://192.168.193.130:3001/SearchFamily/4')
+      .then(res => {
+        console.log('success', res);
+        setFather(res.data.response.father);
+        setWife(res.data.response.wife);
+        // setChildren(res.data.response.children);
+        setFamily(res.data.response.family);
+      })
+      .catch(err => console.log('err :>> ', err));
+  }, []);
+
   return (
     <View style={styles.container}>
       <View style={styles.topSection}>
@@ -14,7 +35,7 @@ const Profile = () => {
           style={styles.profileImage}
         />
         <View style={{marginLeft: 20, justifyContent: 'center'}}>
-          <Text style={styles.userName}>Б.Батсайхан</Text>
+          <Text style={styles.userName}>{father}</Text>
           <Text style={styles.phone}>99105421</Text>
           <Text style={styles.phone}>@98475</Text>
         </View>

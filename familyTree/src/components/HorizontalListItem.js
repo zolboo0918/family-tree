@@ -18,7 +18,7 @@ const HorizontalListItem = props => {
       )}
       <View style={styles.right}>
         <View>
-          <Text style={styles.name}>{props.item.name}</Text>
+          <Text style={styles.name}>{props.item.Name}</Text>
           {props.item.description && (
             <Text style={styles.description}>{props.item.description}</Text>
           )}

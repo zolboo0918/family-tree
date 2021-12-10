@@ -81,32 +81,34 @@ function Bottomtabs() {
         name="Хайлт"
         component={Search}
         options={{
-          tabBarShowLabel: false,
-          headerTitle: 'Овог',
-          headerShadowVisible: false,
-          headerTitleAlign: 'center',
-          headerTitleStyle: {color: '#585858', fontSize: 18},
+          headerShown: false,
+          // tabBarShowLabel: false,
+          // headerTitle: 'Овог',
+          // headerShadowVisible: false,
+          // headerTitleAlign: 'center',
+          // headerTitleStyle: {color: '#585858', fontSize: 18},
           tabBarActiveTintColor: COLORS.TREE_COLOR,
           tabBarInactiveTintColor: '#585858',
           tabBarIcon: ({color, size}) => (
             <FontIsto name={'search'} size={20} color={color} />
           ),
-          headerRight: () => (
-            <FontIsto
-              name={'search'}
-              size={18}
-              color={'#585858'}
-              style={{marginRight: 20}}
-            />
-          ),
-          headerLeft: () => (
-            <MaterialCommunityIcons
-              name={'menu'}
-              size={18}
-              color={'#585858'}
-              style={{marginLeft: 20}}
-            />
-          ),
+          // // headerRight: () => (
+          // //   <FontIsto
+          // //     name={'search'}
+          // //     size={18}
+          // //     onPress={}
+          // //     color={'#585858'}
+          // //     style={{marginRight: 20}}
+          // //   />
+          // // ),
+          // headerLeft: () => (
+          //   <MaterialCommunityIcons
+          //     name={'menu'}
+          //     size={18}
+          //     color={'#585858'}
+          //     style={{marginLeft: 20}}
+          //   />
+          // ),
         }}
       />
       <Tab.Screen

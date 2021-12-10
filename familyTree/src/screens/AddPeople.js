@@ -111,7 +111,7 @@ const AddPeople = () => {
           Амьд
         </Radio>
         <Radio value="0" my={1} style={{marginLeft: 20}}>
-          Үхсэн
+          Нас барсан
         </Radio>
       </Radio.Group>
       <Text style={styles.title}>Нас барсан өдөр</Text>

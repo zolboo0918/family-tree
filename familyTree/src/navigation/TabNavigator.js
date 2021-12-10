@@ -16,15 +16,14 @@ import {ThirdRoute} from './tabRoutes/ThirdRoute';
 
 const initialLayout = {width: Dimensions.get('window').width};
 
-const renderScene = SceneMap({
-  first: FirstRoute,
-  second: SecondRoute,
-  third: ThirdRoute,
-  fourth: FourthRoute,
-  fifth: FifthRoute,
-});
-
-export default function TabViewExample() {
+export default function TabViewExample(props) {
+  const renderScene = SceneMap({
+    first: FirstRoute,
+    second: SecondRoute,
+    third: ThirdRoute,
+    fourth: FourthRoute,
+    fifth: FifthRoute,
+  });
   const [index, setIndex] = React.useState(0);
   const [routes] = React.useState([
     {key: 'first', title: 'Үр хүүхэд'},
