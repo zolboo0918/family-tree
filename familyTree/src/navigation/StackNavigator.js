@@ -20,25 +20,16 @@ const StackNavigator = () => {
   };
   return (
     <SafeAreaProvider>
-      <NavigationContainer>
-        <StatusBar backgroundColor={'#fff'} barStyle="dark-content" />
-        <Stack.Navigator initialRouteName="Login">
-          <Stack.Screen name="Login" component={Login} options={options} />
-          <Stack.Screen
-            name="Register"
-            component={Register}
-            options={options}
-          />
-          {/* <Stack.Screen name="Home" component={HomeScreen} options={options} />
+      <StatusBar backgroundColor={'#fff'} barStyle="dark-content" />
+      <Stack.Navigator initialRouteName="Login">
+        <Stack.Screen name="Login" component={Login} options={options} />
+        <Stack.Screen name="Register" component={Register} options={options} />
+        {/* <Stack.Screen name="Home" component={HomeScreen} options={options} />
           <Stack.Screen name="Profile" component={Profile} options={options} />
           <Stack.Screen name="TreeModel" component={Tree} options={options} /> */}
-          <Stack.Screen
-            name="Bottom"
-            component={Bottomtabs}
-            options={options}
-          />
-        </Stack.Navigator>
-      </NavigationContainer>
+        <Stack.Screen name="Bottom" component={Bottomtabs} options={options} />
+        {/*<Stack.Screen name="Drawer" component={DrawerNavigator} />*/}
+      </Stack.Navigator>
     </SafeAreaProvider>
   );
 };

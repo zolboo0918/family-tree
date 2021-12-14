@@ -11,11 +11,13 @@ import Profile from '../screens/Profile';
 import Search from '../screens/Search';
 import Tree from '../screens/TreeModel';
 import {BottomFabBar} from 'rn-wave-bottom-bar';
+import {useNavigation} from '@react-navigation/native';
 
 const Tab = createBottomTabNavigator();
 const options = {headerShown: false};
 
 function Bottomtabs() {
+  const navigation = useNavigation();
   return (
     <Tab.Navigator
       screenOptions={{
@@ -62,6 +64,7 @@ function Bottomtabs() {
           ),
           headerRight: () => (
             <FontIsto
+              onPress={() => navigation.toggleDrawer()}
               name={'search'}
               size={18}
               color={'#585858'}

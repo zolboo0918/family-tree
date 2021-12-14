@@ -24,6 +24,8 @@ target 'familyTree' do
 
   pod 'RNCCheckbox', :path => '../node_modules/@react-native-community/checkbox'
 
+  pod 'RNReanimated', :path => '../node_modules/react-native-reanimated'
+
   target 'familyTreeTests' do
     inherit! :complete
     # Pods for testing
