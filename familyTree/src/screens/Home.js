@@ -384,8 +384,9 @@ const styles = StyleSheet.create({
 
   function: {
     flexDirection: 'row',
+    backgroundColor: 'black',
     width: 120,
-    height: 60,
+    height: 55,
     borderColor: 'black',
   },
 
