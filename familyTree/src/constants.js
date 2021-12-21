@@ -8,11 +8,11 @@ export const getHeight = () => {
   return Dimensions.get('window').height;
 };
 
-export const setWidth = (number: number) => {
+export const setWidth = number => {
   return (Dimensions.get('window').width * number) / 100;
 };
 
-export const setHeight = (number: number) => {
+export const setHeight = number => {
   return (Dimensions.get('window').height * number) / 100;
 };
 

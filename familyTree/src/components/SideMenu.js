@@ -4,9 +4,11 @@ import React, {useEffect, useState} from 'react';
 import {BackHandler, View, ScrollView} from 'react-native';
 import {DrawerItemC} from './DrawerItem';
 import SideMenuHeader from './SideMenuHeader';
+import {useNavigation} from '@react-navigation/native';
 
-function SideMenu(props: any) {
+function SideMenu(props) {
   const [position, setPosition] = useState(0);
+  const navigation = useNavigation();
 
   const onMenuPress = (item, index) => {
     props.navigation.closeDrawer();
@@ -84,7 +86,7 @@ function SideMenu(props: any) {
           pressColor={'green'}
           index={100}
           position={position}
-          onPress={() => props.navigation.replace('Login')}
+          onPress={() => navigation.replace('Login')}
         />
       </ScrollView>
     </View>

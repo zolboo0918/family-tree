@@ -9,13 +9,13 @@ import Login from '../screens/Login';
 import StackNavigator from './StackNavigator';
 
 const Drawer = createDrawerNavigator();
-function DrawerNavigator(props: any) {
+function DrawerNavigator(props) {
   return (
     <SafeAreaView style={{flex: 1}}>
       <NavigationContainer>
         <Drawer.Navigator
           edgeWidth={50}
-          drawerContent={(props: any) => <SideMenu {...props} />}
+          drawerContent={props => <SideMenu {...props} />}
           drawerStyle={style.drawer}>
           <Drawer.Screen
             name="Stack"
