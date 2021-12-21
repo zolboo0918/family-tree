@@ -1,6 +1,7 @@
 import Icon from 'react-native-vector-icons/Fontisto';
 import React from 'react';
 import {StyleSheet, Text, Image, View, TouchableOpacity} from 'react-native';
+import {isEmpty} from 'lodash';
 
 const BigCardItem = props => {
   return (
@@ -10,19 +11,24 @@ const BigCardItem = props => {
           <Image
             resizeMode="cover"
             style={styles.profileImg}
-            source={{uri: props.item.userProfile}}
+            source={{
+              uri: !isEmpty(props.item.ProfilePicture)
+                ? props.item.ProfilePicture
+                : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSY-vJ07Repan238qwOLHGf1vsdK5Mjr-IyBA&usqp=CAU',
+            }}
           />
         </TouchableOpacity>
         <View style={styles.headerTextContainer}>
-          <Text style={styles.userName}>{props.item.user}</Text>
-          <Text style={styles.description}>{props.item.description}</Text>
+          <Text style={styles.userName}>{props.item.fName}</Text>
+          <Text style={styles.description}>{props.item.lName}</Text>
         </View>
       </View>
       <Image
         resizeMode="cover"
         style={styles.listImage}
-        source={{uri: props.item.img}}
+        source={{uri: props.item.picture}}
       />
+      <Text>{props.item.description}</Text>
       <View style={styles.bottom}>
         <View style={styles.bottomItem}>
           <Icon name="heart-alt" style={styles.icon} />

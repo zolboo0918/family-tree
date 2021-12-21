@@ -22,26 +22,20 @@ const Register = props => {
   const [UserName, setUserName] = useState('');
 
   const handleRegister = () => {
-    Axios.post('http://192.168.193.87:3001/Create', {
+    Axios.post('http://192.168.193.125:3001/users', {
       lName: lName,
       fName: fName,
       RegNumber: RegNumber,
       eMail: email,
-      PhoneNumber: PhoneNumber,
       userName: UserName,
       Password: Password,
-    })
-      .then(response => {
-        if (response.data.status == 'success') {
-          props.navigation.navigate('Login');
-        } else {
-          Alert.alert('aldaa', response.data.response);
-        }
-        console.log(response.data);
-      })
-      .catch(err => {
-        console.log(err);
-      });
+    }).then(response => {
+      if (response.data.status == 'success') {
+        props.navigation.navigate('Login');
+      } else {
+        Alert.alert('aldaa', response.data.response);
+      }
+    });
   };
 
   return (

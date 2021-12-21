@@ -1,8 +1,7 @@
 import {CommonActions} from '@react-navigation/native';
 import {isEmpty} from 'lodash';
 import React, {useEffect, useState} from 'react';
-import {BackHandler, View} from 'react-native';
-import {ScrollView} from 'react-native-gesture-handler';
+import {BackHandler, View, ScrollView} from 'react-native';
 import {DrawerItemC} from './DrawerItem';
 import SideMenuHeader from './SideMenuHeader';
 
@@ -85,6 +84,7 @@ function SideMenu(props: any) {
           pressColor={'green'}
           index={100}
           position={position}
+          onPress={() => props.navigation.replace('Login')}
         />
       </ScrollView>
     </View>

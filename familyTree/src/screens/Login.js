@@ -16,31 +16,34 @@ import Axios from 'axios';
 import Icon from 'react-native-vector-icons/Entypo';
 import {COLORS} from '../constants';
 
+export let loginUserInfo = {};
+
 const Login = props => {
-  const [userName, setUserName] = useState('');
-  const [password, setPassword] = useState('');
+  const [userName, setUserName] = useState('MoriiUNadagMori');
+  const [password, setPassword] = useState('Test1234');
   const [passwordShow, setpasswordShow] = useState(true);
 
   const handleLogin = () => {
-    Axios.post('http://192.168.193.87:3001/Login', {
-      UserName: userName,
+    Axios.post('http://192.168.193.125:3001/users/Login', {
+      userName: userName,
       Password: password,
     })
       .then(response => {
         // alert(JSON.stringify(response.data));
-        console.log(response.data);
         // Toast.show('This is a toast.');
         if (response.data.status == 'success') {
-          props.navigation.navigate('Home');
+          // props.navigation.navigate('Home');
+          loginUserInfo = response.data.response;
         } else {
           Alert.alert('aldaa', response.data.response);
         }
       })
       .catch(err => {
-        console.log(err);
+        Alert.alert('aldaa', err.response.data);
         // Toast.show('This is a error.');
-      });
-    props.navigation.navigate('Bottom');
+      })
+      .finally(() => {});
+    props.navigation.replace('Bottom');
   };
 
   const registerButtonPress = () => {

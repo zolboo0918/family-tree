@@ -12,17 +12,12 @@ const Profile = () => {
   const [family, setFamily] = useState();
 
   useEffect(() => {
-    console.log('eeeee');
-    axios
-      .get('http://192.168.193.130:3001/SearchFamily/4')
-      .then(res => {
-        console.log('success', res);
-        setFather(res.data.response.father);
-        setWife(res.data.response.wife);
-        // setChildren(res.data.response.children);
-        setFamily(res.data.response.family);
-      })
-      .catch(err => console.log('err :>> ', err));
+    axios.get('http://192.168.193.125:3001/SearchFamily/4').then(res => {
+      setFather(res.data.response.father);
+      setWife(res.data.response.wife);
+      // setChildren(res.data.response.children);
+      setFamily(res.data.response.family);
+    });
   }, []);
 
   return (

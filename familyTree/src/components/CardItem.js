@@ -8,24 +8,32 @@ const CardItem = props => {
         <Image
           resizeMode="cover"
           style={styles.listImage}
-          source={{uri: props.item.img}}
+          source={{
+            uri: props.item.img
+              ? 'img'
+              : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQKL1UJwYLq5HdSe5K_8bqnfUFk3BiYvap7Ww&usqp=CAU',
+          }}
         />
         <Image
           resizeMode="cover"
           style={styles.profileImg}
-          source={{uri: props.item.userProfile}}
+          source={{
+            uri: props.item.ProfilePicture
+              ? props.item.ProfilePicture
+              : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSY-vJ07Repan238qwOLHGf1vsdK5Mjr-IyBA&usqp=CAU',
+          }}
         />
       </View>
       <View style={{padding: 5}}>
-        <Text style={styles.title}>{props.item.title}</Text>
+        <Text style={styles.title}>{props.item.Name}</Text>
         <View
           style={{
             flexDirection: 'row',
             justifyContent: 'space-between',
             marginTop: 5,
           }}>
-          <Text style={styles.listText}>{props.item.user}</Text>
-          <Text style={styles.listText}>{props.item.date}</Text>
+          <Text style={styles.listText}>{props.item.fName}</Text>
+          <Text style={styles.listText}>{props.item.Date}</Text>
         </View>
       </View>
     </TouchableOpacity>
