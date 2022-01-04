@@ -11,7 +11,8 @@ import Profile from '../screens/Profile';
 import Search from '../screens/Search';
 import Tree from '../screens/TreeModel';
 import {BottomFabBar} from 'rn-wave-bottom-bar';
-import {useNavigation} from '@react-navigation/native';
+import {DrawerActions, useNavigation} from '@react-navigation/native';
+import SelectParent from '../screens/SelectParent';
 
 const Tab = createBottomTabNavigator();
 const options = {headerShown: false};
@@ -62,17 +63,18 @@ function Bottomtabs() {
           tabBarIcon: ({color, size}) => (
             <Feather name={'home'} color={color} size={20} />
           ),
-          headerRight: () => (
-            <FontIsto
-              onPress={() => navigation.toggleDrawer()}
-              name={'search'}
-              size={18}
-              color={'#585858'}
-              style={{marginRight: 20}}
-            />
-          ),
+          // headerRight: () => (
+          //   <FontIsto
+          //     onPress={() => navigation.toggleDrawer()}
+          //     name={'search'}
+          //     size={18}
+          //     color={'#585858'}
+          //     style={{marginRight: 20}}
+          //   />
+          // ),
           headerLeft: () => (
             <MaterialCommunityIcons
+              onPress={() => navigation.dispatch(DrawerActions.toggleDrawer())}
               name={'menu'}
               size={18}
               color={'#585858'}
@@ -128,6 +130,19 @@ function Bottomtabs() {
           ),
         }}
       />
+      {/*     <Tab.Screen
+        name="Эцэг эх сонгох"
+        component={SelectParent}
+        options={{
+          headerShown: false,
+          tabBarShowLabel: false,
+          tabBarActiveTintColor: COLORS.TREE_COLOR,
+          tabBarInactiveTintColor: '#585858',
+          tabBarIcon: ({color, size}) => (
+            <FontIsto name={'persons'} size={20} color={color} />
+          ),
+        }}
+      /> */}
       <Tab.Screen
         name="Хувийн мэдээлэл"
         component={Profile}
@@ -151,7 +166,7 @@ function Bottomtabs() {
           ),
         }}
       />
-      <Tab.Screen
+      {/*<Tab.Screen
         name="Хүн нэмэх"
         component={AddPeople}
         options={{
@@ -160,7 +175,7 @@ function Bottomtabs() {
           tabBarActiveTintColor: COLORS.TREE_COLOR,
           tabBarInactiveTintColor: '#585858',
         }}
-      />
+      />*/}
     </Tab.Navigator>
   );
 }

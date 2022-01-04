@@ -11,6 +11,8 @@ import {COLORS} from '../constants';
 import Tree from '../screens/TreeModel';
 import Profile from '../screens/Profile';
 import Bottomtabs from './BottomNavigator';
+import AddPeople from '../screens/AddPeople';
+import SelectParent from '../screens/SelectParent';
 
 const Stack = createNativeStackNavigator();
 const StackNavigator = () => {
@@ -24,6 +26,18 @@ const StackNavigator = () => {
       <Stack.Navigator initialRouteName="Login">
         <Stack.Screen name="Login" component={Login} options={options} />
         <Stack.Screen name="Register" component={Register} options={options} />
+        <Stack.Screen
+          name="AddPeople"
+          component={AddPeople}
+          options={options}
+        />
+        <Stack.Screen
+          name="Эцэг эх сонгох"
+          component={SelectParent}
+          options={{
+            headerShown: false,
+          }}
+        />
         {/* <Stack.Screen name="Home" component={HomeScreen} options={options} />
           <Stack.Screen name="Profile" component={Profile} options={options} />
           <Stack.Screen name="TreeModel" component={Tree} options={options} /> */}

@@ -3,8 +3,9 @@ import React, {Children, useContext, useEffect, useState} from 'react';
 import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {ProfileContext} from '../context/ProfileContext';
 import TabViewExample from '../navigation/TabNavigator';
+import {loginUserInfo} from './Login';
 // import MyTabs from '../navigation/TabNavigator';
-
+const lookTopNode = () => {};
 const Profile = () => {
   const [father, setFather] = useState();
   const [wife, setWife] = useState();
@@ -12,11 +13,12 @@ const Profile = () => {
   const [family, setFamily] = useState();
 
   useEffect(() => {
-    axios.get('http://192.168.193.125:3001/SearchFamily/4').then(res => {
+    axios.get('http://192.168.193.116:3001/getFamily/2').then(res => {
       setFather(res.data.response.father);
       setWife(res.data.response.wife);
       // setChildren(res.data.response.children);
       setFamily(res.data.response.family);
+      console.log('res', res.data.response);
     });
   }, []);
 
@@ -31,11 +33,11 @@ const Profile = () => {
         />
         <View style={{marginLeft: 20, justifyContent: 'center'}}>
           <Text style={styles.userName}>{father}</Text>
-          <Text style={styles.phone}>99105421</Text>
-          <Text style={styles.phone}>@98475</Text>
+          <Text style={styles.phone}>{loginUserInfo[0].ID}</Text>
+          <Text style={styles.phone}>{family}</Text>
         </View>
         <TouchableOpacity style={styles.removeBtn}>
-          <Text style={styles.removeBtnText}>Хасах</Text>
+          <Text style={styles.removeBtnText}>Дээш харах</Text>
         </TouchableOpacity>
       </View>
       <View style={{height: '100%', width: '100%'}}>

@@ -1,10 +1,11 @@
 import React, {Component} from 'react';
-import {View, Text, FlatList, Image} from 'react-native';
+import {View, Text, FlatList, Image, Alert} from 'react-native';
 import PropTypes from 'prop-types';
 import Svg, {Line} from 'react-native-svg';
 import {TreeData} from '../testData';
 import ReactNativeZoomableView from '@dudigital/react-native-zoomable-view/src/ReactNativeZoomableView';
 import {COLORS} from '../constants';
+import {TouchableOpacity} from 'react-native-gesture-handler';
 
 export default class FamilyTree extends Component {
   constructor(props) {
@@ -15,18 +16,23 @@ export default class FamilyTree extends Component {
     return member.children && member.children.length;
   }
 
+  getUserInfo() {
+    Alert.alert('user');
+  }
+
   renderTree(data, level) {
     return (
       <FlatList
         data={data}
         horizontal={true}
+        style={{paddingBottom: 10}}
         contentContainerStyle={{padding: 50}}
         keyExtractor={(item, index) => `${item.name} + ${item.spouse}`}
         listKey={(item, index) => `${item.name} + ${item.spouse}`}
         initialScrollIndex={0}
         renderItem={({item, index}) => {
-          const {name, spouse, dob, dod, profile, spouseProfile} = item;
-          const info = {name, spouse, dob, dod, profile, spouseProfile};
+          const {Name, spouse, dob, dod, Zurag, spouseProfile} = item;
+          const info = {Name, spouse, dob, dod, Zurag, spouseProfile};
           return (
             <View
               style={{
@@ -36,7 +42,8 @@ export default class FamilyTree extends Component {
                 paddingRight: this.props.siblingGap / 2,
               }}>
               <View style={{alignItems: 'center'}}>
-                <View
+                <TouchableOpacity
+                  onPress={this.getUserInfo}
                   style={{
                     ...this.props.nodeStyle,
                     flexDirection: 'row',
@@ -48,23 +55,29 @@ export default class FamilyTree extends Component {
                       width: !info.spouseProfile ? '100%' : '50%',
                       height: !info.spouseProfile ? '100%' : '50%',
                     }}
-                    source={{uri: info.profile}}
+                    source={{
+                      uri: info.Zurag
+                        ? info.Zurag
+                        : 'https://cdn.icon-icons.com/icons2/2506/PNG/512/user_icon_150670.png',
+                    }}
                   />
-                  {info.spouseProfile && (
+                  {info.spouseProfile ? (
                     <Image
                       style={{...this.props.imageStyle}}
                       source={{uri: info.spouseProfile}}
                     />
+                  ) : (
+                    <></>
                   )}
-                </View>
+                </TouchableOpacity>
                 <Text
                   style={{
                     ...this.props.nodeTitleStyle,
                     color: this.props.nodeTitleColor,
                   }}>
-                  {info.name}
+                  {info.Name}
                 </Text>
-                {info.spouseProfile && (
+                {info.spouseProfile ? (
                   <Text
                     style={{
                       ...this.props.nodeTitleStyle,
@@ -72,9 +85,11 @@ export default class FamilyTree extends Component {
                     }}>
                     Spouse: {info.spouse}
                   </Text>
+                ) : (
+                  <></>
                 )}
               </View>
-              {this.hasChildren(item) && (
+              {this.hasChildren(item) ? (
                 <Svg height="50" width="20">
                   <Line
                     x1="50%"
@@ -85,9 +100,11 @@ export default class FamilyTree extends Component {
                     strokeWidth={this.props.strokeWidth}
                   />
                 </Svg>
+              ) : (
+                <></>
               )}
               <View style={{flexDirection: 'row'}}>
-                {this.hasChildren(item) &&
+                {this.hasChildren(item) ? (
                   item.children.map((child, index) => {
                     const {name, spouse, dob, dod, profile} = child;
                     const info = {name, spouse, dob, dod, profile};
@@ -106,7 +123,7 @@ export default class FamilyTree extends Component {
                               strokeWidth={this.props.strokeWidth}
                             />
                             {/* Right side horizontal line */}
-                            {this.hasChildren(item) &&
+                            {this.hasChildren(item) ? (
                               item.children.length != 1 &&
                               item.children.length - 1 !== index && (
                                 <Line
@@ -117,20 +134,25 @@ export default class FamilyTree extends Component {
                                   stroke={this.props.pathColor}
                                   strokeWidth={this.props.strokeWidth}
                                 />
-                              )}
+                              )
+                            ) : (
+                              <></>
+                            )}
                             {/* Left side horizontal line */}
                             {this.hasChildren(item) &&
-                              item.children.length != 1 &&
-                              index !== 0 && (
-                                <Line
-                                  x1="50%"
-                                  y1={this.props.strokeWidth / 2}
-                                  x2="0"
-                                  y2={this.props.strokeWidth / 2}
-                                  stroke={this.props.pathColor}
-                                  strokeWidth={this.props.strokeWidth}
-                                />
-                              )}
+                            item.children.length != 1 &&
+                            index !== 0 ? (
+                              <Line
+                                x1="50%"
+                                y1={this.props.strokeWidth / 2}
+                                x2="0"
+                                y2={this.props.strokeWidth / 2}
+                                stroke={this.props.pathColor}
+                                strokeWidth={this.props.strokeWidth}
+                              />
+                            ) : (
+                              <></>
+                            )}
                           </Svg>
                           {this.renderTree([child], level + 1)}
                         </View>
@@ -151,7 +173,10 @@ export default class FamilyTree extends Component {
                         />
                       </View>
                     );
-                  })}
+                  })
+                ) : (
+                  <></>
+                )}
               </View>
             </View>
           );

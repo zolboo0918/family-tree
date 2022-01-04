@@ -10,10 +10,8 @@ export default function FirstRoute() {
   const [children, setChildren] = useState([]);
   useEffect(() => {
     axios
-      .get('http://192.168.193.125:3001/SearchFamily/2')
+      .get('http://192.168.193.116:3001/SearchFamily/2')
       .then(res => {
-        console.log('success', res);
-
         // setFather(res.data.response.father);
         // setWife(res.data.response.wife);
         setChildren(res.data.response.children);

@@ -18,8 +18,8 @@ const SideMenuHeader = () => {
             }}
             style={styles.userImage}
           />
-          <Text style={styles.userName}>sdfg</Text>
-          <Text style={styles.userId}>dsfgs</Text>
+          <Text style={styles.userName}>Тэмүүлэн</Text>
+          <Text style={styles.userId}>#001</Text>
         </View>
       </View>
     </View>

@@ -22,10 +22,11 @@ import {
   useNavigation,
 } from '@react-navigation/native';
 import {DrawerActions} from '@react-navigation/native';
-import {COLORS, getWidth, setWidth} from '../constants';
+import {COLORS, getWidth, setHeight, setWidth} from '../constants';
 import {Button, Fab} from 'native-base';
 import Icon from 'react-native-vector-icons/AntDesign';
 import {loginUserInfo} from './Login';
+import EvilIcon from 'react-native-vector-icons/EvilIcons';
 
 const Search = () => {
   const [urag, setUrag] = useState();
@@ -41,7 +42,7 @@ const Search = () => {
   const [base_person_ID, setbase_person_ID] = useState();
 
   useEffect(() => {
-    axios.get('http://192.168.193.125:3001/UragOvog').then(res => {
+    axios.get('http://192.168.193.116:3001/UragOvog').then(res => {
       setUrag(res.data.response);
       setFilteredValue(res.data.response);
     });
@@ -52,13 +53,13 @@ const Search = () => {
     if (inputValue == '') {
       setFilteredValue(urag);
     } else {
-      setFilteredValue(urag.filter(el => el.Name.toLowerCase().includes(val)));
+      setFilteredValue(urag.filter(el => el.Name?.toLowerCase().includes(val)));
     }
   };
 
   const Insert = () => {
     axios
-      .post('http://192.168.193.125:3001/UragOvog', {
+      .post('http://192.168.193.116:3001/UragOvog', {
         Name,
         Description,
         Created_Date,
@@ -71,35 +72,69 @@ const Search = () => {
 
   return (
     <View>
-      <View>
-        <View style={[{flex: 1}]}>
-          <View>
-            {showSearchInput ? (
-              <View
+      <View style={[{flex: 1}]}>
+        <View style={{width: '100%'}}>
+          {showSearchInput ? (
+            <View
+              style={{
+                flexDirection: 'row',
+                width: getWidth(),
+                height: 50,
+                justifyContent: 'space-between',
+              }}>
+              <TextInput
+                value={inputValue}
+                onChangeText={search}
                 style={{
-                  flexDirection: 'row',
-                  width: getWidth(),
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  textAlign: 'center',
+                  borderBottomWidth: 1,
+                  borderBottomColor: '#e1e1e1',
                   height: 50,
-                  justifyContent: 'space-between',
-                }}>
-                <TextInput
-                  value={inputValue}
-                  onChangeText={search}
+                  width: setWidth(90),
+                }}
+              />
+              <TouchableOpacity style={[styles.contentRight]} onPress={search}>
+                <AntDesign
+                  onPress={() => setShowSearchInput(false)}
+                  name="close"
                   style={{
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    textAlign: 'center',
-                    borderBottomWidth: 1,
-                    borderBottomColor: '#e1e1e1',
-                    height: 50,
-                    width: setWidth(90),
+                    color: '#585858',
+                    fontSize: 20,
                   }}
                 />
+              </TouchableOpacity>
+            </View>
+          ) : (
+            <View style={[styles.contain]}>
+              <View>
+                <TouchableOpacity
+                  style={[styles.contentLeft]}
+                  onPress={() => {
+                    navigation.dispatch(DrawerActions.toggleDrawer());
+                  }}>
+                  <Feather
+                    name="menu"
+                    style={{
+                      color: '#585858',
+                      fontSize: 28,
+                      alignSelf: 'flex-end',
+                    }}
+                  />
+                </TouchableOpacity>
+              </View>
+              <View style={[styles.contentCenter]}>
+                <Text style={{}} numberOfLines={1}>
+                  Хайх
+                </Text>
+              </View>
+              <View style={[styles.right]}>
                 <TouchableOpacity
                   style={[styles.contentRight]}
-                  onPress={search}>
-                  <AntDesign
-                    name="close"
+                  onPress={() => setShowSearchInput(!showSearchInput)}>
+                  <Feather
+                    name="search"
                     style={{
                       color: '#585858',
                       fontSize: 20,
@@ -107,44 +142,8 @@ const Search = () => {
                   />
                 </TouchableOpacity>
               </View>
-            ) : (
-              <View style={[styles.contain]}>
-                <View>
-                  <TouchableOpacity
-                    style={[styles.contentLeft]}
-                    onPress={() => {
-                      navigation.dispatch(DrawerActions.toggleDrawer());
-                    }}>
-                    <Feather
-                      name="menu"
-                      style={{
-                        color: '#585858',
-                        fontSize: 28,
-                      }}
-                    />
-                  </TouchableOpacity>
-                </View>
-                <View style={[styles.contentCenter]}>
-                  <Text style={{}} numberOfLines={1}>
-                    haih
-                  </Text>
-                </View>
-                <View style={[styles.right]}>
-                  <TouchableOpacity
-                    style={[styles.contentRight]}
-                    onPress={() => setShowSearchInput(!showSearchInput)}>
-                    <Feather
-                      name="search"
-                      style={{
-                        color: '#585858',
-                        fontSize: 20,
-                      }}
-                    />
-                  </TouchableOpacity>
-                </View>
-              </View>
-            )}
-          </View>
+            </View>
+          )}
         </View>
       </View>
       <View style={styles.container}>
@@ -190,46 +189,202 @@ const Search = () => {
           marginBottom={70}
           justifyContent={'center'}
           alignItems={'center'}
-          bgColor={'#585858'}
+          bgColor={'#c24e00'}
           onPress={() => setModalShow(true)}
-          icon={<Icon name="plus" size={20} color={'#fff'} />}
+          icon={<Icon name="plus" size={20} color={'black'} />}
         />
-        <Modal visible={modalShow}>
-          <Button onPress={() => setModalShow(false)} />
+        {/*<Modal
+          transparent
+          visible={modalShow}
+          animationType="fade"
+          style={{
+            height: setHeight(70),
+            width: setWidth(80),
+            backgroundColor: 'green',
+          }}>
           <View
             style={{
-              height: 100,
-              width: '90%',
-              backgroundColor: 'grey',
-              justifyContent: 'center',
-              alignItems: 'center',
-              flexDirection: 'column',
-            }}>
-            <Text>Овгийн Нэр</Text>
-            <TextInput
-              style={{
-                width: '90%',
-                height: 50,
-                backgroundColor: 'green',
-                marginTop: 600,
-              }}
-              value={Name}
-              onChangeText={setName}
-            />
-            <Text>Нэмэлт мэдээлэл</Text>
-            <TextInput
-              style={{width: '90%', height: 50, backgroundColor: 'green'}}
-              value={Description}
-              onChangeText={setDescription}
-            />
-            <Text>Хэзээ Үүссэн?</Text>
-            <TextInput
-              style={{width: '90%', height: 50, backgroundColor: 'green'}}
-              value={Created_Date}
-              onChangeText={setCreated_Date}
-            />
+              height: setHeight(70),
+              width: setWidth(80),
+              backgroundColor: '#fff',
+              shadowColor: '#000',
+              shadowOffset: {
+                width: 0,
+                height: 6,
+              },
+              shadowOpacity: 0.39,
+              shadowRadius: 8.3,
 
-            <Button height={30} width={100} onPress={Insert} />
+              elevation: 13,
+              marginLeft: 'auto',
+              marginTop: 'auto',
+              marginBottom: 'auto',
+              marginRight: 'auto',
+            }}>
+            <Button
+              style={{
+                width: 30,
+                alignSelf: 'flex-end',
+                backgroundColor: '#fff',
+              }}
+              onPress={() => setModalShow(false)}>
+              <EvilIcon
+                name="close-o"
+                style={{
+                  height: 15,
+                  width: 20,
+                  fontSize: 20,
+                  color: '#585858',
+                  alignSelf: 'center',
+                }}
+              />
+            </Button>
+            <View
+              style={{
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}>
+              <TextInput
+                placeholder="Үйл явдлын нэр"
+                style={{
+                  width: '100%',
+                  borderWidth: 1,
+                  borderRadius: 20,
+                  borderColor: '#e1e1e1',
+                  width: '90%',
+                  height: 50,
+                  marginTop: 30,
+                }}
+                value={EventName}
+                onChangeText={setEventName}
+              />
+              <Select
+                placeholder="Үйл явдлын төрөл"
+                width={'90%'}
+                marginTop={30}
+                borderRadius={20}
+                onValueChange={setEventType}>
+                <Select.Item label="Үсний найр" value="1"></Select.Item>
+                <Select.Item label="Төрсөн өдөр" value="2"></Select.Item>
+              </Select>
+              <Button
+                height={30}
+                width={100}
+                marginTop={30}
+                bgColor={'#70A44E'}
+                justifyContent={'center'}
+                alignItems={'center'}
+                borderRadius={20}
+                onPress={InsertEvent}>
+                <Text style={{height: 30, color: '#fff', marginTop: 7}}>
+                  Нэмэх
+                </Text>
+              </Button>
+            </View>
+          </View>
+              </Modal>*/}
+        <Modal transparent visible={modalShow}>
+          <View
+            style={{
+              height: setHeight(70),
+              width: setWidth(80),
+              backgroundColor: '#fff',
+              shadowColor: '#000',
+              shadowOffset: {
+                width: 0,
+                height: 6,
+              },
+              shadowOpacity: 0.39,
+              shadowRadius: 8.3,
+
+              elevation: 13,
+              marginLeft: 'auto',
+              marginTop: 'auto',
+              marginBottom: 'auto',
+              marginRight: 'auto',
+            }}>
+            <Button
+              style={{
+                width: 30,
+                alignSelf: 'flex-end',
+                backgroundColor: '#fff',
+              }}
+              onPress={() => setModalShow(false)}>
+              <EvilIcon
+                name="close-o"
+                style={{
+                  height: 15,
+                  width: 20,
+                  fontSize: 20,
+                  color: '#585858',
+                  alignSelf: 'center',
+                }}
+              />
+            </Button>
+            <View
+              style={{
+                height: 500,
+                width: '90%',
+                // backgroundColor: 'grey',
+                justifyContent: 'center',
+                alignItems: 'center',
+                flexDirection: 'column',
+                marginLeft: 10,
+              }}>
+              <Text>Овгийн Нэр</Text>
+              <TextInput
+                style={{
+                  borderWidth: 1,
+                  borderRadius: 20,
+                  borderColor: '#e1e1e1',
+                  width: '90%',
+                  height: 50,
+                  marginTop: 30,
+                }}
+                value={Name}
+                onChangeText={setName}
+              />
+              <Text>Нэмэлт мэдээлэл</Text>
+              <TextInput
+                style={{
+                  borderWidth: 1,
+                  borderRadius: 20,
+                  borderColor: '#e1e1e1',
+                  width: '90%',
+                  height: 50,
+                  marginTop: 30,
+                }}
+                value={Description}
+                onChangeText={setDescription}
+              />
+              <Text>Хэзээ Үүссэн?</Text>
+              <TextInput
+                style={{
+                  borderWidth: 1,
+                  borderRadius: 20,
+                  borderColor: '#e1e1e1',
+                  width: '90%',
+                  height: 50,
+                  marginTop: 30,
+                }}
+                value={Created_Date}
+                onChangeText={setCreated_Date}
+              />
+
+              <Button
+                height={30}
+                width={100}
+                marginTop={30}
+                bgColor={'#70A44E'}
+                justifyContent={'center'}
+                alignItems={'center'}
+                borderRadius={20}
+                onPress={Insert}>
+                <Text style={{height: 30, color: '#fff', marginTop: 7}}>
+                  Нэмэх
+                </Text>
+              </Button>
+            </View>
           </View>
         </Modal>
       </View>
@@ -249,7 +404,7 @@ const styles = StyleSheet.create({
     height: 50,
     justifyContent: 'space-between',
     flexDirection: 'row',
-    backgroundColor: '#fff',
+    width: '100%',
   },
   contentLeft: {
     flex: 1,
@@ -261,6 +416,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     alignItems: 'center',
     justifyContent: 'center',
+    width: setWidth(67),
   },
   contentRight: {
     justifyContent: 'center',
@@ -276,12 +432,7 @@ const styles = StyleSheet.create({
     paddingRight: 10,
     height: '100%',
   },
-  right: {
-    flex: 1,
-    alignItems: 'center',
-    flexDirection: 'row',
-    justifyContent: 'flex-end',
-  },
+  right: {},
   containerList: {
     height: 70,
     backgroundColor: '#fff',
@@ -296,13 +447,13 @@ const styles = StyleSheet.create({
     borderRadius: 25,
     marginTop: 10,
     marginLeft: 10,
-    backgroundColor: 'green',
+    backgroundColor: '#fff',
     justifyContent: 'center',
     alignItems: 'center',
   },
   leftText: {
     fontSize: 20,
-    color: '#fff',
+    color: 'white',
   },
   right: {
     flexDirection: 'row',
@@ -313,6 +464,7 @@ const styles = StyleSheet.create({
   },
   name: {
     fontSize: 16,
+    fontWeight: 'bold',
     color: '#585858',
   },
   count: {

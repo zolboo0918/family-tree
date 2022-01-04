@@ -18,32 +18,32 @@ export const data = [
 ];
 export const datafriends = [
   {
-    img: 'https://i.insider.com/5ca389adc6cc503c5a53fd96?width=500&format=jpeg&auto=webp',
-    title: 'John',
+    img: 'https://lh3.googleusercontent.com/proxy/OLQWYghgJX2NGgyY9x6zeYOXg9hJ_DbbOchXxR6E7t-WCDeC4JFGQ523nlGv_xdQsd8XKFkuvf_ADlp0-rfHXv5E6Q',
+    title: 'Тамир',
   },
   {
-    img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTre208Ft9BKNVjDjyLwFNmWCfmOvL2KuaWAg&usqp=CAU',
-    title: 'Bill',
+    img: 'https://news.zindaa.mn/images/news/crop1/201710/tod.jpg',
+    title: 'Тодгэрэл',
   },
   {
-    img: 'https://i.mydramalist.com/ZrLd8c.jpg',
-    title: 'Jennie',
+    img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSGZqqbt-QRoq7IHjlkD9Qvrppj99js0MZECA&usqp=CAU',
+    title: 'Баянцэнгэл',
+  },
+  {
+    img: 'https://niitlelch.mn/wp-content/uploads/2018/10/solongo-02.jpg',
+    title: 'Солонго',
+  },
+  {
+    img: 'http://www.busguichuud.com/wp-content/uploads/2020/05/96703674_273396100725059_7262985994721296384_n-895x1024.jpg',
+    title: 'Сарнай',
+  },
+  {
+    img: 'https://lh3.googleusercontent.com/proxy/Pi3LyrGtERY7Ny3OkBE1DjRrCZYCZKmIkJ1J9-zaILwEgt8nQCMAZot0Uu6WYLEv2-5q1MY8UGmXCh5kp_OpxKrGagSxHNPCNnwzmPHVKrCnMo6fxRcKv1KpE2vJ26IXqE-bVGSBhbMXhG955JAa',
+    title: 'Цэцгээ',
   },
   {
     img: 'https://lumiere-a.akamaihd.net/v1/images/ct_frozen_elsa_18466_22a50822.jpeg?region=0,0,600,600',
-    title: 'Elsa',
-  },
-  {
-    img: 'https://lumiere-a.akamaihd.net/v1/images/ct_frozen_elsa_18466_22a50822.jpeg?region=0,0,600,600',
-    title: 'Elsa',
-  },
-  {
-    img: 'https://lumiere-a.akamaihd.net/v1/images/ct_frozen_elsa_18466_22a50822.jpeg?region=0,0,600,600',
-    title: 'Elsa',
-  },
-  {
-    img: 'https://lumiere-a.akamaihd.net/v1/images/ct_frozen_elsa_18466_22a50822.jpeg?region=0,0,600,600',
-    title: 'Elsa',
+    title: 'Цэлмүүн',
   },
 ];
 export const data2 = [
@@ -457,3 +457,180 @@ export const dataProfileFamily = [
 ];
 
 //a
+
+const a = {
+  name: 'Tanguud',
+  spouse: null,
+  dob: null,
+  dod: null,
+  profile:
+    'https://images.unsplash.com/photo-1520206444322-d2df0dd4e78e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1000&q=80',
+  spouseProfile:
+    'https://www.focusonthefamily.com/wp-content/uploads/2020/01/cherishing-your-spouse.jpg',
+  children: [
+    {
+      name: 'boldoo',
+      spouse: null,
+      dob: null,
+      dod: null,
+      profile:
+        'https://images.unsplash.com/photo-1520206444322-d2df0dd4e78e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1000&q=80',
+      spouseProfile:
+        'https://www.focusonthefamily.com/wp-content/uploads/2020/01/cherishing-your-spouse.jpg',
+      children: [
+        {
+          name: 'Hongor',
+          spouse: 'gerlee',
+          dob: null,
+          dod: null,
+          profile:
+            'https://images.unsplash.com/photo-1520206444322-d2df0dd4e78e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1000&q=80',
+          spouseProfile:
+            'https://www.focusonthefamily.com/wp-content/uploads/2020/01/cherishing-your-spouse.jpg',
+          children: [
+            {
+              name: 'daichin',
+              spouse: null,
+              dob: null,
+              dod: null,
+              profile:
+                'https://images.unsplash.com/photo-1520206444322-d2df0dd4e78e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1000&q=80',
+              spouseProfile:
+                'https://www.focusonthefamily.com/wp-content/uploads/2020/01/cherishing-your-spouse.jpg',
+            },
+          ],
+        },
+        {
+          name: 'batbaatar',
+          spouse: 'hongorbat',
+          dob: null,
+          dod: null,
+          profile:
+            'https://images.unsplash.com/photo-1520206444322-d2df0dd4e78e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1000&q=80',
+          spouseProfile:
+            'https://www.focusonthefamily.com/wp-content/uploads/2020/01/cherishing-your-spouse.jpg',
+        },
+      ],
+    },
+    {
+      name: 'tsetsgee',
+      spouse: null,
+      dob: null,
+      dod: null,
+      profile:
+        'https://images.unsplash.com/photo-1520206444322-d2df0dd4e78e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1000&q=80',
+      spouseProfile:
+        'https://www.focusonthefamily.com/wp-content/uploads/2020/01/cherishing-your-spouse.jpg',
+      children: [
+        {
+          name: 'derem',
+          spouse: null,
+          dob: null,
+          dod: null,
+          profile:
+            'https://images.unsplash.com/photo-1520206444322-d2df0dd4e78e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1000&q=80',
+          spouseProfile:
+            'https://www.focusonthefamily.com/wp-content/uploads/2020/01/cherishing-your-spouse.jpg',
+        },
+      ],
+    },
+  ],
+};
+
+export const g = {
+  Parent_ID: '',
+  Child_ID: 1001,
+  Name: 'Tanguud',
+  Zurag: '',
+  children: [
+    {
+      Parent_ID: '',
+      Child_ID: 1001,
+      Name: 'Boldoo',
+      Zurag: '',
+      children: [
+        {
+          Parent_ID: '',
+          Child_ID: 1001,
+          Name: 'batbaatar',
+          Zurag: '',
+          children: [
+            {
+              Parent_ID: '',
+              Child_ID: 1001,
+              Name: 'khongorzul',
+              Zurag: '',
+            },
+            {
+              Parent_ID: '',
+              Child_ID: 1001,
+              Name: 'zolboo',
+              Zurag: '',
+            },
+          ],
+        },
+      ],
+    },
+    {
+      Parent_ID: '',
+      Child_ID: 1001,
+      Name: 'Tsetsgee',
+      Zurag: '',
+    },
+  ],
+};
+
+export const treedata = [
+  {
+    Child_ID: 1001,
+    Name: 'Tanguud',
+    Parent_ID: '',
+    Zurag: null,
+    children: [
+      {
+        Child_ID: 2002,
+        Name: 'Tsetsgee',
+        Parent_ID: '1001',
+        Zurag: null,
+        children: [
+          {
+            Child_ID: 2002,
+            Name: 'Tsetsgee',
+            Parent_ID: '1001',
+            Zurag: null,
+            children: [
+              {
+                Child_ID: 2002,
+                Name: 'Zolboo',
+                Parent_ID: '1001',
+                Zurag: null,
+                children: [],
+              },
+              {
+                Child_ID: 4,
+                Name: 'BatBaatar',
+                Parent_ID: '2',
+                Zurag: null,
+                children: [],
+              },
+            ],
+          },
+          {
+            Child_ID: 4,
+            Name: 'KhongorZul',
+            Parent_ID: '2',
+            Zurag: null,
+            children: [],
+          },
+        ],
+      },
+      {
+        Child_ID: 4,
+        Name: 'Tsetsgee',
+        Parent_ID: '2',
+        Zurag: null,
+        children: [],
+      },
+    ],
+  },
+];

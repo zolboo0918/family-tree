@@ -22,7 +22,7 @@ const Register = props => {
   const [UserName, setUserName] = useState('');
 
   const handleRegister = () => {
-    Axios.post('http://192.168.193.125:3001/users', {
+    Axios.post('http://192.168.193.116:3001/users', {
       lName: lName,
       fName: fName,
       RegNumber: RegNumber,

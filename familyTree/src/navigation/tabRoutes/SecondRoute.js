@@ -9,7 +9,7 @@ export const SecondRoute = () => {
   const [wife, setWife] = useState([]);
   useEffect(() => {
     axios
-      .get('http://192.168.193.125:3001/SearchFamily/4')
+      .get('http://192.168.0.105:3001/SearchFamily/4')
       .then(res => {
         const data = res.data.response.wife;
         const arr = [{name: data.wife}];

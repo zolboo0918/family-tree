@@ -34,6 +34,19 @@ function SideMenu(props) {
             icon="home"
             iconStyle={{color: '#282828', width: 25}}
             style={{}}
+            onPress={() => navigation.navigate('Home')}
+            iconSize={22}
+            pressColor={'green'}
+            index={98}
+            position={position}
+          />
+          <DrawerItemC
+            label="Гэр бүлд гишүүн нэмэх"
+            labelStyle={{}}
+            icon="home"
+            iconStyle={{color: '#282828', width: 25}}
+            style={{}}
+            onPress={() => navigation.navigate('AddPeople')}
             iconSize={22}
             pressColor={'green'}
             index={98}
@@ -86,7 +99,7 @@ function SideMenu(props) {
           pressColor={'green'}
           index={100}
           position={position}
-          onPress={() => navigation.replace('Login')}
+          onPress={() => navigation.navigate('Login')}
         />
       </ScrollView>
     </View>
