@@ -28,8 +28,8 @@ const SelectParent = props => {
     eventStartDate: new Date(),
     eventEndDate: new Date(),
   };
-  const [father, setFather] = useState();
-  const [mother, setMother] = useState();
+  const [father, setFather] = useState([]);
+  const [mother, setMother] = useState([]);
   // const [child, setChild] = useState();
   const [family, setFamily] = useState();
   const [father_person_ID, setFather_person_ID] = useState();
@@ -55,7 +55,7 @@ const SelectParent = props => {
 
   const getAllParents = () => {
     axios
-      .get(`http://192.168.193.116:3001/FamilyMember/${ID}`)
+      .get(`http://192.168.193.116:3001/FamilyMember/${loginUserInfo[0].ID}`)
       .then(res => {
         res.data.response.forEach(el => {
           axios

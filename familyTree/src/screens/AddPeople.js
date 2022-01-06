@@ -8,15 +8,18 @@ import {
   TextInput,
   TouchableOpacity,
   View,
+  Modal,
+  ActivityIndicator,
 } from 'react-native';
 import {Button, Checkbox, Radio, Select} from 'native-base';
 import Icon from 'react-native-vector-icons/AntDesign';
-import {COLORS} from '../constants';
+import {COLORS, setHeight, setWidth} from '../constants';
 import ImagePicker from 'react-native-image-crop-picker';
 import axios from 'axios';
 import DatePicker from 'react-native-date-picker';
 import {useNavigation} from '@react-navigation/native';
 import {loginUserInfo} from './Login';
+import {isEmpty} from 'lodash';
 
 const AddPeople = () => {
   const bpParams = {
@@ -34,6 +37,12 @@ const AddPeople = () => {
     urgiin_ovog_ID: '',
   };
 
+  const famInf = {
+    Name: '',
+    Description: '',
+    Created_Date: new Date(),
+    urgiin_ovog_ID: '',
+  };
   const [date, setDate] = useState(new Date());
   const [dDate, setdDate] = useState(new Date());
   const [open, setOpen] = useState(false);
@@ -45,6 +54,13 @@ const AddPeople = () => {
   const [familyName, setFamilyName] = useState('');
   const [selectedFamilyID, setSelectedFamilyID] = useState();
   const [addedPersonId, setAddedPersonId] = useState();
+  const [Name, setName] = useState();
+  const [Description, setDescription] = useState();
+  const [Created_Date, setCreated_Date] = useState();
+  const [urgiin_ovog_ID, setUrgiin_ovog_ID] = useState();
+  const [state1, setState1] = useState(famInf);
+  const [modalShow, setModalShow] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const Navigation = useNavigation();
   useEffect(() => {
@@ -115,6 +131,31 @@ const AddPeople = () => {
       })
       .catch(err => {
         console.log('Error', JSON.stringify(err));
+      });
+  };
+  const openFamMod = () => {
+    setModalShow(true);
+  };
+  const insertFamily = () => {
+    console.log(`insertFamilyhahahaha`, insertFamily);
+    setLoading(true);
+    axios
+      .post('http://192.168.193.116:3001/SearchFamily', {
+        Name: state.Name,
+        Description: state.Description,
+        Created_Date: `${date.getFullYear()}-${
+          date.getMonth() - 1
+        }-${date.getDate()}`,
+      })
+      .then(() => {
+        setLoading(false);
+        setModalShow(false);
+        Alert.alert('Amjilttai nemegdev');
+      })
+      .catch(err => {
+        setLoading(false);
+        setModalShow(false);
+        console.log(`err****`, err);
       });
   };
 
@@ -224,6 +265,144 @@ const AddPeople = () => {
       </View>
       <Text style={styles.title}>Гэр бүл сонгох</Text>
       <View>
+        <Modal visible={modalShow} transparent>
+          <View
+            style={{
+              height: setHeight(70),
+              width: setWidth(80),
+              backgroundColor: '#fff',
+              shadowColor: '#000',
+              shadowOffset: {
+                width: 0,
+                height: 6,
+              },
+              shadowOpacity: 0.39,
+              shadowRadius: 8.3,
+
+              elevation: 13,
+              marginLeft: 'auto',
+              marginTop: 'auto',
+              marginBottom: 'auto',
+              marginRight: 'auto',
+            }}>
+            <Text
+              style={{
+                alignSelf: 'center',
+                marginTop: 10,
+                color: '#000',
+                fontSize: 14,
+              }}>
+              Гэр Бүлийн нэр
+            </Text>
+            <TextInput
+              style={{
+                marginLeft: 20,
+                borderWidth: 1,
+                borderRadius: 20,
+                borderColor: '#e1e1e1',
+                width: '90%',
+                height: 50,
+                marginTop: 10,
+                color: '#000',
+              }}
+              value={Name}
+              onChangeText={value => setState1({...state, Name: value})}
+              placeholder="Хэний гэр бүл вэ?"
+              placeholderTextColor={'#a0a0a0'}
+            />
+            <Text
+              style={{
+                marginLeft: 25,
+                marginTop: 10,
+                color: '#000',
+              }}>
+              Нэмэлт мэдээлэл
+            </Text>
+            <TextInput
+              style={{
+                marginLeft: 20,
+
+                borderWidth: 1,
+                borderRadius: 20,
+                borderColor: '#e1e1e1',
+                width: '90%',
+                height: 50,
+                color: '#000',
+                marginTop: 10,
+              }}
+              value={Description}
+              onChangeText={value => setState1({...state, Description: value})}
+              placeholder="Нэмэлт мэдээлэл"
+              placeholderTextColor={'#a0a0a0'}
+            />
+            <Text
+              style={{
+                marginLeft: 30,
+                color: '#000',
+              }}>
+              Хэзээ Үүссэн?
+            </Text>
+            <TextInput
+              style={{
+                borderWidth: 1,
+                borderRadius: 20,
+                borderColor: '#e1e1e1',
+                width: '90%',
+                height: 50,
+                marginTop: 10,
+                marginLeft: 20,
+                color: '#000',
+              }}
+              value={Created_Date}
+              onChangeText={value => setState1({...state, Created_Date: value})}
+              placeholder="Хэзээ үүссэн бэ?"
+              placeholderTextColor={'#a0a0a0'}
+            />
+            <Text
+              style={{
+                marginLeft: 30,
+                color: '#000',
+              }}>
+              Овгийн нэр
+            </Text>
+            <TextInput
+              style={{
+                borderWidth: 1,
+                borderRadius: 20,
+                borderColor: '#e1e1e1',
+                width: '90%',
+                height: 50,
+                marginTop: 10,
+                marginLeft: 20,
+                color: '#000',
+              }}
+              value={urgiin_ovog_ID}
+              onChangeText={value =>
+                setState1({...state, urgiin_ovog_ID: value})
+              }
+              placeholder="Ямар овог вэ?"
+              placeholderTextColor={'#a0a0a0'}
+            />
+
+            <Button
+              height={10}
+              width={100}
+              marginTop={30}
+              bgColor={'#70A44E'}
+              justifyContent={'center'}
+              alignSelf={'center'}
+              borderRadius={20}
+              onPress={insertFamily}>
+              {loading ? (
+                <ActivityIndicator />
+              ) : (
+                <Text style={{height: 30, color: '#fff', marginTop: 7}}>
+                  Нэмэх
+                </Text>
+              )}
+            </Button>
+          </View>
+        </Modal>
         <Select
           onValueChange={val => {
             const name = val.split('#')[0];
@@ -234,9 +413,15 @@ const AddPeople = () => {
           {/* <Select.Item label="UX Research" value="ux" />
           <Select.Item label="Web Development" value="web" />
           <Select.Item label="Cross Platform Development" value="cross" />*/}
-          {AllFamily?.map(el => (
-            <Select.Item label={el.Name} value={`${el.Name}#${el.ID}`} />
-          ))}
+          {!isEmpty(AllFamily) ? (
+            AllFamily?.map(el => (
+              <Select.Item label={el.Name} value={`${el.Name}#${el.ID}`} />
+            ))
+          ) : (
+            <View>
+              <Button onPress={openFamMod}> Гэр бүл нэмэх</Button>
+            </View>
+          )}
         </Select>
         {/*<TextInput
           style={{
@@ -274,7 +459,9 @@ const AddPeople = () => {
           editable={isAlive == '0'}
           style={[
             styles.inputDate,
-            {borderBottomColor: isAlive == '0' ? COLORS.TREE_COLOR : '#a0a0a0'},
+            {
+              borderBottomColor: isAlive == '0' ? COLORS.TREE_COLOR : '#a0a0a0',
+            },
           ]}
           keyboardType="number-pad"
           placeholder="Өдөр"
@@ -285,7 +472,9 @@ const AddPeople = () => {
           keyboardType="number-pad"
           style={[
             styles.inputDate,
-            {borderBottomColor: isAlive == '0' ? COLORS.TREE_COLOR : '#a0a0a0'},
+            {
+              borderBottomColor: isAlive == '0' ? COLORS.TREE_COLOR : '#a0a0a0',
+            },
           ]}
           placeholder="Сар"
           placeholderTextColor={'#a0a0a0'}
@@ -295,7 +484,9 @@ const AddPeople = () => {
           editable={isAlive == '0'}
           style={[
             styles.inputDate,
-            {borderBottomColor: isAlive == '0' ? COLORS.TREE_COLOR : '#a0a0a0'},
+            {
+              borderBottomColor: isAlive == '0' ? COLORS.TREE_COLOR : '#a0a0a0',
+            },
           ]}
           placeholder="Жил"
           placeholderTextColor={'#a0a0a0'}
@@ -328,9 +519,19 @@ const AddPeople = () => {
         alignContent="center"
         marginBottom="20"
         backgroundColor={'#c24e00'}
-        onPress={AddNewPerson}>
+        onPress={openFamMod}>
         <Text style={styles.ButtonTitle}>Гишүүн нэмэх</Text>
       </TouchableOpacity>
+      <View
+        style={{
+          height: 500,
+          width: '90%',
+          // backgroundColor: 'grey',
+          justifyContent: 'center',
+          alignItems: 'center',
+          flexDirection: 'column',
+          marginLeft: 10,
+        }}></View>
     </ScrollView>
   );
 };

@@ -19,7 +19,7 @@ const SideMenuHeader = () => {
             style={styles.userImage}
           />
           <Text style={styles.userName}>Тэмүүлэн</Text>
-          <Text style={styles.userId}>#001</Text>
+          <Text style={styles.userId}>15</Text>
         </View>
       </View>
     </View>
@@ -141,3 +141,4 @@ const styles = StyleSheet.create({
 
 import {Platform, StatusBar} from 'react-native';
 import {setHeight, setWidth} from '../constants';
+import {loginUserInfo} from '../screens/Login';

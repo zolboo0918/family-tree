@@ -21,8 +21,8 @@ import LinearGradient from 'react-native-linear-gradient';
 export let loginUserInfo = {};
 
 const Login = props => {
-  const [userName, setUserName] = useState('MoriiUNadagMori');
-  const [password, setPassword] = useState('Test1234');
+  const [userName, setUserName] = useState('');
+  const [password, setPassword] = useState('');
   const [passwordShow, setpasswordShow] = useState(true);
 
   const handleLogin = () => {

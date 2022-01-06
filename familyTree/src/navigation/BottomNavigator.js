@@ -13,6 +13,7 @@ import Tree from '../screens/TreeModel';
 import {BottomFabBar} from 'rn-wave-bottom-bar';
 import {DrawerActions, useNavigation} from '@react-navigation/native';
 import SelectParent from '../screens/SelectParent';
+import insertParent from '../screens/AddPeople';
 
 const Tab = createBottomTabNavigator();
 const options = {headerShown: false};
@@ -130,9 +131,9 @@ function Bottomtabs() {
           ),
         }}
       />
-      {/*     <Tab.Screen
-        name="Эцэг эх сонгох"
-        component={SelectParent}
+      <Tab.Screen
+        name="Эцэг эх нэмэх"
+        component={insertParent}
         options={{
           headerShown: false,
           tabBarShowLabel: false,
@@ -142,7 +143,7 @@ function Bottomtabs() {
             <FontIsto name={'persons'} size={20} color={color} />
           ),
         }}
-      /> */}
+      />
       <Tab.Screen
         name="Хувийн мэдээлэл"
         component={Profile}

@@ -52,7 +52,7 @@ function SideMenu(props) {
             index={98}
             position={position}
           />
-          <DrawerItemC
+          {/* <DrawerItemC
             label="Грүп"
             labelStyle={{}}
             icon="users"
@@ -86,7 +86,7 @@ function SideMenu(props) {
             pressColor={'green'}
             index={98}
             position={position}
-          />
+          /> */}
         </View>
 
         <DrawerItemC

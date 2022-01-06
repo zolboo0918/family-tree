@@ -4,12 +4,13 @@ import {ScrollView, StyleSheet} from 'react-native';
 import FamilyTree from '../components/FamilyTree';
 import {COLORS} from '../constants';
 import {AllTreeData, treedata, TreeData} from '../testData';
+import {loginUserInfo} from './Login';
 
 const Tree = () => {
   const [treeData, setTreeData] = useState(treeData);
   useEffect(() => {
     axios
-      .get('http://192.168.193.116:3001/SearchFamily/Urgiin/2')
+      .get('http://192.168.193.116:3001/SearchFamily')
       .then(res => {
         setTreeData(res.data.response);
       })

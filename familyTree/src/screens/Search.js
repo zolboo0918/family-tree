@@ -39,7 +39,6 @@ const Search = () => {
   const [Name, setName] = useState();
   const [Description, setDescription] = useState();
   const [Created_Date, setCreated_Date] = useState();
-  const [base_person_ID, setbase_person_ID] = useState();
 
   useEffect(() => {
     axios.get('http://192.168.193.116:3001/UragOvog').then(res => {
@@ -58,16 +57,17 @@ const Search = () => {
   };
 
   const Insert = () => {
+    console.log('162222********');
     axios
       .post('http://192.168.193.116:3001/UragOvog', {
         Name,
         Description,
         Created_Date,
-        base_person_ID: loginUserInfo[0].ID,
       })
       .then(res => {
         Alert.alert('Boltsnshuu kk');
-      });
+      })
+      .catch(err => console.log(err));
   };
 
   return (

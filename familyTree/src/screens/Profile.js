@@ -4,39 +4,64 @@ import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {ProfileContext} from '../context/ProfileContext';
 import TabViewExample from '../navigation/TabNavigator';
 import {loginUserInfo} from './Login';
+
 // import MyTabs from '../navigation/TabNavigator';
 const lookTopNode = () => {};
 const Profile = () => {
   const [father, setFather] = useState();
-  const [wife, setWife] = useState();
+  const [Mother, setMother] = useState();
   // const [child, setChild] = useState();
   const [family, setFamily] = useState();
 
   useEffect(() => {
-    axios.get('http://192.168.193.116:3001/getFamily/2').then(res => {
-      setFather(res.data.response.father);
-      setWife(res.data.response.wife);
-      // setChildren(res.data.response.children);
-      setFamily(res.data.response.family);
-      console.log('res', res.data.response);
-    });
+    axios
+      .get(`http://192.168.193.116:3001/getFamily/${loginUserInfo[0]}`)
+      .then(res => {
+        setFather(res.data.response.father);
+        setMother(res.data.response.Mother);
+        // setChildren(res.data.response.children);
+        setFamily(res.data.response.family);
+        console.log('res', res.data.response);
+      });
   }, []);
+
+  const getFather = () => {
+    axios
+      .get(`http://192.168.193.116:3001/CallPapa/${loginUserInfo[0]}`)
+      .then(res => {
+        console.log(`res.data`, res.data);
+        if (res.data.status == 'success') {
+          setAllFamily(res.data.response);
+        }
+      })
+      .catch(err => {
+        console.log('Error', JSON.stringify(err));
+      });
+  };
 
   return (
     <View style={styles.container}>
       <View style={styles.topSection}>
-        <Image
-          source={{
-            uri: 'https://static01.nyt.com/images/2019/11/17/books/review/17Salam/Salam1-superJumbo.jpg',
-          }}
-          style={styles.profileImage}
-        />
-        <View style={{marginLeft: 20, justifyContent: 'center'}}>
-          <Text style={styles.userName}>{father}</Text>
-          <Text style={styles.phone}>{loginUserInfo[0].ID}</Text>
-          <Text style={styles.phone}>{family}</Text>
+        <View style={{flexDirection: 'row'}}>
+          <Image
+            source={{
+              uri: 'https://static01.nyt.com/images/2019/11/17/books/review/17Salam/Salam1-superJumbo.jpg',
+            }}
+            style={styles.profileImage}
+          />
+          <Image
+            source={{
+              uri: 'https://static01.nyt.com/images/2019/11/17/books/review/17Salam/Salam1-superJumbo.jpg',
+            }}
+            style={styles.profileImage}
+          />
         </View>
-        <TouchableOpacity style={styles.removeBtn}>
+        <View style={{marginLeft: 20, justifyContent: 'center'}}>
+          <Text style={styles.userName}>Suuskaroni</Text>
+          <Text style={styles.phone}>99391547</Text>
+          <Text style={styles.phone}>Ууганбаяр</Text>
+        </View>
+        <TouchableOpacity onPress={getFather} style={styles.removeBtn}>
           <Text style={styles.removeBtnText}>Дээш харах</Text>
         </TouchableOpacity>
       </View>
@@ -63,8 +88,8 @@ const styles = StyleSheet.create({
     borderRadius: 50,
   },
   userName: {
-    fontSize: 18,
-    color: '#585858',
+    fontSize: 16,
+    color: '#000',
   },
   phone: {
     fontSize: 14,

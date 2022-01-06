@@ -70,7 +70,7 @@ const EventBook = () => {
         Date: `${date.getFullYear()}-${
           date.getMonth() - 1
         }-${date.getDate()} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`,
-        base_person_ID: 15,
+        base_person_ID: loginUserInfo[0].ID,
         event_type_ID: EventType,
       })
       .then(res => {

@@ -4,15 +4,17 @@ import React, {useEffect, useState} from 'react';
 import {Text} from 'react-native';
 import HorizontalListItem from '../../components/HorizontalListItem';
 import List from '../../components/List';
+import {loginUserInfo} from '../../screens/Login';
 
 export const SecondRoute = () => {
   const [wife, setWife] = useState([]);
+
   useEffect(() => {
     axios
-      .get('http://192.168.0.105:3001/SearchFamily/4')
+      .get(`http://192.168.193.116:3001/SearchFamily/${loginUserInfo[0]}`)
       .then(res => {
-        const data = res.data.response.wife;
-        const arr = [{name: data.wife}];
+        const data = res.data.response.Mother;
+        const arr = [{name: data}];
         console.log(`arr`, arr);
         setWife(arr);
       })
