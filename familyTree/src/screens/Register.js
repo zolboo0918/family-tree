@@ -127,11 +127,12 @@ const styles = StyleSheet.create({
     width: '100%',
     padding: 10,
     height: 35,
+    color: '#000',
     borderBottomWidth: 1,
     borderBottomColor: COLORS.BASE_COLOR,
   },
   inputLabel: {
-    color: '#a0a0a0',
+    color: '#000',
     marginTop: 20,
   },
   passwordIconContainer: {
@@ -160,7 +161,7 @@ const styles = StyleSheet.create({
     elevation: 24,
   },
   buttonText: {
-    color: '#fff',
+    color: '#000',
     fontSize: 16,
     fontWeight: 'bold',
   },

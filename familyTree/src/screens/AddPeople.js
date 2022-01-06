@@ -61,14 +61,21 @@ const AddPeople = () => {
   const [state1, setState1] = useState(famInf);
   const [modalShow, setModalShow] = useState(false);
   const [loading, setLoading] = useState(false);
-
+  const [UrgiinOvog, setUrgiinOvog] = useState([]);
   const Navigation = useNavigation();
   useEffect(() => {
     getAllFamily();
   }, []);
+
+  useEffect(() => {
+    if (modalShow) {
+      selectUragO();
+    }
+  }, [modalShow]);
+
   const getAllFamily = () => {
     axios
-      .get('http://192.168.193.116:3001/SearchFamily')
+      .get('http://172.20.10.4:3001/SearchFamily')
       .then(res => {
         console.log(`res.data`, res.data);
         if (res.data.status == 'success') {
@@ -90,7 +97,7 @@ const AddPeople = () => {
   };
   const AddNewPerson = () => {
     axios
-      .post('http://192.168.193.116:3001/users', {
+      .post('http://172.20.10.4:3001/users', {
         lName: state.lName,
         fName: state.fName,
         RegNumber: state.RegNumber,
@@ -110,7 +117,7 @@ const AddPeople = () => {
         console.log(`res.data`, res.data);
         if (res.data.status == 'success') {
           axios
-            .post(`http://192.168.193.116:3001/FamilyMember`, {
+            .post(`http://172.20.10.4:3001/FamilyMember`, {
               familyId: selectedFamilyID,
               personId: res.data.response.insertId,
             })
@@ -140,9 +147,9 @@ const AddPeople = () => {
     console.log(`insertFamilyhahahaha`, insertFamily);
     setLoading(true);
     axios
-      .post('http://192.168.193.116:3001/SearchFamily', {
-        Name: state.Name,
-        Description: state.Description,
+      .post('http://172.20.10.4:3001/SearchFamily', {
+        Name: state1.Name,
+        Description: state1.Description,
         Created_Date: `${date.getFullYear()}-${
           date.getMonth() - 1
         }-${date.getDate()}`,
@@ -150,11 +157,24 @@ const AddPeople = () => {
       .then(() => {
         setLoading(false);
         setModalShow(false);
+        getAllFamily();
         Alert.alert('Amjilttai nemegdev');
       })
       .catch(err => {
         setLoading(false);
         setModalShow(false);
+        console.log(`err****`, err);
+      });
+  };
+  const selectUragO = () => {
+    console.log('sss');
+    axios
+      .get('http://172.20.10.4:3001/UragOvog')
+      .then(res => {
+        console.log(`res`, res.data);
+        setUrgiinOvog(res.data.response);
+      })
+      .catch(err => {
         console.log(`err****`, err);
       });
   };
@@ -305,8 +325,8 @@ const AddPeople = () => {
                 marginTop: 10,
                 color: '#000',
               }}
-              value={Name}
-              onChangeText={value => setState1({...state, Name: value})}
+              value={state1.Name}
+              onChangeText={value => setState1({...state1, Name: value})}
               placeholder="Хэний гэр бүл вэ?"
               placeholderTextColor={'#a0a0a0'}
             />
@@ -330,8 +350,8 @@ const AddPeople = () => {
                 color: '#000',
                 marginTop: 10,
               }}
-              value={Description}
-              onChangeText={value => setState1({...state, Description: value})}
+              value={state1.Description}
+              onChangeText={value => setState1({...state1, Description: value})}
               placeholder="Нэмэлт мэдээлэл"
               placeholderTextColor={'#a0a0a0'}
             />
@@ -354,10 +374,13 @@ const AddPeople = () => {
                 color: '#000',
               }}
               value={Created_Date}
-              onChangeText={value => setState1({...state, Created_Date: value})}
+              onChangeText={value =>
+                setState1({...state1, Created_Date: value})
+              }
               placeholder="Хэзээ үүссэн бэ?"
               placeholderTextColor={'#a0a0a0'}
             />
+
             <Text
               style={{
                 marginLeft: 30,
@@ -365,25 +388,16 @@ const AddPeople = () => {
               }}>
               Овгийн нэр
             </Text>
-            <TextInput
-              style={{
-                borderWidth: 1,
-                borderRadius: 20,
-                borderColor: '#e1e1e1',
-                width: '90%',
-                height: 50,
-                marginTop: 10,
-                marginLeft: 20,
-                color: '#000',
-              }}
-              value={urgiin_ovog_ID}
-              onChangeText={value =>
-                setState1({...state, urgiin_ovog_ID: value})
-              }
-              placeholder="Ямар овог вэ?"
-              placeholderTextColor={'#a0a0a0'}
-            />
-
+            {/*<Button onPress={selectUragO}>+</Button>*/}
+            <Select
+              placeholder="urgiin ovog"
+              onValueChange={val => {
+                setState1({...state1, urgiin_ovog_ID: val});
+              }}>
+              {UrgiinOvog?.map(el => (
+                <Select.Item label={el.Name} value={el.ID} />
+              ))}
+            </Select>
             <Button
               height={10}
               width={100}
@@ -413,15 +427,10 @@ const AddPeople = () => {
           {/* <Select.Item label="UX Research" value="ux" />
           <Select.Item label="Web Development" value="web" />
           <Select.Item label="Cross Platform Development" value="cross" />*/}
-          {!isEmpty(AllFamily) ? (
-            AllFamily?.map(el => (
-              <Select.Item label={el.Name} value={`${el.Name}#${el.ID}`} />
-            ))
-          ) : (
-            <View>
-              <Button onPress={openFamMod}> Гэр бүл нэмэх</Button>
-            </View>
-          )}
+          <Button onPress={openFamMod}> Гэр бүл нэмэх</Button>
+          {AllFamily?.map(el => (
+            <Select.Item label={el.Name} value={`${el.Name}#${el.ID}`} />
+          ))}
         </Select>
         {/*<TextInput
           style={{

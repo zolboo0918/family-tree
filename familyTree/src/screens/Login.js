@@ -21,12 +21,12 @@ import LinearGradient from 'react-native-linear-gradient';
 export let loginUserInfo = {};
 
 const Login = props => {
-  const [userName, setUserName] = useState('');
-  const [password, setPassword] = useState('');
+  const [userName, setUserName] = useState('Suuskaroni');
+  const [password, setPassword] = useState('Mongolia9939');
   const [passwordShow, setpasswordShow] = useState(true);
 
   const handleLogin = () => {
-    Axios.post('http://192.168.193.116:3001/users/Login', {
+    Axios.post('http://172.20.10.4:3001/users/Login', {
       userName: userName,
       Password: password,
     })
@@ -36,6 +36,7 @@ const Login = props => {
         if (response.data.status == 'success') {
           // props.navigation.navigate('Home');
           loginUserInfo = response.data.response;
+          props.navigation.replace('Bottom');
           console.log(`loginUserInfo***`, loginUserInfo);
         } else {
           Alert.alert('aldaa', response.data.response);
@@ -46,7 +47,6 @@ const Login = props => {
         // Toast.show('This is a error.');
       })
       .finally(() => {});
-    props.navigation.replace('Bottom');
   };
 
   const registerButtonPress = () => {
