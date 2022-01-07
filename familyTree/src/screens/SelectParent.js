@@ -11,7 +11,7 @@ import {
 } from 'react-native';
 import {Button, Checkbox, Radio, Select} from 'native-base';
 import Icon from 'react-native-vector-icons/AntDesign';
-import {COLORS} from '../constants';
+import {COLORS, URL} from '../constants';
 import ImagePicker from 'react-native-image-crop-picker';
 import axios from 'axios';
 import DatePicker from 'react-native-date-picker';
@@ -55,24 +55,22 @@ const SelectParent = props => {
 
   const getAllParents = () => {
     axios
-      .get(`${}/FamilyMember/${loginUserInfo[0].ID}`)
+      .get(`${URL}/FamilyMember/${loginUserInfo[0].ID}`)
       .then(res => {
         res.data.response.forEach(el => {
-          axios
-            .get(`${}/users/${el.personId}`)
-            .then(userResult => {
-              if (userResult.data.response.gender_ID == '2') {
-                setMother(prev => [
-                  ...prev,
-                  {...el, ...userResult.data.response},
-                ]);
-              } else {
-                setFathers(prev => [
-                  ...prev,
-                  {...el, ...userResult.data.response},
-                ]);
-              }
-            });
+          axios.get(`${URL}/users/${el.personId}`).then(userResult => {
+            if (userResult.data.response.gender_ID == '2') {
+              setMother(prev => [
+                ...prev,
+                {...el, ...userResult.data.response},
+              ]);
+            } else {
+              setFathers(prev => [
+                ...prev,
+                {...el, ...userResult.data.response},
+              ]);
+            }
+          });
         });
       })
       .catch(err => {
@@ -86,7 +84,7 @@ const SelectParent = props => {
     console.log(`childPersonId`, childPersonId);
     console.log(`eventAction`, eventAction);
     axios
-      .post(`${}/Genelogy`, {
+      .post(`${URL}/Genelogy`, {
         father_person_ID: father_person_ID,
         mother_person_ID: mother_person_ID,
         child_person_ID: childPersonId,

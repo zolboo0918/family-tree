@@ -1,12 +1,13 @@
 import axios from 'axios';
 import React, {Children, useContext, useEffect, useState} from 'react';
 import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {URL} from '../constants';
 import {ProfileContext} from '../context/ProfileContext';
 import TabViewExample from '../navigation/TabNavigator';
 import {loginUserInfo} from './Login';
 
 // import MyTabs from '../navigation/TabNavigator';
-const lookTopNode = () => {};
+
 const Profile = () => {
   const [father, setFather] = useState();
   const [Mother, setMother] = useState();
@@ -14,20 +15,18 @@ const Profile = () => {
   const [family, setFamily] = useState();
 
   useEffect(() => {
-    axios
-      .get(`${}/${loginUserInfo[0]}`)
-      .then(res => {
-        setFather(res.data.response.father);
-        setMother(res.data.response.Mother);
-        // setChildren(res.data.response.children);
-        setFamily(res.data.response.family);
-        console.log('res', res.data.response);
-      });
+    axios.get(`${URL}/SearchFamily/${loginUserInfo[0]}`).then(res => {
+      setFather(res.data.response.father);
+      setMother(res.data.response.Mother);
+      // setChildren(res.data.response.children);
+      setFamily(res.data.response.family);
+      console.log('res', res.data.response);
+    });
   }, []);
 
   const getFather = () => {
     axios
-      .get(`${}/${loginUserInfo[0]}`)
+      .get(`${URL}/${loginUserInfo[0]}`)
       .then(res => {
         console.log(`res.data`, res.data);
         if (res.data.status == 'success') {
@@ -35,7 +34,7 @@ const Profile = () => {
         }
       })
       .catch(err => {
-        console.log('Error', JSON.stringify(err));
+        console.log('Error', err.response);
       });
   };
 

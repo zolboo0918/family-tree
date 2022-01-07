@@ -1,9 +1,24 @@
 import Icon from 'react-native-vector-icons/Fontisto';
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {StyleSheet, Text, Image, View, TouchableOpacity} from 'react-native';
 import {isEmpty} from 'lodash';
+import {URL} from '../constants';
+import axios from 'axios';
+import {getBasePerson} from '../service/common';
 
 const BigCardItem = props => {
+  const [user, setUser] = useState({});
+  useEffect(() => {
+    getBasePerson(props.item.base_person_ID)
+      .then(res => {
+        setUser({
+          profilePicture: res.Profile_Picture,
+          fName: res.fName,
+          lName: res.lName,
+        });
+      })
+      .catch(err => console.log(`err`, err));
+  }, []);
   return (
     <View style={styles.container}>
       <View style={styles.row}>
@@ -12,15 +27,15 @@ const BigCardItem = props => {
             resizeMode="cover"
             style={styles.profileImg}
             source={{
-              uri: !isEmpty(props.item.ProfilePicture)
-                ? props.item.ProfilePicture
+              uri: !isEmpty(user.profilePicture)
+                ? user.profilePicture
                 : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSY-vJ07Repan238qwOLHGf1vsdK5Mjr-IyBA&usqp=CAU',
             }}
           />
         </TouchableOpacity>
         <View style={styles.headerTextContainer}>
-          <Text style={styles.userName}>{props.item.fName}</Text>
-          <Text style={styles.description}>{props.item.lName}</Text>
+          <Text style={styles.userName}>{user.fName}</Text>
+          <Text style={styles.description}>{user.lName}</Text>
         </View>
       </View>
       <Image

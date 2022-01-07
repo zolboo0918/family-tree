@@ -10,7 +10,7 @@ import {
   TextInput,
   TouchableOpacity,
 } from 'react-native';
-import {COLORS} from '../constants';
+import {COLORS, URL} from '../constants';
 
 const Register = props => {
   const [PhoneNumber, setPhoneNumber] = useState('');
@@ -22,7 +22,7 @@ const Register = props => {
   const [UserName, setUserName] = useState('');
 
   const handleRegister = () => {
-    Axios.post(`${}/users`, {
+    Axios.post(`${URL}/users`, {
       lName: lName,
       fName: fName,
       RegNumber: RegNumber,
@@ -40,7 +40,7 @@ const Register = props => {
 
   return (
     <ImageBackground
-      source={require('../assets/img/background.jpg')}
+      source={require('../assets/img/back.png')}
       style={styles.backgroundImg}>
       <View style={styles.body}>
         <KeyboardAvoidingView
@@ -132,7 +132,7 @@ const styles = StyleSheet.create({
     borderBottomColor: COLORS.BASE_COLOR,
   },
   inputLabel: {
-    color: '#000',
+    color: '#585858',
     marginTop: 20,
   },
   passwordIconContainer: {
@@ -161,7 +161,7 @@ const styles = StyleSheet.create({
     elevation: 24,
   },
   buttonText: {
-    color: '#000',
+    color: '#fff',
     fontSize: 16,
     fontWeight: 'bold',
   },

@@ -18,10 +18,6 @@ export const data = [
 ];
 export const datafriends = [
   {
-    img: 'https://lh3.googleusercontent.com/proxy/OLQWYghgJX2NGgyY9x6zeYOXg9hJ_DbbOchXxR6E7t-WCDeC4JFGQ523nlGv_xdQsd8XKFkuvf_ADlp0-rfHXv5E6Q',
-    title: 'Тамир',
-  },
-  {
     img: 'https://news.zindaa.mn/images/news/crop1/201710/tod.jpg',
     title: 'Тодгэрэл',
   },

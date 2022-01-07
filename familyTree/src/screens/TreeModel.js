@@ -2,7 +2,7 @@ import axios from 'axios';
 import React, {useEffect, useState} from 'react';
 import {ScrollView, StyleSheet} from 'react-native';
 import FamilyTree from '../components/FamilyTree';
-import {COLORS} from '../constants';
+import {COLORS, URL} from '../constants';
 import {AllTreeData, treedata, TreeData} from '../testData';
 import {loginUserInfo} from './Login';
 
@@ -10,7 +10,7 @@ const Tree = () => {
   const [treeData, setTreeData] = useState(treeData);
   useEffect(() => {
     axios
-      .get(`${}/SearchFamily`)
+      .get(`${URL}/SearchFamily`)
       .then(res => {
         setTreeData(res.data.response);
       })

@@ -22,7 +22,7 @@ import {
   useNavigation,
 } from '@react-navigation/native';
 import {DrawerActions} from '@react-navigation/native';
-import {COLORS, getWidth, setHeight, setWidth} from '../constants';
+import {COLORS, getWidth, setHeight, setWidth, URL} from '../constants';
 import {Button, Fab} from 'native-base';
 import Icon from 'react-native-vector-icons/AntDesign';
 import {loginUserInfo} from './Login';
@@ -41,35 +41,39 @@ const Search = () => {
   const [Created_Date, setCreated_Date] = useState();
 
   useEffect(() => {
-    axios.get(`${}/UragOvog`).then(res => {
+    getUrag();
+  }, []);
+
+  const getUrag = () => {
+    axios.get(`${URL}/UragOvog`).then(res => {
       setUrag(res.data.response);
       setFilteredValue(res.data.response);
     });
-  }, []);
+  };
 
   const search = val => {
     setInputValue(val);
-    if (inputValue == '') {
-      setFilteredValue(urag);
-    } else {
-      setFilteredValue(urag.filter(el => el.Name?.toLowerCase().includes(val)));
-    }
+    // if (inputValue == '') {
+    //   setFilteredValue(urag);
+    // } else {
+    setFilteredValue(urag.filter(el => el.Name?.toLowerCase().includes(val)));
+    // }
   };
 
   const Insert = () => {
-    console.log('162222********');
     axios
-      .post(`${}/UragOvog`, {
+      .post(`${URL}/UragOvog`, {
         Name,
         Description,
         Created_Date,
       })
       .then(res => {
-        Alert.alert('Boltsnshuu kk');
+        Alert.alert('Амжилттай');
+        setModalShow(false);
+        getUrag();
       })
       .catch(err => console.log(err));
   };
-
   return (
     <View>
       <View style={[{flex: 1}]}>
@@ -149,7 +153,7 @@ const Search = () => {
       <View style={styles.container}>
         <List
           data={filteredValue}
-          style={{marginTop: 30}}
+          style={{marginTop: 30, marginBottom: 160}}
           renderItem={function (item) {
             return (
               <View style={styles.containerList}>
@@ -193,141 +197,17 @@ const Search = () => {
           onPress={() => setModalShow(true)}
           icon={<Icon name="plus" size={20} color={'black'} />}
         />
-        {/*<Modal
-          transparent
-          visible={modalShow}
-          animationType="fade"
-          style={{
-            height: setHeight(70),
-            width: setWidth(80),
-            backgroundColor: 'green',
-          }}>
-          <View
-            style={{
-              height: setHeight(70),
-              width: setWidth(80),
-              backgroundColor: '#fff',
-              shadowColor: '#000',
-              shadowOffset: {
-                width: 0,
-                height: 6,
-              },
-              shadowOpacity: 0.39,
-              shadowRadius: 8.3,
-
-              elevation: 13,
-              marginLeft: 'auto',
-              marginTop: 'auto',
-              marginBottom: 'auto',
-              marginRight: 'auto',
-            }}>
-            <Button
-              style={{
-                width: 30,
-                alignSelf: 'flex-end',
-                backgroundColor: '#fff',
-              }}
-              onPress={() => setModalShow(false)}>
-              <EvilIcon
-                name="close-o"
-                style={{
-                  height: 15,
-                  width: 20,
-                  fontSize: 20,
-                  color: '#585858',
-                  alignSelf: 'center',
-                }}
-              />
-            </Button>
-            <View
-              style={{
-                justifyContent: 'center',
-                alignItems: 'center',
-              }}>
-              <TextInput
-                placeholder="Үйл явдлын нэр"
-                style={{
-                  width: '100%',
-                  borderWidth: 1,
-                  borderRadius: 20,
-                  borderColor: '#e1e1e1',
-                  width: '90%',
-                  height: 50,
-                  marginTop: 30,
-                }}
-                value={EventName}
-                onChangeText={setEventName}
-              />
-              <Select
-                placeholder="Үйл явдлын төрөл"
-                width={'90%'}
-                marginTop={30}
-                borderRadius={20}
-                onValueChange={setEventType}>
-                <Select.Item label="Үсний найр" value="1"></Select.Item>
-                <Select.Item label="Төрсөн өдөр" value="2"></Select.Item>
-              </Select>
-              <Button
-                height={30}
-                width={100}
-                marginTop={30}
-                bgColor={'#70A44E'}
-                justifyContent={'center'}
-                alignItems={'center'}
-                borderRadius={20}
-                onPress={InsertEvent}>
-                <Text style={{height: 30, color: '#fff', marginTop: 7}}>
-                  Нэмэх
-                </Text>
-              </Button>
-            </View>
-          </View>
-              </Modal>*/}
         <Modal transparent visible={modalShow}>
-          <View
-            style={{
-              height: setHeight(70),
-              width: setWidth(80),
-              backgroundColor: '#fff',
-              shadowColor: '#000',
-              shadowOffset: {
-                width: 0,
-                height: 6,
-              },
-              shadowOpacity: 0.39,
-              shadowRadius: 8.3,
-
-              elevation: 13,
-              marginLeft: 'auto',
-              marginTop: 'auto',
-              marginBottom: 'auto',
-              marginRight: 'auto',
-            }}>
+          <View style={styles.modalContainer}>
             <Button
-              style={{
-                width: 30,
-                alignSelf: 'flex-end',
-                backgroundColor: '#fff',
-              }}
+              style={styles.modalClose}
               onPress={() => setModalShow(false)}>
-              <EvilIcon
-                name="close-o"
-                style={{
-                  height: 15,
-                  width: 20,
-                  fontSize: 20,
-                  color: '#585858',
-                  alignSelf: 'center',
-                }}
-              />
+              <EvilIcon name="close-o" style={styles.closeIcon} />
             </Button>
             <View
               style={{
-                height: 500,
-                width: '90%',
-                // backgroundColor: 'grey',
-                justifyContent: 'center',
-                alignItems: 'center',
+                height: 350,
+                width: '100%',
                 flexDirection: 'column',
                 marginLeft: 10,
               }}>
@@ -339,7 +219,8 @@ const Search = () => {
                   borderColor: '#e1e1e1',
                   width: '90%',
                   height: 50,
-                  marginTop: 30,
+                  marginTop: 5,
+                  marginBottom: 20,
                 }}
                 value={Name}
                 onChangeText={setName}
@@ -352,7 +233,8 @@ const Search = () => {
                   borderColor: '#e1e1e1',
                   width: '90%',
                   height: 50,
-                  marginTop: 30,
+                  marginTop: 5,
+                  marginBottom: 20,
                 }}
                 value={Description}
                 onChangeText={setDescription}
@@ -365,7 +247,7 @@ const Search = () => {
                   borderColor: '#e1e1e1',
                   width: '90%',
                   height: 50,
-                  marginTop: 30,
+                  marginTop: 5,
                 }}
                 value={Created_Date}
                 onChangeText={setCreated_Date}
@@ -373,8 +255,9 @@ const Search = () => {
 
               <Button
                 height={30}
-                width={100}
+                width={120}
                 marginTop={30}
+                alignSelf={'center'}
                 bgColor={'#70A44E'}
                 justifyContent={'center'}
                 alignItems={'center'}
@@ -474,5 +357,35 @@ const styles = StyleSheet.create({
   description: {
     fontSize: 14,
     color: '#a0a0a0',
+  },
+  modalContainer: {
+    height: setHeight(70),
+    width: setWidth(80),
+    backgroundColor: '#fff',
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 6,
+    },
+    shadowOpacity: 0.39,
+    shadowRadius: 8.3,
+
+    elevation: 13,
+    marginLeft: 'auto',
+    marginTop: 'auto',
+    marginBottom: 'auto',
+    marginRight: 'auto',
+  },
+  modalClose: {
+    width: 30,
+    alignSelf: 'flex-end',
+    backgroundColor: '#fff',
+  },
+  closeIcon: {
+    height: 15,
+    width: 20,
+    fontSize: 20,
+    color: '#585858',
+    alignSelf: 'center',
   },
 });

@@ -13,7 +13,7 @@ import {
 } from 'react-native';
 import {Button, Checkbox, Radio, Select} from 'native-base';
 import Icon from 'react-native-vector-icons/AntDesign';
-import {COLORS, setHeight, setWidth} from '../constants';
+import {COLORS, setHeight, setWidth, URL} from '../constants';
 import ImagePicker from 'react-native-image-crop-picker';
 import axios from 'axios';
 import DatePicker from 'react-native-date-picker';
@@ -65,6 +65,7 @@ const AddPeople = () => {
   const [loading, setLoading] = useState(false);
   const [UrgiinOvog, setUrgiinOvog] = useState([]);
   const Navigation = useNavigation();
+
   useEffect(() => {
     getAllFamily();
   }, []);
@@ -77,18 +78,14 @@ const AddPeople = () => {
 
   const getAllFamily = () => {
     axios
-      .get(`${}/SearchFamily`)
+      .get(`${URL}/SearchFamily`)
       .then(res => {
-        console.log(`res.data`, res.data);
         if (res.data.status == 'success') {
           setAllFamily(res.data.response);
         }
       })
-      .catch(err => {
-        console.log('Error', JSON.stringify(err));
-      });
+      .catch(err => {});
   };
-  const handlePress = () => false;
   const uploadImage = () => {
     ImagePicker.openPicker({
       width: 300,
@@ -99,7 +96,7 @@ const AddPeople = () => {
   };
   const AddNewPerson = () => {
     axios
-      .post(`${}/users`, {
+      .post(`${URL}/users`, {
         lName: state.lName,
         fName: state.fName,
         RegNumber: state.RegNumber,
@@ -116,10 +113,9 @@ const AddPeople = () => {
         urgiin_ovog_ID: state.urgiin_ovog_ID,
       })
       .then(res => {
-        console.log(`res.data`, res.data);
         if (res.data.status == 'success') {
           axios
-            .post(`${}/FamilyMember`, {
+            .post(`${URL}/FamilyMember`, {
               familyId: selectedFamilyID,
               personId: res.data.response.insertId,
             })
@@ -129,27 +125,22 @@ const AddPeople = () => {
                 Alert.alert('Amjilttai nemegdlee ger bul');
               }
             })
-            .catch(err => {
-              console.log('Error', JSON.stringify(err));
-            });
+            .catch(err => {});
           Navigation.navigate('Эцэг эх сонгох', {
             ID: selectedFamilyID,
             childPersonId: res.data.response.insertId,
           });
         }
       })
-      .catch(err => {
-        console.log('Error', JSON.stringify(err));
-      });
+      .catch(err => {});
   };
   const openFamMod = () => {
     setModalShow(true);
   };
   const insertFamily = () => {
-    console.log(`insertFamilyhahahaha`, insertFamily);
     setLoading(true);
     axios
-      .post(`${}/SearchFamily`, {
+      .post(`${URL}/SearchFamily`, {
         Name: state1.Name,
         Description: state1.Description,
         Created_Date: `${date.getFullYear()}-${
@@ -165,13 +156,11 @@ const AddPeople = () => {
       .catch(err => {
         setLoading(false);
         setModalShow(false);
-        console.log(`err****`, err);
       });
   };
   const selectUragO = () => {
-    console.log('sss');
     axios
-      .get(`${}/UragOvog`)
+      .get(`${URL}/UragOvog`)
       .then(res => {
         console.log(`res`, res.data);
         setUrgiinOvog(res.data.response);
@@ -270,14 +259,7 @@ const AddPeople = () => {
             }}
           />
           <TextInput
-            style={{
-              borderWidth: 1,
-              borderColor: '#e1e1e1',
-              borderRadius: 10,
-              height: 40,
-              paddingHorizontal: 10,
-              color: '#585858',
-            }}
+            style={styles.input6}
             // editable={false}
             value={state.date_of_birth.toLocaleDateString()}
             placeholder="Select date"
@@ -287,156 +269,15 @@ const AddPeople = () => {
       </View>
       <Text style={styles.title}>Гэр бүл сонгох</Text>
       <View>
-        <Modal visible={modalShow} transparent>
-          <View
-            style={{
-              height: setHeight(70),
-              width: setWidth(80),
-              backgroundColor: '#fff',
-              shadowColor: '#000',
-              shadowOffset: {
-                width: 0,
-                height: 6,
-              },
-              shadowOpacity: 0.39,
-              shadowRadius: 8.3,
-
-              elevation: 13,
-              marginLeft: 'auto',
-              marginTop: 'auto',
-              marginBottom: 'auto',
-              marginRight: 'auto',
-            }}>
-            <Button
-              style={{
-                width: 30,
-                alignSelf: 'flex-end',
-                backgroundColor: '#fff',
-              }}
-              onPress={() => setModalShow(false)}>
-              <EvilIcon
-                name="close-o"
-                style={{
-                  height: 15,
-                  width: 20,
-                  fontSize: 20,
-                  color: '#585858',
-                  alignSelf: 'center',
-                }}
-              />
-            </Button>
-            <Text
-              style={{
-                alignSelf: 'center',
-                marginTop: 10,
-                color: '#000',
-                fontSize: 14,
-              }}>
-              Гэр Бүлийн нэр
-            </Text>
-            <TextInput
-              style={{
-                marginLeft: 20,
-                borderWidth: 1,
-                borderRadius: 20,
-                borderColor: '#e1e1e1',
-                width: '90%',
-                height: 50,
-                marginTop: 10,
-                color: '#000',
-              }}
-              value={state1.Name}
-              onChangeText={value => setState1({...state1, Name: value})}
-              placeholder="Хэний гэр бүл вэ?"
-              placeholderTextColor={'#a0a0a0'}
-            />
-            <Text
-              style={{
-                marginLeft: 25,
-                marginTop: 10,
-                color: '#000',
-              }}>
-              Нэмэлт мэдээлэл
-            </Text>
-            <TextInput
-              style={{
-                marginLeft: 20,
-
-                borderWidth: 1,
-                borderRadius: 20,
-                borderColor: '#e1e1e1',
-                width: '90%',
-                height: 50,
-                color: '#000',
-                marginTop: 10,
-              }}
-              value={state1.Description}
-              onChangeText={value => setState1({...state1, Description: value})}
-              placeholder="Нэмэлт мэдээлэл"
-              placeholderTextColor={'#a0a0a0'}
-            />
-            <Text
-              style={{
-                marginLeft: 30,
-                color: '#000',
-              }}>
-              Хэзээ Үүссэн?
-            </Text>
-            <TextInput
-              style={{
-                borderWidth: 1,
-                borderRadius: 20,
-                borderColor: '#e1e1e1',
-                width: '90%',
-                height: 50,
-                marginTop: 10,
-                marginLeft: 20,
-                color: '#000',
-              }}
-              value={Created_Date}
-              onChangeText={value =>
-                setState1({...state1, Created_Date: value})
-              }
-              placeholder="Хэзээ үүссэн бэ?"
-              placeholderTextColor={'#a0a0a0'}
-            />
-
-            <Text
-              style={{
-                marginLeft: 30,
-                color: '#000',
-              }}>
-              Овгийн нэр
-            </Text>
-            {/*<Button onPress={selectUragO}>+</Button>*/}
-            <Select
-              placeholder="Ургийн овог сонгох"
-              onValueChange={val => {
-                setState1({...state1, urgiin_ovog_ID: val});
-              }}>
-              {UrgiinOvog?.map(el => (
-                <Select.Item label={el.Name} value={el.ID} />
-              ))}
-            </Select>
-            <Button
-              height={10}
-              width={100}
-              marginTop={30}
-              bgColor={'#70A44E'}
-              justifyContent={'center'}
-              alignSelf={'center'}
-              borderRadius={20}
-              onPress={insertFamily}>
-              {loading ? (
-                <ActivityIndicator />
-              ) : (
-                <Text style={{height: 30, color: '#fff', marginTop: 7}}>
-                  Нэмэх
-                </Text>
-              )}
-            </Button>
-          </View>
-        </Modal>
+        <AddFamilyModal
+          modalShow={modalShow}
+          UrgiinOvog={UrgiinOvog}
+          state1={state1}
+          loading={loading}
+          setState1={setState1}
+          insertFamily={insertFamily}
+          setModalShow={setModalShow}
+        />
         <Select
           onValueChange={val => {
             const name = val.split('#')[0];
@@ -444,29 +285,11 @@ const AddPeople = () => {
             setFamilyName(val);
             setSelectedFamilyID(id);
           }}>
-          {/* <Select.Item label="UX Research" value="ux" />
-          <Select.Item label="Web Development" value="web" />
-          <Select.Item label="Cross Platform Development" value="cross" />*/}
           <Button onPress={openFamMod}> Гэр бүл нэмэх</Button>
           {AllFamily?.map(el => (
             <Select.Item label={el.Name} value={`${el.Name}#${el.ID}`} />
           ))}
         </Select>
-        {/*<TextInput
-          style={{
-            borderWidth: 1,
-            borderColor: '#e1e1e1',
-            borderRadius: 10,
-            height: 40,
-            paddingHorizontal: 10,
-            color: '#585858',
-          }}
-          // editable={false}
-          value={familyId}
-          placeholder="Хэний гэр бүл"
-          onChangeText={val => setfamilyId(val)}
-          onPressIn={() => setOpen(false)}
-        />*/}
       </View>
       <Text style={styles.title}>Одоогийн төлөв</Text>
       <Radio.Group
@@ -534,9 +357,6 @@ const AddPeople = () => {
         <Radio value="2" my={1} style={{marginLeft: 20}}>
           Эм
         </Radio>
-        {/*<Radio value="2" my={1} style={{marginLeft: 20}}>
-          Бусад
-      </Radio> */}
       </Radio.Group>
       <Text style={styles.title}>Тэмдэглэл</Text>
       <TextInput
@@ -551,21 +371,81 @@ const AddPeople = () => {
         onPress={openFamMod}>
         <Text style={styles.ButtonTitle}>Гишүүн нэмэх</Text>
       </TouchableOpacity>
-      <View
-        style={{
-          height: 500,
-          width: '90%',
-          // backgroundColor: 'grey',
-          justifyContent: 'center',
-          alignItems: 'center',
-          flexDirection: 'column',
-          marginLeft: 10,
-        }}></View>
     </ScrollView>
   );
 };
 
 export default AddPeople;
+
+const AddFamilyModal = props => {
+  const {
+    modalShow,
+    UrgiinOvog,
+    state1,
+    setState1,
+    loading,
+    insertFamily,
+    setModalShow,
+  } = props;
+  return (
+    <Modal visible={modalShow} transparent>
+      <View style={styles.modalContainer}>
+        <Button style={styles.modalClose} onPress={() => setModalShow(false)}>
+          <EvilIcon name="close-o" style={styles.modalCloseIcon} />
+        </Button>
+        <Text style={styles.familyName}>Гэр Бүлийн нэр</Text>
+        <TextInput
+          style={styles.familyInput}
+          value={state1.Name}
+          onChangeText={value => setState1({...state1, Name: value})}
+          placeholder="Хэний гэр бүл вэ?"
+          placeholderTextColor={'#a0a0a0'}
+        />
+        <Text style={styles.text1}>Нэмэлт мэдээлэл</Text>
+        <TextInput
+          style={styles.input2}
+          value={state1.Description}
+          onChangeText={value => setState1({...state1, Description: value})}
+          placeholder="Нэмэлт мэдээлэл"
+          placeholderTextColor={'#a0a0a0'}
+        />
+        <Text style={styles.text2}>Хэзээ Үүссэн?</Text>
+        <TextInput
+          style={styles.input3}
+          value={state1.Created_Date}
+          onChangeText={value => setState1({...state1, Created_Date: value})}
+          placeholder="Хэзээ үүссэн бэ?"
+          placeholderTextColor={'#a0a0a0'}
+        />
+        <Text style={styles.text4}>Овгийн нэр</Text>
+        <Select
+          placeholder="Ургийн овог сонгох"
+          onValueChange={val => {
+            setState1({...state1, urgiin_ovog_ID: val});
+          }}>
+          {UrgiinOvog?.map(el => (
+            <Select.Item label={el.Name} value={el.ID} />
+          ))}
+        </Select>
+        <Button
+          height={10}
+          width={100}
+          marginTop={30}
+          bgColor={'#70A44E'}
+          justifyContent={'center'}
+          alignSelf={'center'}
+          borderRadius={20}
+          onPress={insertFamily}>
+          {loading ? (
+            <ActivityIndicator />
+          ) : (
+            <Text style={styles.text5}>Нэмэх</Text>
+          )}
+        </Button>
+      </View>
+    </Modal>
+  );
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -587,6 +467,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'c24e00',
     color: 'black',
     borderRadius: 35,
+    marginBottom: setHeight(13),
   },
   ButtonTitle: {
     color: '#c24e00',
@@ -618,7 +499,6 @@ const styles = StyleSheet.create({
     color: '#585858',
     margin: 5,
   },
-
   note: {
     height: 100,
     width: '100%',
@@ -634,5 +514,97 @@ const styles = StyleSheet.create({
     borderWidth: 0.1,
     alignItems: 'center',
     alignContent: 'space-around',
+  },
+  modalContainer: {
+    height: setHeight(70),
+    width: setWidth(80),
+    backgroundColor: '#fff',
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 6,
+    },
+    shadowOpacity: 0.39,
+    shadowRadius: 8.3,
+
+    elevation: 13,
+    marginLeft: 'auto',
+    marginTop: 'auto',
+    marginBottom: 'auto',
+    marginRight: 'auto',
+  },
+  modalClose: {
+    width: 30,
+    alignSelf: 'flex-end',
+    backgroundColor: '#fff',
+  },
+  modalCloseIcon: {
+    height: 15,
+    width: 20,
+    fontSize: 20,
+    color: '#585858',
+    alignSelf: 'center',
+  },
+  familyName: {
+    alignSelf: 'center',
+    marginTop: 10,
+    color: '#000',
+    fontSize: 14,
+  },
+  familyInput: {
+    marginLeft: 20,
+    borderWidth: 1,
+    borderRadius: 20,
+    borderColor: '#e1e1e1',
+    width: '90%',
+    height: 50,
+    marginTop: 10,
+    color: '#000',
+  },
+  input2: {
+    marginLeft: 20,
+    borderWidth: 1,
+    borderRadius: 20,
+    borderColor: '#e1e1e1',
+    width: '90%',
+    height: 50,
+    color: '#000',
+    marginTop: 10,
+  },
+  text1: {
+    marginLeft: 25,
+    marginTop: 10,
+    color: '#000',
+  },
+  text2: {
+    marginLeft: 30,
+    color: '#000',
+  },
+  input3: {
+    borderWidth: 1,
+    borderRadius: 20,
+    borderColor: '#e1e1e1',
+    width: '90%',
+    height: 50,
+    marginTop: 10,
+    marginLeft: 20,
+    color: '#000',
+  },
+  text4: {
+    marginLeft: 30,
+    color: '#000',
+  },
+  text5: {
+    height: 30,
+    color: '#fff',
+    marginTop: 7,
+  },
+  input6: {
+    borderWidth: 1,
+    borderColor: '#e1e1e1',
+    borderRadius: 10,
+    height: 40,
+    paddingHorizontal: 10,
+    color: '#585858',
   },
 });

@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import Toast from 'react-native-simple-toast';
 import {
+  ActivityIndicator,
   Alert,
   Button,
   Dimensions,
@@ -15,22 +16,25 @@ import {
 } from 'react-native';
 import Axios from 'axios';
 import Icon from 'react-native-vector-icons/Entypo';
-import {COLORS, getWidth} from '../constants';
+import {COLORS, getWidth, URL} from '../constants';
 import LinearGradient from 'react-native-linear-gradient';
 
 export let loginUserInfo = {};
 
 const Login = props => {
-  const [userName, setUserName] = useState('Suuskaroni');
-  const [password, setPassword] = useState('Mongolia9939');
+  const [userName, setUserName] = useState('Susu');
+  const [password, setPassword] = useState('Mongolia123');
   const [passwordShow, setpasswordShow] = useState(true);
+  const [loading, setLoading] = useState(false);
 
   const handleLogin = () => {
-    Axios.post(`${}/users/Login`, {
+    setLoading(true);
+    Axios.post(`${URL}/users/Login`, {
       userName: userName,
       Password: password,
     })
       .then(response => {
+        setLoading(false);
         // alert(JSON.stringify(response.data));
         // Toast.show('This is a toast.');
         if (response.data.status == 'success') {
@@ -39,10 +43,11 @@ const Login = props => {
           props.navigation.replace('Bottom');
           console.log(`loginUserInfo***`, loginUserInfo);
         } else {
-          Alert.alert('aldaa', response.data.response);
+          Alert.alert('Алдаа', response.data.response);
         }
       })
       .catch(err => {
+        setLoading(false);
         Alert.alert('aldaa', err.response.data);
         // Toast.show('This is a error.');
       })
@@ -111,12 +116,20 @@ const Login = props => {
               </View>
             )}
           </View>
-          <TouchableOpacity
-            style={styles.button}
-            color={COLORS.BASE_COLOR}
-            onPress={handleLogin}>
-            <Text style={styles.buttonText}>Нэвтрэх</Text>
-          </TouchableOpacity>
+          {loading ? (
+            <ActivityIndicator
+              size={'large'}
+              color={'#fff'}
+              style={{height: 50}}
+            />
+          ) : (
+            <TouchableOpacity
+              style={styles.button}
+              color={COLORS.BASE_COLOR}
+              onPress={handleLogin}>
+              <Text style={styles.buttonText}>Нэвтрэх</Text>
+            </TouchableOpacity>
+          )}
           <TouchableOpacity
             style={styles.registerContainer}
             color={COLORS.BASE_COLOR}
