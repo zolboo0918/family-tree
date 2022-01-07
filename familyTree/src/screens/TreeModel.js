@@ -10,7 +10,7 @@ const Tree = () => {
   const [treeData, setTreeData] = useState(treeData);
   useEffect(() => {
     axios
-      .get('http://192.168.193.116:3001/SearchFamily')
+      .get(`${}/SearchFamily`)
       .then(res => {
         setTreeData(res.data.response);
       })

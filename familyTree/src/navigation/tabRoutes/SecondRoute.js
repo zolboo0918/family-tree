@@ -4,6 +4,7 @@ import React, {useEffect, useState} from 'react';
 import {Text} from 'react-native';
 import HorizontalListItem from '../../components/HorizontalListItem';
 import List from '../../components/List';
+import {URL} from '../../constants';
 import {loginUserInfo} from '../../screens/Login';
 
 export const SecondRoute = () => {
@@ -11,7 +12,7 @@ export const SecondRoute = () => {
 
   useEffect(() => {
     axios
-      .get(`http://192.168.193.116:3001/SearchFamily/${loginUserInfo[0]}`)
+      .get(`${URL}/SearchFamily/${loginUserInfo[0]}`)
       .then(res => {
         const data = res.data.response.Mother;
         const arr = [{name: data}];

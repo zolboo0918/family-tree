@@ -41,7 +41,7 @@ const Search = () => {
   const [Created_Date, setCreated_Date] = useState();
 
   useEffect(() => {
-    axios.get('http://172.20.10.4:3001/UragOvog').then(res => {
+    axios.get(`${}/UragOvog`).then(res => {
       setUrag(res.data.response);
       setFilteredValue(res.data.response);
     });
@@ -59,7 +59,7 @@ const Search = () => {
   const Insert = () => {
     console.log('162222********');
     axios
-      .post('http://172.20.10.4:3001/UragOvog', {
+      .post(`${}/UragOvog`, {
         Name,
         Description,
         Created_Date,

@@ -3,6 +3,7 @@ import {Center} from 'native-base';
 import React, {useContext, useEffect, useState} from 'react';
 import HorizontalListItem from '../../components/HorizontalListItem';
 import List from '../../components/List';
+import {URL} from '../../constants';
 import {ProfileContext} from '../../context/ProfileContext';
 import {dataProfileFamily} from '../../testData';
 
@@ -10,7 +11,7 @@ export default function FirstRoute() {
   const [children, setChildren] = useState([]);
   useEffect(() => {
     axios
-      .get('http://192.168.193.116:3001/SearchFamily/2')
+      .get(`${URL}/SearchFamily/2`)
       .then(res => {
         // setFather(res.data.response.father);
         // setWife(res.data.response.wife);

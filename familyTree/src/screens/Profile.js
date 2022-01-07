@@ -15,7 +15,7 @@ const Profile = () => {
 
   useEffect(() => {
     axios
-      .get(`http://192.168.193.116:3001/getFamily/${loginUserInfo[0]}`)
+      .get(`${}/${loginUserInfo[0]}`)
       .then(res => {
         setFather(res.data.response.father);
         setMother(res.data.response.Mother);
@@ -27,7 +27,7 @@ const Profile = () => {
 
   const getFather = () => {
     axios
-      .get(`http://192.168.193.116:3001/CallPapa/${loginUserInfo[0]}`)
+      .get(`${}/${loginUserInfo[0]}`)
       .then(res => {
         console.log(`res.data`, res.data);
         if (res.data.status == 'success') {

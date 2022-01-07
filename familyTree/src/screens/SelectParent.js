@@ -55,11 +55,11 @@ const SelectParent = props => {
 
   const getAllParents = () => {
     axios
-      .get(`http://192.168.193.116:3001/FamilyMember/${loginUserInfo[0].ID}`)
+      .get(`${}/FamilyMember/${loginUserInfo[0].ID}`)
       .then(res => {
         res.data.response.forEach(el => {
           axios
-            .get(`http://192.168.193.116:3001/users/${el.personId}`)
+            .get(`${}/users/${el.personId}`)
             .then(userResult => {
               if (userResult.data.response.gender_ID == '2') {
                 setMother(prev => [
@@ -86,7 +86,7 @@ const SelectParent = props => {
     console.log(`childPersonId`, childPersonId);
     console.log(`eventAction`, eventAction);
     axios
-      .post(`http://192.168.193.116:3001/Genelogy`, {
+      .post(`${}/Genelogy`, {
         father_person_ID: father_person_ID,
         mother_person_ID: mother_person_ID,
         child_person_ID: childPersonId,

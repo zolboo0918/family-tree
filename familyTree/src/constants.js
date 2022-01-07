@@ -23,3 +23,5 @@ export const COLORS = {
   LINEAR_START: '#EB1A25',
   LINEAR_END: '#C80162',
 };
+
+export const URL = 'http://172.20.10.4:3001';

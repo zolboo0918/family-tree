@@ -21,6 +21,8 @@ import {useNavigation} from '@react-navigation/native';
 import {loginUserInfo} from './Login';
 import {isEmpty} from 'lodash';
 
+import EvilIcon from 'react-native-vector-icons/EvilIcons';
+
 const AddPeople = () => {
   const bpParams = {
     RegNumber: '',
@@ -75,7 +77,7 @@ const AddPeople = () => {
 
   const getAllFamily = () => {
     axios
-      .get('http://172.20.10.4:3001/SearchFamily')
+      .get(`${}/SearchFamily`)
       .then(res => {
         console.log(`res.data`, res.data);
         if (res.data.status == 'success') {
@@ -97,7 +99,7 @@ const AddPeople = () => {
   };
   const AddNewPerson = () => {
     axios
-      .post('http://172.20.10.4:3001/users', {
+      .post(`${}/users`, {
         lName: state.lName,
         fName: state.fName,
         RegNumber: state.RegNumber,
@@ -117,7 +119,7 @@ const AddPeople = () => {
         console.log(`res.data`, res.data);
         if (res.data.status == 'success') {
           axios
-            .post(`http://172.20.10.4:3001/FamilyMember`, {
+            .post(`${}/FamilyMember`, {
               familyId: selectedFamilyID,
               personId: res.data.response.insertId,
             })
@@ -147,7 +149,7 @@ const AddPeople = () => {
     console.log(`insertFamilyhahahaha`, insertFamily);
     setLoading(true);
     axios
-      .post('http://172.20.10.4:3001/SearchFamily', {
+      .post(`${}/SearchFamily`, {
         Name: state1.Name,
         Description: state1.Description,
         Created_Date: `${date.getFullYear()}-${
@@ -169,7 +171,7 @@ const AddPeople = () => {
   const selectUragO = () => {
     console.log('sss');
     axios
-      .get('http://172.20.10.4:3001/UragOvog')
+      .get(`${}/UragOvog`)
       .then(res => {
         console.log(`res`, res.data);
         setUrgiinOvog(res.data.response);
@@ -305,6 +307,24 @@ const AddPeople = () => {
               marginBottom: 'auto',
               marginRight: 'auto',
             }}>
+            <Button
+              style={{
+                width: 30,
+                alignSelf: 'flex-end',
+                backgroundColor: '#fff',
+              }}
+              onPress={() => setModalShow(false)}>
+              <EvilIcon
+                name="close-o"
+                style={{
+                  height: 15,
+                  width: 20,
+                  fontSize: 20,
+                  color: '#585858',
+                  alignSelf: 'center',
+                }}
+              />
+            </Button>
             <Text
               style={{
                 alignSelf: 'center',
@@ -390,7 +410,7 @@ const AddPeople = () => {
             </Text>
             {/*<Button onPress={selectUragO}>+</Button>*/}
             <Select
-              placeholder="urgiin ovog"
+              placeholder="Ургийн овог сонгох"
               onValueChange={val => {
                 setState1({...state1, urgiin_ovog_ID: val});
               }}>

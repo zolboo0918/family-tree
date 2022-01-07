@@ -27,12 +27,12 @@ const EventBook = () => {
   const date = new Date();
 
   useEffect(() => {
-    axios.get('http://192.168.193.116:3001/EventBook').then(res => {
+    axios.get(`${}/EventBook`).then(res => {
       console.log(`res***`, res);
       if (res.data.status == 'success') {
         res.data.response.forEach(el => {
           axios
-            .get(`http://192.168.193.116:3001/users/${el.base_person_ID}`)
+            .get(`${}/users/${el.base_person_ID}`)
             .then(userResult => {
               setEventInfo(prev => [
                 ...prev,
@@ -43,12 +43,13 @@ const EventBook = () => {
       }
     });
     axios
-      .get('http://192.168.193.116:3001/Posts')
+      .get(`${}/Posts`)
       .then(result => {
         if (result.data.status == 'success') {
           result.data.response.forEach(el => {
+            console.log(`result`, result.data);
             axios
-              .get(`http://192.168.193.116:3001/users/${el.base_person_ID}`)
+              .get(`${}/users/${loginUserInfo[0].ID}`)
               .then(userResult => {
                 setPosts(prev => [
                   ...prev,
@@ -65,7 +66,7 @@ const EventBook = () => {
   const InsertEvent = () => {
     console.log(`loginUserInfoHariu`, loginUserInfo[0]);
     axios
-      .post('http://192.168.193.116:3001/EventBook', {
+      .post(`${}/EventBook`, {
         Name: EventName,
         Date: `${date.getFullYear()}-${
           date.getMonth() - 1
@@ -80,7 +81,7 @@ const EventBook = () => {
   };
   const InsertPost = () => {
     axios
-      .post('http://192.168.193.116:3001/Posts', {
+      .post(`${}/Posts`, {
         description: Description,
         created_date: `${date.getFullYear()}-${
           date.getMonth() - 1
@@ -88,8 +89,8 @@ const EventBook = () => {
         updated_date: `${date.getFullYear()}-${
           date.getMonth() - 1
         }-${date.getDate()} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`,
-        base_person_ID: 15,
-        Picture: picture,
+        base_person_ID: loginUserInfo[0].ID,
+        picture: picture,
       })
       .then(res => {
         Alert.alert('Amjilttai postlogdloo');
