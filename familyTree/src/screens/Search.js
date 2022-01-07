@@ -20,6 +20,7 @@ import {
   CommonActions,
   StackActions,
   useNavigation,
+  useRoute,
 } from '@react-navigation/native';
 import {DrawerActions} from '@react-navigation/native';
 import {COLORS, getWidth, setHeight, setWidth, URL} from '../constants';
@@ -33,12 +34,13 @@ const Search = () => {
   const [filteredValue, setFilteredValue] = useState([]);
   const [showSearchInput, setShowSearchInput] = useState(false);
   const [inputValue, setInputValue] = useState('');
-  const navigation = useNavigation();
   const [modalShow, setModalShow] = useState(false);
-
   const [Name, setName] = useState();
   const [Description, setDescription] = useState();
   const [Created_Date, setCreated_Date] = useState();
+
+  const navigation = useNavigation();
+  const route = useRoute();
 
   useEffect(() => {
     getUrag();
@@ -53,11 +55,13 @@ const Search = () => {
 
   const search = val => {
     setInputValue(val);
-    // if (inputValue == '') {
-    //   setFilteredValue(urag);
-    // } else {
-    setFilteredValue(urag.filter(el => el.Name?.toLowerCase().includes(val)));
-    // }
+    if (inputValue == '') {
+      setFilteredValue(urag);
+    } else {
+      setFilteredValue(
+        urag.filter(el => el.Name?.toLowerCase().includes(val.toLowerCase())),
+      );
+    }
   };
 
   const Insert = () => {
@@ -193,7 +197,8 @@ const Search = () => {
           marginBottom={70}
           justifyContent={'center'}
           alignItems={'center'}
-          bgColor={'#c24e00'}
+          bgColor={'#FFAB2E'}
+          renderInPortal
           onPress={() => setModalShow(true)}
           icon={<Icon name="plus" size={20} color={'black'} />}
         />
@@ -204,57 +209,27 @@ const Search = () => {
               onPress={() => setModalShow(false)}>
               <EvilIcon name="close-o" style={styles.closeIcon} />
             </Button>
-            <View
-              style={{
-                height: 350,
-                width: '100%',
-                flexDirection: 'column',
-                marginLeft: 10,
-              }}>
+            <View style={styles.top}>
               <Text>Овгийн Нэр</Text>
               <TextInput
-                style={{
-                  borderWidth: 1,
-                  borderRadius: 20,
-                  borderColor: '#e1e1e1',
-                  width: '90%',
-                  height: 50,
-                  marginTop: 5,
-                  marginBottom: 20,
-                }}
+                style={styles.input}
                 value={Name}
                 onChangeText={setName}
               />
               <Text>Нэмэлт мэдээлэл</Text>
               <TextInput
-                style={{
-                  borderWidth: 1,
-                  borderRadius: 20,
-                  borderColor: '#e1e1e1',
-                  width: '90%',
-                  height: 50,
-                  marginTop: 5,
-                  marginBottom: 20,
-                }}
+                style={styles.input}
                 value={Description}
                 onChangeText={setDescription}
               />
               <Text>Хэзээ Үүссэн?</Text>
               <TextInput
-                style={{
-                  borderWidth: 1,
-                  borderRadius: 20,
-                  borderColor: '#e1e1e1',
-                  width: '90%',
-                  height: 50,
-                  marginTop: 5,
-                }}
+                style={styles.input}
                 value={Created_Date}
                 onChangeText={setCreated_Date}
               />
-
               <Button
-                height={30}
+                style={{height: 40}}
                 width={120}
                 marginTop={30}
                 alignSelf={'center'}
@@ -263,9 +238,7 @@ const Search = () => {
                 alignItems={'center'}
                 borderRadius={20}
                 onPress={Insert}>
-                <Text style={{height: 30, color: '#fff', marginTop: 7}}>
-                  Нэмэх
-                </Text>
+                <Text style={{color: '#fff', fontSize: 17}}>Нэмэх</Text>
               </Button>
             </View>
           </View>
@@ -359,7 +332,8 @@ const styles = StyleSheet.create({
     color: '#a0a0a0',
   },
   modalContainer: {
-    height: setHeight(70),
+    borderRadius: 10,
+    height: setHeight(55),
     width: setWidth(80),
     backgroundColor: '#fff',
     shadowColor: '#000',
@@ -387,5 +361,21 @@ const styles = StyleSheet.create({
     fontSize: 20,
     color: '#585858',
     alignSelf: 'center',
+  },
+  top: {
+    height: 350,
+    width: '100%',
+    flexDirection: 'column',
+    marginLeft: 10,
+  },
+  input: {
+    paddingLeft: 20,
+    borderWidth: 1,
+    borderRadius: 20,
+    borderColor: '#e1e1e1',
+    width: '94%',
+    height: 40,
+    marginTop: 5,
+    marginBottom: 20,
   },
 });

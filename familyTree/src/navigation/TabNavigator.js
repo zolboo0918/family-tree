@@ -37,7 +37,7 @@ export default function TabViewExample(props) {
     return (
       <View style={{flexDirection: 'row', paddingHorizontal: 20}}>
         {props.navigationState.routes.map((route, i) => {
-          const borderBottomColor = index === i ? '#c24e00' : '#fff';
+          const borderBottomColor = index === i ? '#FFAB2E' : '#fff';
           return (
             <TouchableOpacity
               onPress={() => setIndex(i)}

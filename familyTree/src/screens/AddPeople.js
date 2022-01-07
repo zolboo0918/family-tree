@@ -146,12 +146,13 @@ const AddPeople = () => {
         Created_Date: `${date.getFullYear()}-${
           date.getMonth() - 1
         }-${date.getDate()}`,
+        urgiin_ovog_ID: state1.urgiin_ovog_ID,
       })
       .then(() => {
         setLoading(false);
         setModalShow(false);
         getAllFamily();
-        Alert.alert('Amjilttai nemegdev');
+        Alert.alert('Амжилттай нэмэгдлээ.');
       })
       .catch(err => {
         setLoading(false);
@@ -162,7 +163,6 @@ const AddPeople = () => {
     axios
       .get(`${URL}/UragOvog`)
       .then(res => {
-        console.log(`res`, res.data);
         setUrgiinOvog(res.data.response);
       })
       .catch(err => {
@@ -423,9 +423,9 @@ const AddFamilyModal = props => {
           onValueChange={val => {
             setState1({...state1, urgiin_ovog_ID: val});
           }}>
-          {UrgiinOvog?.map(el => (
-            <Select.Item label={el.Name} value={el.ID} />
-          ))}
+          {UrgiinOvog?.map(el => {
+            return <Select.Item label={el.Name} value={el.ID} />;
+          })}
         </Select>
         <Button
           height={10}
