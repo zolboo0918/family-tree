@@ -8,6 +8,7 @@ import {
   View,
 } from 'react-native';
 import {SceneMap, TabView} from 'react-native-tab-view';
+import {COLORS} from '../constants';
 import {FifthRoute} from './tabRoutes/FifthRoute';
 import FirstRoute from './tabRoutes/FirstRoute';
 import {FourthRoute} from './tabRoutes/FourthRoute';
@@ -37,7 +38,7 @@ export default function TabViewExample(props) {
     return (
       <View style={{flexDirection: 'row', paddingHorizontal: 20}}>
         {props.navigationState.routes.map((route, i) => {
-          const borderBottomColor = index === i ? '#FFAB2E' : '#fff';
+          const borderBottomColor = index === i ? COLORS.TREE_COLOR : '#fff';
           return (
             <TouchableOpacity
               onPress={() => setIndex(i)}

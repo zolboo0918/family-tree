@@ -14,6 +14,7 @@ function DrawerNavigator(props) {
     <SafeAreaView style={{flex: 1}}>
       <NavigationContainer>
         <Drawer.Navigator
+          screenOptions={{drawerStyle: {borderTopRightRadius: 50}}}
           edgeWidth={50}
           drawerContent={props => <SideMenu {...props} />}
           drawerStyle={style.drawer}>
@@ -32,8 +33,7 @@ export default DrawerNavigator;
 
 const style = StyleSheet.create({
   drawer: {
-    width: '80%',
-    borderTopRightRadius: 50,
-    backgroundColor: '#e1e1e1',
+    width: '100%',
+    // borderTopRightRadius: 50,
   },
 });

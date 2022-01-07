@@ -6,7 +6,7 @@ import {StyleSheet} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
-export const DrawerItemC = (props: any) => {
+export const DrawerItemC = props => {
   const {
     labelStyle,
     label,

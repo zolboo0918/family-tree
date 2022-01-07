@@ -8,18 +8,19 @@ const SideMenuHeader = () => {
     setPosition('');
     navigationRef.current.navigate('Login');
   };
+  console.log(`loginUserInfo`, loginUserInfo);
   return (
     <View style={{borderTopRightRadius: 50}}>
       <View style={styles.container}>
         <View style={styles.userInfoSection}>
           <Image
             source={{
-              uri: 'https://th.bing.com/th/id/R.65be7e5c33302fdf7504bd1c5e7aa3fa?rik=96GMteNq1x18Mg&pid=ImgRaw&r=0',
+              uri: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTPyGNr2qL63Sfugk2Z1-KBEwMGOfycBribew&usqp=CAU',
             }}
             style={styles.userImage}
           />
-          <Text style={styles.userName}>Тэмүүлэн</Text>
-          <Text style={styles.userId}>15</Text>
+          <Text style={styles.userName}>{loginUserInfo[0].fName}</Text>
+          <Text style={styles.userId}>{loginUserInfo[0].lName}</Text>
         </View>
       </View>
     </View>
@@ -117,8 +118,8 @@ const styles = StyleSheet.create({
     paddingLeft: 30,
   },
   userImage: {
-    borderWidth: 2,
-    borderColor: '#e1e1e1',
+    borderWidth: 1,
+    borderColor: '#fff',
     height: setHeight(7.5),
     width: setHeight(7.5),
     backgroundColor: 'white',

@@ -33,7 +33,7 @@ const Register = props => {
       if (response.data.status == 'success') {
         props.navigation.navigate('Login');
       } else {
-        Alert.alert('aldaa', response.data.response);
+        Toast.show({title: 'Алдаа гарлаа'});
       }
     });
   };

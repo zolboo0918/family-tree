@@ -22,7 +22,7 @@ const CardItem = props => {
           style={styles.listImage}
           source={{
             uri: props.item.img
-              ? 'img'
+              ? props.item.img
               : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQKL1UJwYLq5HdSe5K_8bqnfUFk3BiYvap7Ww&usqp=CAU',
           }}
         />

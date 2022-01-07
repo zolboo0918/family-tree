@@ -32,26 +32,26 @@ function SideMenu(props) {
             label="Нүүр"
             labelStyle={{}}
             icon="home"
-            iconStyle={{color: '#282828', width: 25}}
+            iconStyle={{color: '#282828'}}
             style={{}}
             onPress={() => navigation.navigate('Home')}
-            iconSize={22}
-            pressColor={'green'}
+            iconSize={18}
+            pressColor={COLORS.TREE_COLOR}
             index={98}
             position={position}
           />
-          <DrawerItemC
+          {/* <DrawerItemC
             label="Гэр бүлд гишүүн нэмэх"
             labelStyle={{}}
-            icon="home"
-            iconStyle={{color: '#282828', width: 25}}
+            icon="user-plus"
+            iconStyle={{color: '#282828'}}
             style={{}}
             onPress={() => navigation.navigate('AddPeople')}
-            iconSize={22}
-            pressColor={'green'}
+            iconSize={18}
+            pressColor={COLORS.TREE_COLOR}
             index={98}
             position={position}
-          />
+          /> */}
           {/* <DrawerItemC
             label="Грүп"
             labelStyle={{}}
@@ -93,10 +93,10 @@ function SideMenu(props) {
           label="Гарах"
           labelStyle={{}}
           icon="sign-out-alt"
-          iconStyle={{color: '#282828', width: 25}}
+          iconStyle={{color: '#282828'}}
           style={{}}
-          iconSize={22}
-          pressColor={'green'}
+          iconSize={20}
+          pressColor={COLORS.TREE_COLOR}
           index={100}
           position={position}
           onPress={() => navigation.navigate('Login')}
@@ -108,7 +108,7 @@ function SideMenu(props) {
 export default SideMenu;
 
 import {Platform, StyleSheet} from 'react-native';
-import {getHeight, setHeight, setWidth} from '../constants';
+import {COLORS, getHeight, setHeight, setWidth} from '../constants';
 export const styles = StyleSheet.create({
   container: {
     borderTopRightRadius: 50,

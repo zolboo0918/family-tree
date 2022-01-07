@@ -1,6 +1,6 @@
 import axios from 'axios';
 import {result, setWith} from 'lodash';
-import {AlertDialog, Button, Select, StatusBar, Text} from 'native-base';
+import {AlertDialog, Button, Select, StatusBar, Text, Toast} from 'native-base';
 import React, {useEffect, useState} from 'react';
 import {
   ActivityIndicator,
@@ -24,6 +24,8 @@ import ImagePicker from 'react-native-image-crop-picker';
 import {loginUserInfo} from './Login';
 import Icon from 'react-native-vector-icons/Feather';
 import EvilIcon from 'react-native-vector-icons/EvilIcons';
+import Header from '../components/Header';
+import {DrawerActions, useNavigation} from '@react-navigation/native';
 
 const EventBook = () => {
   const [modalShow, setModalShow] = useState(false);
@@ -36,6 +38,7 @@ const EventBook = () => {
   const [picture, setPicture] = useState('');
   const [loading, setLoading] = useState(false);
   const date = new Date();
+  const navigation = useNavigation();
 
   useEffect(() => {
     getEvents();
@@ -75,13 +78,13 @@ const EventBook = () => {
       })
       .then(res => {
         setLoading(false);
-        Alert.alert('Эвент амжилттай нэмэгдлээ');
+        Toast.show({title: 'Эвент амжилттай нэмэгдлээ'});
         setModalShow(false);
         getEvents();
       })
       .catch(err => {
         setLoading(false);
-        Alert.alert('Алдаа', JSON.stringify(err));
+        Toast.show({title: 'Алдаа гарлаа'});
       });
   };
   const InsertPost = () => {
@@ -97,226 +100,246 @@ const EventBook = () => {
       .then(res => {
         getPosts();
         setPicture(null);
-        Alert.alert('Амжилттай постлогдлоо');
+        Toast.show({title: 'Амжилттай постлогдлоо'});
       })
       .catch(err => {
-        Alert.alert('Алдаа', JSON.stringify(err));
+        Toast.show({title: 'Алдаа'});
       });
   };
   const uploadImage = type => {
     ImagePicker.openPicker({
       width: 300,
       height: 400,
-    }).then(image => {
-      if (type == 'post') {
-        setPicture(image.path);
-      } else {
-        setEventPicture(image.path);
-      }
-    });
+    })
+      .then(image => {
+        Toast.show({title: 'Зураг амжилттай хуулагдлаа'});
+        if (type == 'post') {
+          setPicture(image.path);
+        } else {
+          setEventPicture(image.path);
+        }
+      })
+      .catch(() => {
+        Toast.show({title: 'Зураг хуулахад алдаа гарлаа'});
+      });
   };
   return (
-    <ScrollView style={styles.container}>
-      <View style={styles.story}>
-        <SmallCircleItem
-          item={{
-            img: 'https://i1.trekearth.com/photos/5205/boy.jpg',
-            title: 'Чиний түүх',
-          }}
-          user={true}
-        />
-        <List
-          data={datafriends}
-          horizontal={true}
-          style={{marginTop: -30}}
-          renderItem={function (item) {
-            return <SmallCircleItem item={item} />;
-          }}
-        />
-      </View>
-      <View>
-        <View>
-          <TextInput
-            multiline
-            style={styles.container1}
-            value={Description}
-            onChangeText={val => setDescription(val)}
-            placeholder="Пост Оруулах"
+    <>
+      <Header
+        leftIcon={'menu'}
+        title={'Нүүр'}
+        onLeftPress={() => navigation.dispatch(DrawerActions.toggleDrawer())}
+      />
+      <ScrollView style={styles.container}>
+        <View style={styles.story}>
+          <SmallCircleItem
+            item={{
+              img: 'https://i1.trekearth.com/photos/5205/boy.jpg',
+              title: 'Чиний түүх',
+            }}
+            user={true}
           />
-          {picture ? (
-            <Image style={styles.postImage} source={{uri: picture}} />
-          ) : (
-            <></>
-          )}
-          <Button style={styles.addPost} onPress={InsertPost}>
-            <Icon name="send" style={styles.postIcon} />
-          </Button>
-          <Button style={styles.addPost2} onPress={() => uploadImage('post')}>
-            <Icon name="image" style={styles.postIcon} />
-          </Button>
-        </View>
-        <View style={styles.postButtonContainer}></View>
-      </View>
-      <View style={styles.events}>
-        <View>
-          <Modal
-            transparent
-            visible={modalShow}
-            animationType="fade"
-            style={{}}>
-            <View style={styles.modalContainer}>
-              <Button
-                style={styles.close}
-                onPress={() => {
-                  setModalShow(false);
-                  setLoading(false);
-                }}>
-                <EvilIcon name="close-o" style={styles.closeIcon} />
-              </Button>
-              <View style={{justifyContent: 'center', alignItems: 'center'}}>
-                <TextInput
-                  placeholder="Үйл явдлын нэр"
-                  style={styles.input1}
-                  value={EventName}
-                  onChangeText={setEventName}
-                />
-                <Select
-                  placeholder="Үйл явдлын төрөл"
-                  width={'90%'}
-                  borderRadius={20}
-                  marginTop={5}
-                  style={{height: 40}}
-                  onValueChange={setEventType}>
-                  <Select.Item label="Үсний найр" value="1"></Select.Item>
-                  <Select.Item label="Төрсөн өдөр" value="2"></Select.Item>
-                  <Select.Item label="10 Жилийн уулзалт" value="3" />
-                  <Select.Item label="Хурим" value="4"></Select.Item>
-                  <Select.Item label="Ургийн баяр" value="5"></Select.Item>
-                  <Select.Item label="Үндсэн хуулийн өдөр" value="6" />
-                  <Select.Item label="Иргэний нийгмийн өдөр" value="7" />
-                  <Select.Item label="Гэгээн Валентины өдөр" value="8" />
-                  <Select.Item label="Цагаан сар" value="9"></Select.Item>
-                  <Select.Item
-                    label="Хэвлэл, мэдээллийн ажилтны өдөр"
-                    value="10"
-                  />
-                  <Select.Item
-                    label="Олон улсын эмэгтэйчүүдийн өдөр"
-                    value="11"
-                  />
-                  <Select.Item label="Зэвсэгт хүчний өдөр" value="12" />
-                  <Select.Item label="Наурызын баярын өдөр" value="13" />
-                  <Select.Item
-                    label="Монгол хүн сансарт ниссэний баярын өдөр"
-                    value="14"></Select.Item>
-                  <Select.Item
-                    label="Олон улсын инээдмийн өдөр"
-                    value="15"></Select.Item>
-                  <Select.Item
-                    label="Эрүүл мэндийг хамгаалах өдөр"
-                    value="16"></Select.Item>
-                  <Select.Item
-                    label="Байгаль хамгаалах өдөр"
-                    value="17"></Select.Item>
-                  <Select.Item label="Усны өдөр" value="18"></Select.Item>
-                  <Select.Item
-                    label="Бурхан багшийн их дүйчэн өдөр"
-                    value="19"></Select.Item>
-                  <Select.Item
-                    label="Үндэсний их баяр наадам"
-                    value="20"></Select.Item>
-                  <Select.Item
-                    label="Авто тээвэрчдийн өдөр"
-                    value="21"></Select.Item>
-                  <Select.Item
-                    label="Мэдээлэл, харилцаа холбоо, технологийн өдөр"
-                    value="22"></Select.Item>
-                  <Select.Item
-                    label="Төмөр замчдын өдөр"
-                    value="23"></Select.Item>
-                  <Select.Item
-                    label="Эрүүл мэндийн салбарын ажилтны өдөр"
-                    value="24"></Select.Item>
-                  <Select.Item
-                    label="Эрчим хүчний ажилтны өдөр"
-                    value="25"></Select.Item>
-                  <Select.Item label="Цагдаагийн өдөр" value="26"></Select.Item>
-                  <Select.Item
-                    label="Залуучуудын өдөр"
-                    value="27"></Select.Item>
-                  <Select.Item label="Эрдмийн баяр" value="2"></Select.Item>
-                  <Select.Item label="Барилгачдын өдөр" value="2"></Select.Item>
-                  <Select.Item
-                    label="Улс төрийн хэлмэгдэгсдийн дурсгалын өдөр"
-                    value="28"
-                  />
-                  <Select.Item
-                    label="Үндэсний татварын ажилтны өдөр"
-                    value="29"></Select.Item>
-                  <Select.Item
-                    label="Хилийн цэргийн өдөр"
-                    value="30"></Select.Item>
-                  <Select.Item
-                    label="Монголын оюутны өдөр"
-                    value="31"></Select.Item>
-                  <Select.Item
-                    label="Монгол улсын нийслэлийн өдөр"
-                    value="32"></Select.Item>
-                  <Select.Item
-                    label="Монгол улс тунхагласны баяр"
-                    value="33"></Select.Item>
-                  <Select.Item
-                    label="Дипломат албаны өдөр"
-                    value="34"></Select.Item>
-                  <Select.Item label="Шинэ жил" value="35"></Select.Item>
-                  <Select.Item label="Багш нарын өдөр" value="36"></Select.Item>
-                </Select>
-                <TouchableOpacity
-                  style={styles.insertPhoto}
-                  onPress={() => uploadImage('event')}>
-                  <Text style={{height: 30, color: '#70A44E', marginTop: 7}}>
-                    Зураг оруулах
-                  </Text>
-                </TouchableOpacity>
-
-                {loading ? (
-                  <ActivityIndicator
-                    color={'#70A44E'}
-                    style={{marginTop: 30}}
-                  />
-                ) : (
-                  <TouchableOpacity style={styles.addBtn} onPress={InsertEvent}>
-                    <Text style={{height: 30, color: '#fff', marginTop: 7}}>
-                      Нэмэх
-                    </Text>
-                  </TouchableOpacity>
-                )}
-              </View>
-            </View>
-          </Modal>
-        </View>
-        <View style={{flexDirection: 'row'}}>
-          <Button style={styles.addEvent} onPress={() => setModalShow(true)}>
-            <Icon name="plus" style={styles.postIcon} />
-          </Button>
           <List
-            data={eventInfo}
+            data={datafriends}
             horizontal={true}
+            style={{marginTop: -30}}
             renderItem={function (item) {
-              return <CardItem item={item} />;
+              return <SmallCircleItem item={item} />;
             }}
           />
         </View>
-      </View>
-      <View style={styles.events}>
-        <List
-          data={posts}
-          renderItem={function (item) {
-            return <BigCardItem item={item} />;
-          }}
-        />
-      </View>
-    </ScrollView>
+        <View>
+          <View>
+            <TextInput
+              multiline
+              style={styles.container1}
+              value={Description}
+              onChangeText={val => setDescription(val)}
+              placeholder="Пост Оруулах"
+            />
+            {picture ? (
+              <Image style={styles.postImage} source={{uri: picture}} />
+            ) : (
+              <></>
+            )}
+            <Button style={styles.addPost} onPress={InsertPost}>
+              <Icon name="send" style={styles.postIcon} />
+            </Button>
+            <Button style={styles.addPost2} onPress={() => uploadImage('post')}>
+              <Icon name="image" style={styles.postIcon} />
+            </Button>
+          </View>
+          <View style={styles.postButtonContainer}></View>
+        </View>
+        <View style={styles.events}>
+          <View>
+            <Modal
+              transparent
+              visible={modalShow}
+              animationType="fade"
+              style={{}}>
+              <View style={styles.modalContainer}>
+                <Button
+                  style={styles.close}
+                  onPress={() => {
+                    setModalShow(false);
+                    setLoading(false);
+                  }}>
+                  <EvilIcon name="close-o" style={styles.closeIcon} />
+                </Button>
+                <View style={{justifyContent: 'center', alignItems: 'center'}}>
+                  <TextInput
+                    placeholder="Үйл явдлын нэр"
+                    style={styles.input1}
+                    value={EventName}
+                    onChangeText={setEventName}
+                  />
+                  <Select
+                    placeholder="Үйл явдлын төрөл"
+                    width={'90%'}
+                    borderRadius={20}
+                    marginTop={5}
+                    style={{height: 40}}
+                    onValueChange={setEventType}>
+                    <Select.Item label="Үсний найр" value="1"></Select.Item>
+                    <Select.Item label="Төрсөн өдөр" value="2"></Select.Item>
+                    <Select.Item label="10 Жилийн уулзалт" value="3" />
+                    <Select.Item label="Хурим" value="4"></Select.Item>
+                    <Select.Item label="Ургийн баяр" value="5"></Select.Item>
+                    <Select.Item label="Үндсэн хуулийн өдөр" value="6" />
+                    <Select.Item label="Иргэний нийгмийн өдөр" value="7" />
+                    <Select.Item label="Гэгээн Валентины өдөр" value="8" />
+                    <Select.Item label="Цагаан сар" value="9"></Select.Item>
+                    <Select.Item
+                      label="Хэвлэл, мэдээллийн ажилтны өдөр"
+                      value="10"
+                    />
+                    <Select.Item
+                      label="Олон улсын эмэгтэйчүүдийн өдөр"
+                      value="11"
+                    />
+                    <Select.Item label="Зэвсэгт хүчний өдөр" value="12" />
+                    <Select.Item label="Наурызын баярын өдөр" value="13" />
+                    <Select.Item
+                      label="Монгол хүн сансарт ниссэний баярын өдөр"
+                      value="14"></Select.Item>
+                    <Select.Item
+                      label="Олон улсын инээдмийн өдөр"
+                      value="15"></Select.Item>
+                    <Select.Item
+                      label="Эрүүл мэндийг хамгаалах өдөр"
+                      value="16"></Select.Item>
+                    <Select.Item
+                      label="Байгаль хамгаалах өдөр"
+                      value="17"></Select.Item>
+                    <Select.Item label="Усны өдөр" value="18"></Select.Item>
+                    <Select.Item
+                      label="Бурхан багшийн их дүйчэн өдөр"
+                      value="19"></Select.Item>
+                    <Select.Item
+                      label="Үндэсний их баяр наадам"
+                      value="20"></Select.Item>
+                    <Select.Item
+                      label="Авто тээвэрчдийн өдөр"
+                      value="21"></Select.Item>
+                    <Select.Item
+                      label="Мэдээлэл, харилцаа холбоо, технологийн өдөр"
+                      value="22"></Select.Item>
+                    <Select.Item
+                      label="Төмөр замчдын өдөр"
+                      value="23"></Select.Item>
+                    <Select.Item
+                      label="Эрүүл мэндийн салбарын ажилтны өдөр"
+                      value="24"></Select.Item>
+                    <Select.Item
+                      label="Эрчим хүчний ажилтны өдөр"
+                      value="25"></Select.Item>
+                    <Select.Item
+                      label="Цагдаагийн өдөр"
+                      value="26"></Select.Item>
+                    <Select.Item
+                      label="Залуучуудын өдөр"
+                      value="27"></Select.Item>
+                    <Select.Item label="Эрдмийн баяр" value="2"></Select.Item>
+                    <Select.Item
+                      label="Барилгачдын өдөр"
+                      value="2"></Select.Item>
+                    <Select.Item
+                      label="Улс төрийн хэлмэгдэгсдийн дурсгалын өдөр"
+                      value="28"
+                    />
+                    <Select.Item
+                      label="Үндэсний татварын ажилтны өдөр"
+                      value="29"></Select.Item>
+                    <Select.Item
+                      label="Хилийн цэргийн өдөр"
+                      value="30"></Select.Item>
+                    <Select.Item
+                      label="Монголын оюутны өдөр"
+                      value="31"></Select.Item>
+                    <Select.Item
+                      label="Монгол улсын нийслэлийн өдөр"
+                      value="32"></Select.Item>
+                    <Select.Item
+                      label="Монгол улс тунхагласны баяр"
+                      value="33"></Select.Item>
+                    <Select.Item
+                      label="Дипломат албаны өдөр"
+                      value="34"></Select.Item>
+                    <Select.Item label="Шинэ жил" value="35"></Select.Item>
+                    <Select.Item
+                      label="Багш нарын өдөр"
+                      value="36"></Select.Item>
+                  </Select>
+                  <TouchableOpacity
+                    style={styles.insertPhoto}
+                    onPress={() => uploadImage('event')}>
+                    <Text style={{height: 30, color: '#70A44E', marginTop: 7}}>
+                      Зураг оруулах
+                    </Text>
+                  </TouchableOpacity>
+
+                  {loading ? (
+                    <ActivityIndicator
+                      color={'#70A44E'}
+                      style={{marginTop: 30}}
+                    />
+                  ) : (
+                    <TouchableOpacity
+                      style={styles.addBtn}
+                      onPress={InsertEvent}>
+                      <Text style={{height: 30, color: '#fff', marginTop: 7}}>
+                        Нэмэх
+                      </Text>
+                    </TouchableOpacity>
+                  )}
+                </View>
+              </View>
+            </Modal>
+          </View>
+          <View style={{flexDirection: 'row'}}>
+            <Button style={styles.addEvent} onPress={() => setModalShow(true)}>
+              <Icon name="plus" style={styles.postIcon} />
+            </Button>
+            <List
+              data={eventInfo}
+              horizontal={true}
+              renderItem={function (item) {
+                return <CardItem item={item} />;
+              }}
+            />
+          </View>
+        </View>
+        <View style={styles.events}>
+          <List
+            data={posts}
+            renderItem={function (item) {
+              return <BigCardItem item={item} />;
+            }}
+          />
+        </View>
+      </ScrollView>
+    </>
   );
 };
 export default EventBook;

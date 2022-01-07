@@ -26,6 +26,8 @@ import TabViewExample from '../navigation/TabNavigator';
 import {loginUserInfo} from './Login';
 import EvilIcon from 'react-native-vector-icons/EvilIcons';
 import {getBasePerson} from '../service/common';
+import Header from '../components/Header';
+import {DrawerActions, useNavigation} from '@react-navigation/native';
 
 // import MyTabs from '../navigation/TabNavigator';
 
@@ -41,6 +43,8 @@ const Profile = () => {
   const [uragFamily, setUragFamily] = useState([]);
 
   const [userInfo, setUserInfo] = useState(loginUserInfo[0]);
+
+  const navigation = useNavigation();
 
   useEffect(() => {
     getUrag();
@@ -71,36 +75,46 @@ const Profile = () => {
   const updateProfile = () => {};
 
   return (
-    <View style={styles.container}>
-      <View style={styles.topSection}>
-        <Image
-          source={{
-            uri: 'https://static01.nyt.com/images/2019/11/17/books/review/17Salam/Salam1-superJumbo.jpg',
-          }}
-          style={styles.profileImage}
-        />
-        <View style={{marginLeft: 20, justifyContent: 'center'}}>
-          <Text style={styles.userName}>Suuskaroni</Text>
-          <Text style={styles.phone}>99391547</Text>
-          <Text style={styles.phone}>Ууганбаяр</Text>
-        </View>
-        <TouchableOpacity
-          onPress={() => setModalShow(true)}
-          style={styles.removeBtn}>
-          <Text style={styles.removeBtnText}>Засах</Text>
-        </TouchableOpacity>
-        <Modal transparent visible={modalShow} animationType="fade" style={{}}>
-          <ScrollView style={styles.modalContainer}>
-            <Button
-              style={styles.close}
-              onPress={() => {
-                setModalShow(false);
-                setLoading(false);
-              }}>
-              <EvilIcon name="chevron-left" style={styles.closeIcon} />
-            </Button>
-            <View style={{justifyContent: 'center', alignItems: 'center'}}>
-              {/* <Text
+    <View>
+      <Header
+        leftIcon={'menu'}
+        title={'Хувийн мэдээлэл'}
+        onLeftPress={() => navigation.dispatch(DrawerActions.toggleDrawer())}
+      />
+      <View style={styles.container}>
+        <View style={styles.topSection}>
+          <Image
+            source={{
+              uri: 'https://static01.nyt.com/images/2019/11/17/books/review/17Salam/Salam1-superJumbo.jpg',
+            }}
+            style={styles.profileImage}
+          />
+          <View style={{marginLeft: 20, justifyContent: 'center'}}>
+            <Text style={styles.userName}>Suuskaroni</Text>
+            <Text style={styles.phone}>99391547</Text>
+            <Text style={styles.phone}>Ууганбаяр</Text>
+          </View>
+          <TouchableOpacity
+            onPress={() => setModalShow(true)}
+            style={styles.removeBtn}>
+            <Text style={styles.removeBtnText}>Засах</Text>
+          </TouchableOpacity>
+          <Modal
+            transparent
+            visible={modalShow}
+            animationType="fade"
+            style={{}}>
+            <ScrollView style={styles.modalContainer}>
+              <Button
+                style={styles.close}
+                onPress={() => {
+                  setModalShow(false);
+                  setLoading(false);
+                }}>
+                <EvilIcon name="chevron-left" style={styles.closeIcon} />
+              </Button>
+              <View style={{justifyContent: 'center', alignItems: 'center'}}>
+                {/* <Text
                 style={{
                   fontSize: 20,
                   marginBottom: 20,
@@ -109,93 +123,102 @@ const Profile = () => {
                 }}>
                 МИНИЙ МЭДЭЭЛЭЛ
               </Text> */}
-              <Image
-                source={{
-                  uri: userInfo.Profile_Picture
-                    ? userInfo.Profile_Picture
-                    : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSY-vJ07Repan238qwOLHGf1vsdK5Mjr-IyBA&usqp=CAU',
-                }}
-                style={{height: 60, width: 60, borderRadius: 50}}
-              />
-              <View style={styles.infoContainer}>
-                <Text style={styles.label}>Регистрийн дугаар:</Text>
-                <TextInput
-                  value={userInfo.RegNumber}
-                  style={styles.input}
-                  editable={false}
+                <Image
+                  source={{
+                    uri: userInfo.Profile_Picture
+                      ? userInfo.Profile_Picture
+                      : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSY-vJ07Repan238qwOLHGf1vsdK5Mjr-IyBA&usqp=CAU',
+                  }}
+                  style={{height: 60, width: 60, borderRadius: 50}}
                 />
-                <Text style={styles.label}>Овог: </Text>
-                <TextInput
-                  value={userInfo.lName}
-                  style={styles.input}
-                  onChange={val => setUserInfo({...userInfo, lName: val})}
-                />
-                <Text style={styles.label}>Нэр: </Text>
-                <TextInput
-                  value={userInfo.fName}
-                  style={styles.input}
-                  onChange={val => setUserInfo({...userInfo, fName: val})}
-                />
-                <Text style={styles.label}>И-Мэйл: </Text>
-                <TextInput
-                  value={userInfo.eMail}
-                  style={styles.input}
-                  onChange={val => setUserInfo({...userInfo, eMail: val})}
-                />
-                <Text style={styles.label}>Гэрлэсэн эсэх: </Text>
-                <TextInput
-                  value={userInfo.Marriage_Status}
-                  style={styles.input}
-                  onChange={val =>
-                    setUserInfo({...userInfo, Marriage_Status: val})
-                  }
-                />
-                <Text style={styles.label}>Төрсөн өдөр: </Text>
-                <TextInput
-                  value={userInfo.date_of_birth}
-                  style={styles.input}
-                />
-                <Text style={styles.label}>Миний тухай: </Text>
-                <TextInput value={userInfo.Person_Intro} style={styles.input} />
-              </View>
-              <Text style={styles.label2}>Ургийн овог сонгох</Text>
+                <View style={styles.infoContainer}>
+                  <Text style={styles.label}>Регистрийн дугаар:</Text>
+                  <TextInput
+                    value={userInfo.RegNumber}
+                    style={styles.input}
+                    editable={false}
+                  />
+                  <Text style={styles.label}>Овог: </Text>
+                  <TextInput
+                    value={userInfo.lName}
+                    style={styles.input}
+                    onChange={val => setUserInfo({...userInfo, lName: val})}
+                  />
+                  <Text style={styles.label}>Нэр: </Text>
+                  <TextInput
+                    value={userInfo.fName}
+                    style={styles.input}
+                    onChange={val => setUserInfo({...userInfo, fName: val})}
+                  />
+                  <Text style={styles.label}>И-Мэйл: </Text>
+                  <TextInput
+                    value={userInfo.eMail}
+                    style={styles.input}
+                    onChange={val => setUserInfo({...userInfo, eMail: val})}
+                  />
+                  <Text style={styles.label}>Гэрлэсэн эсэх: </Text>
+                  <TextInput
+                    value={userInfo.Marriage_Status}
+                    style={styles.input}
+                    onChange={val =>
+                      setUserInfo({...userInfo, Marriage_Status: val})
+                    }
+                  />
+                  <Text style={styles.label}>Төрсөн өдөр: </Text>
+                  <TextInput
+                    value={userInfo.date_of_birth}
+                    style={styles.input}
+                  />
+                  <Text style={styles.label}>Миний тухай: </Text>
+                  <TextInput
+                    value={userInfo.Person_Intro}
+                    style={styles.input}
+                  />
+                </View>
+                <Text style={styles.label2}>Ургийн овог сонгох</Text>
 
-              <Select
-                onValueChange={val => setSelectedUrag(val)}
-                width={'80%'}
-                style={{height: 35}}
-                borderRadius={20}
-                placeholder="Сонгох">
-                {urag?.map(el => (
-                  <Select.Item label={el.Name} value={el.ID} />
-                ))}
-              </Select>
-              <Text style={styles.label2}>Гэр бүл сонгох</Text>
-              <Select
-                onValueChange={val => {}}
-                width={'80%'}
-                style={{height: 35}}
-                borderRadius={20}
-                placeholder="Сонгох">
-                {uragFamily?.map(el => (
-                  <Select.Item label={el.Name} value={el.ID} />
-                ))}
-              </Select>
-              {loading ? (
-                <ActivityIndicator color={'#70A44E'} style={{marginTop: 30}} />
-              ) : (
-                <TouchableOpacity style={styles.addBtn} onPress={updateProfile}>
-                  <Text style={{height: 30, color: '#fff', marginTop: 7}}>
-                    Хадгалах
-                  </Text>
-                </TouchableOpacity>
-              )}
-            </View>
-          </ScrollView>
-        </Modal>
-      </View>
-      <View style={{height: '100%', width: '100%'}}>
-        <TabViewExample />
+                <Select
+                  onValueChange={val => setSelectedUrag(val)}
+                  width={'80%'}
+                  style={{height: 35}}
+                  borderRadius={20}
+                  placeholder="Сонгох">
+                  {urag?.map(el => (
+                    <Select.Item label={el.Name} value={el.ID} />
+                  ))}
+                </Select>
+                <Text style={styles.label2}>Гэр бүл сонгох</Text>
+                <Select
+                  onValueChange={val => {}}
+                  width={'80%'}
+                  style={{height: 35}}
+                  borderRadius={20}
+                  placeholder="Сонгох">
+                  {uragFamily?.map(el => (
+                    <Select.Item label={el.Name} value={el.ID} />
+                  ))}
+                </Select>
+                {loading ? (
+                  <ActivityIndicator
+                    color={'#70A44E'}
+                    style={{marginTop: 30}}
+                  />
+                ) : (
+                  <TouchableOpacity
+                    style={styles.addBtn}
+                    onPress={updateProfile}>
+                    <Text style={{height: 30, color: '#fff', marginTop: 7}}>
+                      Хадгалах
+                    </Text>
+                  </TouchableOpacity>
+                )}
+              </View>
+            </ScrollView>
+          </Modal>
+        </View>
+        <View style={{height: '100%', width: '100%'}}>
+          <TabViewExample />
+        </View>
       </View>
     </View>
   );

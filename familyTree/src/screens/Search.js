@@ -72,7 +72,7 @@ const Search = () => {
         Created_Date,
       })
       .then(res => {
-        Alert.alert('Амжилттай');
+        Toast.show({title: 'Амжилттай'});
         setModalShow(false);
         getUrag();
       })
@@ -85,12 +85,14 @@ const Search = () => {
           {showSearchInput ? (
             <View
               style={{
+                backgroundColor: '#fff',
                 flexDirection: 'row',
                 width: getWidth(),
                 height: 50,
                 justifyContent: 'space-between',
               }}>
               <TextInput
+                autoFocus
                 value={inputValue}
                 onChangeText={search}
                 style={{
@@ -133,7 +135,9 @@ const Search = () => {
                 </TouchableOpacity>
               </View>
               <View style={[styles.contentCenter]}>
-                <Text style={{}} numberOfLines={1}>
+                <Text
+                  style={{fontSize: 18, color: '#585858', fontWeight: 'bold'}}
+                  numberOfLines={1}>
                   Хайх
                 </Text>
               </View>
@@ -194,13 +198,13 @@ const Search = () => {
         <Fab
           height={50}
           width={50}
-          marginBottom={70}
+          marginBottom={140}
           justifyContent={'center'}
           alignItems={'center'}
           bgColor={'#FFAB2E'}
-          renderInPortal
+          renderInPortal={false}
           onPress={() => setModalShow(true)}
-          icon={<Icon name="plus" size={20} color={'black'} />}
+          icon={<Icon name="plus" size={20} color={'#fff'} />}
         />
         <Modal transparent visible={modalShow}>
           <View style={styles.modalContainer}>
@@ -256,6 +260,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 20,
   },
   contain: {
+    backgroundColor: '#fff',
     marginTop: Platform.OS == 'ios' ? StatusBar.currentHeight : 0,
     height: 50,
     justifyContent: 'space-between',

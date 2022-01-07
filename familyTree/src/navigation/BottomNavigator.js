@@ -54,34 +54,26 @@ function Bottomtabs() {
         component={HomeScreen}
         options={{
           tabBarShowLabel: false,
-          headerTitle: 'Нүүр',
-          headerTitleAlign: 'center',
-          headerShadowVisible: false,
-          headerTitleStyle: {color: '#585858', fontSize: 18},
+          headerShown: false,
+          // headerTitle: 'Нүүр',
+          // headerTitleAlign: 'center',
+          // headerShadowVisible: false,
+          // headerTitleStyle: {color: '#585858', fontSize: 18},
           tabBarHideOnKeyboard: true,
           tabBarActiveTintColor: COLORS.TREE_COLOR,
           tabBarInactiveTintColor: '#585858',
           tabBarIcon: ({color, size}) => (
             <Feather name={'home'} color={color} size={20} />
           ),
-          // headerRight: () => (
-          //   <FontIsto
-          //     onPress={() => navigation.toggleDrawer()}
-          //     name={'search'}
+          // headerLeft: () => (
+          //   <MaterialCommunityIcons
+          //     onPress={() => navigation.dispatch(DrawerActions.toggleDrawer())}
+          //     name={'menu'}
           //     size={18}
           //     color={'#585858'}
-          //     style={{marginRight: 20}}
+          //     style={{marginLeft: 20}}
           //   />
           // ),
-          headerLeft: () => (
-            <MaterialCommunityIcons
-              onPress={() => navigation.dispatch(DrawerActions.toggleDrawer())}
-              name={'menu'}
-              size={18}
-              color={'#585858'}
-              style={{marginLeft: 20}}
-            />
-          ),
         }}
       />
       <Tab.Screen
@@ -89,33 +81,11 @@ function Bottomtabs() {
         component={Search}
         options={{
           headerShown: false,
-          // tabBarShowLabel: false,
-          // headerTitle: 'Овог',
-          // headerShadowVisible: false,
-          // headerTitleAlign: 'center',
-          // headerTitleStyle: {color: '#585858', fontSize: 18},
           tabBarActiveTintColor: COLORS.TREE_COLOR,
           tabBarInactiveTintColor: '#585858',
           tabBarIcon: ({color, size}) => (
             <FontIsto name={'search'} size={20} color={color} />
           ),
-          // // headerRight: () => (
-          // //   <FontIsto
-          // //     name={'search'}
-          // //     size={18}
-          // //     onPress={}
-          // //     color={'#585858'}
-          // //     style={{marginRight: 20}}
-          // //   />
-          // // ),
-          // headerLeft: () => (
-          //   <MaterialCommunityIcons
-          //     name={'menu'}
-          //     size={18}
-          //     color={'#585858'}
-          //     style={{marginLeft: 20}}
-          //   />
-          // ),
         }}
       />
       <Tab.Screen
@@ -132,38 +102,15 @@ function Bottomtabs() {
         }}
       />
       <Tab.Screen
-        name="Эцэг эх нэмэх"
-        component={insertParent}
+        name="Хувийн мэдээлэл"
+        component={Profile}
         options={{
           headerShown: false,
           tabBarShowLabel: false,
           tabBarActiveTintColor: COLORS.TREE_COLOR,
           tabBarInactiveTintColor: '#585858',
           tabBarIcon: ({color, size}) => (
-            <FontIsto name={'persons'} size={20} color={color} />
-          ),
-        }}
-      />
-      <Tab.Screen
-        name="Хувийн мэдээлэл"
-        component={Profile}
-        options={{
-          tabBarShowLabel: false,
-          tabBarActiveTintColor: COLORS.TREE_COLOR,
-          tabBarInactiveTintColor: '#585858',
-          headerShadowVisible: false,
-          headerTitleAlign: 'center',
-          headerTitleStyle: {color: '#585858', fontSize: 18},
-          tabBarIcon: ({color, size}) => (
             <FontAwesome name={'user-circle-o'} size={20} color={color} />
-          ),
-          headerLeft: () => (
-            <MaterialCommunityIcons
-              name={'menu'}
-              size={18}
-              color={'#585858'}
-              style={{marginLeft: 20}}
-            />
           ),
         }}
       />

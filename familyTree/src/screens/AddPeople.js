@@ -17,11 +17,13 @@ import {COLORS, setHeight, setWidth, URL} from '../constants';
 import ImagePicker from 'react-native-image-crop-picker';
 import axios from 'axios';
 import DatePicker from 'react-native-date-picker';
-import {useNavigation} from '@react-navigation/native';
+import {DrawerActions, useNavigation} from '@react-navigation/native';
 import {loginUserInfo} from './Login';
 import {isEmpty} from 'lodash';
 
 import EvilIcon from 'react-native-vector-icons/EvilIcons';
+import Header from '../components/Header';
+import {borderWidth} from 'styled-system';
 
 const AddPeople = () => {
   const bpParams = {
@@ -46,20 +48,13 @@ const AddPeople = () => {
     urgiin_ovog_ID: '',
   };
   const [date, setDate] = useState(new Date());
-  const [dDate, setdDate] = useState(new Date());
   const [open, setOpen] = useState(false);
   const [isAlive, setisAlive] = useState();
   const [gender, setGender] = useState();
-  const [familyId, setFamilyId] = useState();
   const [AllFamily, setAllFamily] = useState([]);
   const [state, setState] = useState(bpParams);
   const [familyName, setFamilyName] = useState('');
   const [selectedFamilyID, setSelectedFamilyID] = useState();
-  const [addedPersonId, setAddedPersonId] = useState();
-  const [Name, setName] = useState();
-  const [Description, setDescription] = useState();
-  const [Created_Date, setCreated_Date] = useState();
-  const [urgiin_ovog_ID, setUrgiin_ovog_ID] = useState();
   const [state1, setState1] = useState(famInf);
   const [modalShow, setModalShow] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -120,9 +115,8 @@ const AddPeople = () => {
               personId: res.data.response.insertId,
             })
             .then(resss => {
-              console.log(`resss.data`, resss.data);
               if (resss.data.status == 'success') {
-                Alert.alert('Amjilttai nemegdlee ger bul');
+                Toast.show({title: 'Гэр бүл амжилттай нэмэгдлээ'});
               }
             })
             .catch(err => {});
@@ -152,7 +146,7 @@ const AddPeople = () => {
         setLoading(false);
         setModalShow(false);
         getAllFamily();
-        Alert.alert('Амжилттай нэмэгдлээ.');
+        Toast.show({title: 'Амжилттай нэмэгдлээ'});
       })
       .catch(err => {
         setLoading(false);
@@ -174,55 +168,66 @@ const AddPeople = () => {
     props.navigation.navigate('TreeModel');
   };
   return (
-    <ScrollView style={styles.container}>
-      <Text style={styles.title}>Зураг</Text>
-      <View style={styles.profileImageContainer}>
-        <Image
-          style={{height: 100, width: 100}}
-          source={{
-            uri: 'https://cdn-icons-png.flaticon.com/512/149/149071.png',
-          }}
-          onChangeText={value => setState({...state, Profile_Picture: value})}
-        />
-        <TouchableOpacity onPress={uploadImage}>
-          <Icon
-            name="pluscircle"
-            style={{
-              position: 'absolute',
-              color: COLORS.TREE_COLOR,
-              bottom: 0,
-              right: -6,
-              fontSize: 28,
+    <>
+      <Header
+        leftIcon={'menu'}
+        title={'Гишүүн нэмэх'}
+        onLeftPress={() => Navigation.dispatch(DrawerActions.toggleDrawer())}
+      />
+      <ScrollView style={styles.container}>
+        <Text style={styles.title}>Зураг</Text>
+        <View style={styles.profileImageContainer}>
+          <Image
+            style={{height: 80, width: 80}}
+            source={{
+              uri: 'https://cdn-icons-png.flaticon.com/512/149/149071.png',
             }}
+            onChangeText={value => setState({...state, Profile_Picture: value})}
           />
-        </TouchableOpacity>
-      </View>
-      <Text style={styles.title}>Овог нэр</Text>
-      <TextInput
-        style={styles.input}
-        onChangeText={value => setState({...state, lName: value})}
-        placeholder="Овог"
-        placeholderTextColor={'#a0a0a0'}
-      />
-      <TextInput
-        style={styles.input}
-        onChangeText={value => setState({...state, fName: value})}
-        placeholder="Нэр"
-        placeholderTextColor={'#a0a0a0'}
-      />
-      <TextInput
-        style={styles.input}
-        onChangeText={value => setState({...state, RegNumber: value})}
-        placeholder="Регистрийн дугаар"
-        placeholderTextColor={'#a0a0a0'}
-      />
-      <Text style={styles.title}>Төрсөн өдөр</Text>
-      <View style={{flexDirection: 'row'}}>
-        <View style={{flex: 1, justifyContent: 'center'}}>
+          <TouchableOpacity onPress={uploadImage}>
+            <Icon
+              name="pluscircle"
+              style={{
+                position: 'absolute',
+                color: COLORS.TREE_COLOR,
+                bottom: 0,
+                right: -6,
+                fontSize: 22,
+              }}
+            />
+          </TouchableOpacity>
+        </View>
+        <Text style={styles.title}>Үндсэн мэдээлэл</Text>
+        <TextInput
+          style={styles.input}
+          onChangeText={value => setState({...state, lName: value})}
+          placeholder="Овог"
+          placeholderTextColor={'#a0a0a0'}
+        />
+        <TextInput
+          style={styles.input}
+          onChangeText={value => setState({...state, fName: value})}
+          placeholder="Нэр"
+          placeholderTextColor={'#a0a0a0'}
+        />
+        <TextInput
+          style={styles.input}
+          onChangeText={value => setState({...state, RegNumber: value})}
+          placeholder="Регистрийн дугаар"
+          placeholderTextColor={'#a0a0a0'}
+        />
+        <Text style={styles.title}>Төрсөн өдөр</Text>
+        <View
+          style={{
+            flex: 1,
+            justifyContent: 'center',
+            backgroundColor: '#fff',
+            borderRadius: 15,
+          }}>
           <DatePicker
             modal
             open={open}
-            style={{width: 260, height: 50}}
+            style={{width: 260, height: 50, borderWidth: 1, borderRadius: 15}}
             date={state.date_of_birth}
             onConfirm={date => {
               setOpen(false);
@@ -237,8 +242,8 @@ const AddPeople = () => {
             format="YYYY-MM-DD"
             minDate="2016-05-01"
             maxDate="2016-06-01"
-            confirmBtnText="Confirm"
-            cancelBtnText="Cancel"
+            confirmBtnText="Сонгох"
+            cancelBtnText="Болих"
             customStyles={{
               dateIcon: {
                 position: 'absolute',
@@ -266,112 +271,141 @@ const AddPeople = () => {
             onPressIn={() => setOpen(true)}
           />
         </View>
-      </View>
-      <Text style={styles.title}>Гэр бүл сонгох</Text>
-      <View>
-        <AddFamilyModal
-          modalShow={modalShow}
-          UrgiinOvog={UrgiinOvog}
-          state1={state1}
-          loading={loading}
-          setState1={setState1}
-          insertFamily={insertFamily}
-          setModalShow={setModalShow}
-        />
-        <Select
-          onValueChange={val => {
-            const name = val.split('#')[0];
-            const id = val.split('#')[1];
-            setFamilyName(val);
-            setSelectedFamilyID(id);
+        <Text style={styles.title}>Гэр бүл сонгох</Text>
+        <View>
+          <AddFamilyModal
+            modalShow={modalShow}
+            UrgiinOvog={UrgiinOvog}
+            state1={state1}
+            loading={loading}
+            setState1={setState1}
+            insertFamily={insertFamily}
+            setModalShow={setModalShow}
+          />
+          <Select
+            borderWidth={0}
+            placeholder="Сонгох"
+            fontSize={15}
+            style={{
+              borderWidth: 1,
+              borderRadius: 15,
+              backgroundColor: '#fff',
+              height: 40,
+            }}
+            onValueChange={val => {
+              const name = val.split('#')[0];
+              const id = val.split('#')[1];
+              setFamilyName(val);
+              setSelectedFamilyID(id);
+            }}>
+            <Button onPress={openFamMod}> Гэр бүл нэмэх</Button>
+            {AllFamily?.map(el => (
+              <Select.Item label={el.Name} value={`${el.Name}#${el.ID}`} />
+            ))}
+          </Select>
+        </View>
+        <Text style={styles.title}>Одоогийн төлөв</Text>
+        <Radio.Group
+          name="isAliveGroup"
+          style={{flexDirection: 'row'}}
+          onChange={value => {
+            setisAlive(value);
           }}>
-          <Button onPress={openFamMod}> Гэр бүл нэмэх</Button>
-          {AllFamily?.map(el => (
-            <Select.Item label={el.Name} value={`${el.Name}#${el.ID}`} />
-          ))}
-        </Select>
-      </View>
-      <Text style={styles.title}>Одоогийн төлөв</Text>
-      <Radio.Group
-        name="isAliveGroup"
-        style={{flexDirection: 'row'}}
-        onChange={value => {
-          setisAlive(value);
-        }}>
-        <Radio value="1" my={1}>
-          Амьд
-        </Radio>
-        <Radio value="0" my={1} style={{marginLeft: 20}}>
-          Нас барсан
-        </Radio>
-      </Radio.Group>
-      <Text style={styles.title}>Нас барсан өдөр</Text>
-      <View style={{flexDirection: 'row'}}>
+          <Radio value="1" my={1} colorScheme={'green'}>
+            <Text style={{fontSize: 14, marginLeft: 10, color: '#585858'}}>
+              Амьд
+            </Text>
+          </Radio>
+          <Radio
+            value="0"
+            my={1}
+            style={{marginLeft: 20}}
+            colorScheme={'green'}>
+            <Text style={{fontSize: 14, marginLeft: 10, color: '#585858'}}>
+              Нас барсан
+            </Text>
+          </Radio>
+        </Radio.Group>
+
+        {isAlive == '0' && (
+          <>
+            <Text style={styles.title}>Нас барсан өдөр</Text>
+            <View style={{flexDirection: 'row'}}>
+              <TextInput
+                editable={isAlive == '0'}
+                style={[
+                  styles.inputDate,
+                  {
+                    borderBottomColor:
+                      isAlive == '0' ? COLORS.TREE_COLOR : '#a0a0a0',
+                  },
+                ]}
+                keyboardType="number-pad"
+                placeholder="Өдөр"
+                placeholderTextColor={'#a0a0a0'}
+              />
+              <TextInput
+                editable={isAlive == '0'}
+                keyboardType="number-pad"
+                style={[
+                  styles.inputDate,
+                  {
+                    borderBottomColor:
+                      isAlive == '0' ? COLORS.TREE_COLOR : '#a0a0a0',
+                  },
+                ]}
+                placeholder="Сар"
+                placeholderTextColor={'#a0a0a0'}
+              />
+              <TextInput
+                keyboardType="number-pad"
+                editable={isAlive == '0'}
+                style={[
+                  styles.inputDate,
+                  {
+                    borderBottomColor:
+                      isAlive == '0' ? COLORS.TREE_COLOR : '#a0a0a0',
+                  },
+                ]}
+                placeholder="Жил"
+                placeholderTextColor={'#a0a0a0'}
+              />
+            </View>
+          </>
+        )}
+        <Text style={styles.title}>Хүйс</Text>
+        <Radio.Group
+          name="isAliveGroup"
+          style={{flexDirection: 'row'}}
+          onChange={value => {
+            setGender(value);
+          }}>
+          <Radio value="1" my={1} colorScheme={'green'}>
+            <Text style={{fontSize: 14, marginLeft: 10, color: '#585858'}}>
+              Эр
+            </Text>
+          </Radio>
+          <Radio
+            value="2"
+            my={1}
+            style={{marginLeft: 20}}
+            colorScheme={'green'}>
+            <Text style={{fontSize: 14, marginLeft: 10, color: '#585858'}}>
+              Эм
+            </Text>
+          </Radio>
+        </Radio.Group>
+        <Text style={styles.title}>Тэмдэглэл</Text>
         <TextInput
-          editable={isAlive == '0'}
-          style={[
-            styles.inputDate,
-            {
-              borderBottomColor: isAlive == '0' ? COLORS.TREE_COLOR : '#a0a0a0',
-            },
-          ]}
-          keyboardType="number-pad"
-          placeholder="Өдөр"
-          placeholderTextColor={'#a0a0a0'}
+          placeholder="Өөрийн тухай товч"
+          style={styles.note}
+          onChangeText={value => setState({...state, Person_Intro: value})}
         />
-        <TextInput
-          editable={isAlive == '0'}
-          keyboardType="number-pad"
-          style={[
-            styles.inputDate,
-            {
-              borderBottomColor: isAlive == '0' ? COLORS.TREE_COLOR : '#a0a0a0',
-            },
-          ]}
-          placeholder="Сар"
-          placeholderTextColor={'#a0a0a0'}
-        />
-        <TextInput
-          keyboardType="number-pad"
-          editable={isAlive == '0'}
-          style={[
-            styles.inputDate,
-            {
-              borderBottomColor: isAlive == '0' ? COLORS.TREE_COLOR : '#a0a0a0',
-            },
-          ]}
-          placeholder="Жил"
-          placeholderTextColor={'#a0a0a0'}
-        />
-      </View>
-      <Text style={styles.title}>Хүйс</Text>
-      <Radio.Group
-        name="isAliveGroup"
-        style={{flexDirection: 'row'}}
-        onChange={value => {
-          setGender(value);
-        }}>
-        <Radio value="1" my={1}>
-          Эр
-        </Radio>
-        <Radio value="2" my={1} style={{marginLeft: 20}}>
-          Эм
-        </Radio>
-      </Radio.Group>
-      <Text style={styles.title}>Тэмдэглэл</Text>
-      <TextInput
-        style={styles.note}
-        onChangeText={value => setState({...state, Person_Intro: value})}
-      />
-      <TouchableOpacity
-        style={styles.Addbutton}
-        alignContent="center"
-        marginBottom="20"
-        backgroundColor={'#c24e00'}
-        onPress={openFamMod}>
-        <Text style={styles.ButtonTitle}>Гишүүн нэмэх</Text>
-      </TouchableOpacity>
-    </ScrollView>
+        <TouchableOpacity style={styles.Addbutton} onPress={openFamMod}>
+          <Text style={styles.ButtonTitle}>Гишүүн нэмэх</Text>
+        </TouchableOpacity>
+      </ScrollView>
+    </>
   );
 };
 
@@ -450,10 +484,12 @@ const AddFamilyModal = props => {
 const styles = StyleSheet.create({
   container: {
     padding: 15,
+    backgroundColor: '#fff',
   },
   profileImageContainer: {
+    backgroundColor: '#fff',
     position: 'relative',
-    width: 120,
+    width: 100,
     marginTop: 10,
     borderRadius: 10,
     borderWidth: 1,
@@ -461,32 +497,46 @@ const styles = StyleSheet.create({
     padding: 10,
   },
   Addbutton: {
-    borderWidth: 1,
-    padding: 18,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+
+    elevation: 5,
     borderColor: 'black',
-    backgroundColor: 'c24e00',
+    backgroundColor: COLORS.TREE_COLOR,
     color: 'black',
     borderRadius: 35,
-    marginBottom: setHeight(13),
+    width: setWidth(40),
+    alignSelf: 'center',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: setHeight(5),
+    paddingVertical: 10,
   },
   ButtonTitle: {
-    color: '#c24e00',
+    color: '#fff',
+    fontWeight: 'bold',
     alignSelf: 'center',
   },
   title: {
     color: '#585858',
     fontWeight: 'bold',
     marginTop: 10,
-    fontSize: 18,
+    fontSize: 15,
   },
   input: {
     borderWidth: 1,
     borderColor: '#e1e1e1',
     borderRadius: 15,
     height: 40,
-    color: '#585858',
+    backgroundColor: '#fff',
+    color: '#fff',
     paddingHorizontal: 10,
-    marginVertical: 5,
+    marginVertical: 8,
   },
   inputDate: {
     borderBottomWidth: 1,
@@ -500,10 +550,12 @@ const styles = StyleSheet.create({
     margin: 5,
   },
   note: {
-    height: 100,
+    height: 70,
+    backgroundColor: '#fff',
     width: '100%',
-    borderRadius: 10,
+    borderRadius: 15,
     borderWidth: 1,
+    paddingLeft: 10,
     borderColor: '#e1e1e1',
     marginTop: 10,
     marginBottom: 50,
@@ -602,7 +654,7 @@ const styles = StyleSheet.create({
   input6: {
     borderWidth: 1,
     borderColor: '#e1e1e1',
-    borderRadius: 10,
+    borderRadius: 15,
     height: 40,
     paddingHorizontal: 10,
     color: '#585858',
