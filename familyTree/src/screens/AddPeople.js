@@ -11,7 +11,7 @@ import {
   Modal,
   ActivityIndicator,
 } from 'react-native';
-import {Button, Checkbox, Radio, Select} from 'native-base';
+import {Button, Checkbox, Radio, Select, Toast} from 'native-base';
 import Icon from 'react-native-vector-icons/AntDesign';
 import {COLORS, setHeight, setWidth, URL} from '../constants';
 import ImagePicker from 'react-native-image-crop-picker';
@@ -116,14 +116,14 @@ const AddPeople = () => {
             })
             .then(resss => {
               if (resss.data.status == 'success') {
-                Toast.show({title: 'Гэр бүл амжилттай нэмэгдлээ'});
+                Toast.show({title: 'Гишүүнийг амжилттай бүртгэлээ'});
               }
             })
             .catch(err => {});
-          Navigation.navigate('Эцэг эх сонгох', {
-            ID: selectedFamilyID,
-            childPersonId: res.data.response.insertId,
-          });
+          // Navigation.navigate('Эцэг эх сонгох', {
+          //   ID: selectedFamilyID,
+          //   childPersonId: res.data.response.insertId,
+          // });
         }
       })
       .catch(err => {});
@@ -401,7 +401,7 @@ const AddPeople = () => {
           style={styles.note}
           onChangeText={value => setState({...state, Person_Intro: value})}
         />
-        <TouchableOpacity style={styles.Addbutton} onPress={openFamMod}>
+        <TouchableOpacity style={styles.Addbutton} onPress={AddNewPerson}>
           <Text style={styles.ButtonTitle}>Гишүүн нэмэх</Text>
         </TouchableOpacity>
       </ScrollView>
@@ -453,6 +453,11 @@ const AddFamilyModal = props => {
         />
         <Text style={styles.text4}>Овгийн нэр</Text>
         <Select
+          width={'90%'}
+          marginLeft={'6%'}
+          borderRadius={20}
+          fontSize={14}
+          style={{height: 40}}
           placeholder="Ургийн овог сонгох"
           onValueChange={val => {
             setState1({...state1, urgiin_ovog_ID: val});
@@ -534,7 +539,7 @@ const styles = StyleSheet.create({
     borderRadius: 15,
     height: 40,
     backgroundColor: '#fff',
-    color: '#fff',
+    color: '#585858',
     paddingHorizontal: 10,
     marginVertical: 8,
   },
@@ -578,7 +583,7 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.39,
     shadowRadius: 8.3,
-
+    borderRadius: 10,
     elevation: 13,
     marginLeft: 'auto',
     marginTop: 'auto',
@@ -598,9 +603,10 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
   },
   familyName: {
-    alignSelf: 'center',
+    alignSelf: 'flex-start',
+    marginLeft: 20,
     marginTop: 10,
-    color: '#000',
+    color: '#585858',
     fontSize: 14,
   },
   familyInput: {
@@ -609,7 +615,8 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     borderColor: '#e1e1e1',
     width: '90%',
-    height: 50,
+    height: 40,
+    paddingLeft: 10,
     marginTop: 10,
     color: '#000',
   },
@@ -619,32 +626,36 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     borderColor: '#e1e1e1',
     width: '90%',
-    height: 50,
+    height: 40,
+    paddingLeft: 10,
     color: '#000',
     marginTop: 10,
   },
   text1: {
     marginLeft: 25,
     marginTop: 10,
-    color: '#000',
+    color: '#585858',
   },
   text2: {
+    marginTop: 10,
     marginLeft: 30,
-    color: '#000',
+    color: '#585858',
   },
   input3: {
     borderWidth: 1,
     borderRadius: 20,
     borderColor: '#e1e1e1',
     width: '90%',
-    height: 50,
+    height: 40,
+    paddingLeft: 10,
     marginTop: 10,
     marginLeft: 20,
     color: '#000',
   },
   text4: {
     marginLeft: 30,
-    color: '#000',
+    color: '#585858',
+    marginTop: 10,
   },
   text5: {
     height: 30,

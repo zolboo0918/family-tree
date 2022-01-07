@@ -8,7 +8,7 @@ const SideMenuHeader = () => {
     setPosition('');
     navigationRef.current.navigate('Login');
   };
-  console.log(`loginUserInfo`, loginUserInfo);
+
   return (
     <View style={{borderTopRightRadius: 50}}>
       <View style={styles.container}>
@@ -19,8 +19,8 @@ const SideMenuHeader = () => {
             }}
             style={styles.userImage}
           />
-          <Text style={styles.userName}>{loginUserInfo[0].fName}</Text>
-          <Text style={styles.userId}>{loginUserInfo[0].lName}</Text>
+          <Text style={styles.userName}>{loginUserInfo[0]?.fName}</Text>
+          <Text style={styles.userId}>{loginUserInfo[0]?.lName}</Text>
         </View>
       </View>
     </View>

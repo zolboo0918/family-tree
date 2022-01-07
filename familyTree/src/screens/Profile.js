@@ -48,13 +48,15 @@ const Profile = () => {
 
   useEffect(() => {
     getUrag();
-    console.log(`loginUserInfo`, loginUserInfo[0]);
-    // axios.get(`${URL}/SearchFamily/${loginUserInfo[0]}`).then(res => {
-    //   setFather(res.data.response.father);
-    //   setMother(res.data.response.Mother);
-    //   // setChildren(res.data.response.children);
-    //   setFamily(res.data.response.family);
-    // });
+    axios
+      .get(`${URL}/SearchFamily/4}`)
+      .then(res => {
+        setFather(res.data.response.father);
+        setMother(res.data.response.Mother);
+        // setChildren(res.data.response.children);
+        setFamily(res.data.response.family);
+      })
+      .catch(err => console.log('aaaaaa', JSON.stringify(err)));
   }, []);
 
   // useEffect(() => {
@@ -67,9 +69,9 @@ const Profile = () => {
   // }, [selectedUrag]);
 
   const getUrag = () => {
-    // axios.get(`${URL}/UragOvog`).then(res => {
-    //   setUrag(res.data.response);
-    // });
+    axios.get(`${URL}/UragOvog`).then(res => {
+      setUrag(res.data.response);
+    });
   };
 
   const updateProfile = () => {};
@@ -90,9 +92,9 @@ const Profile = () => {
             style={styles.profileImage}
           />
           <View style={{marginLeft: 20, justifyContent: 'center'}}>
-            <Text style={styles.userName}>Suuskaroni</Text>
-            <Text style={styles.phone}>99391547</Text>
-            <Text style={styles.phone}>Ууганбаяр</Text>
+            <Text style={styles.userName}>{loginUserInfo[0].fName}</Text>
+            <Text style={styles.email}>{loginUserInfo[0].eMail}</Text>
+            <Text style={styles.phone}>{loginUserInfo[0].lName}</Text>
           </View>
           <TouchableOpacity
             onPress={() => setModalShow(true)}
@@ -246,6 +248,11 @@ const styles = StyleSheet.create({
     color: '#1D2E42',
   },
   phone: {
+    fontSize: 14,
+    color: '#a0a0a0',
+  },
+  email: {
+    width: 180,
     fontSize: 14,
     color: '#a0a0a0',
   },

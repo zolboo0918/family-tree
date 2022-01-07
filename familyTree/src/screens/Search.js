@@ -24,7 +24,7 @@ import {
 } from '@react-navigation/native';
 import {DrawerActions} from '@react-navigation/native';
 import {COLORS, getWidth, setHeight, setWidth, URL} from '../constants';
-import {Button, Fab} from 'native-base';
+import {Button, Fab, Toast} from 'native-base';
 import Icon from 'react-native-vector-icons/AntDesign';
 import {loginUserInfo} from './Login';
 import EvilIcon from 'react-native-vector-icons/EvilIcons';
@@ -62,6 +62,23 @@ const Search = () => {
         urag.filter(el => el.Name?.toLowerCase().includes(val.toLowerCase())),
       );
     }
+  };
+  const getColor = str => {
+    if (str) {
+      str = str.slice(0, 2);
+    } else {
+      str = 'aa';
+    }
+    //  return "#" + ((1 << 24) * Math.random() | 0).toString(16);
+    var hash = 0;
+    var s = 80;
+    var l = 40;
+    for (var i = 0; i < str.length; i++) {
+      hash = str.charCodeAt(i) + ((hash << 5) - hash);
+    }
+
+    var h = hash % 360;
+    return 'hsl(' + h + ', ' + s + '%, ' + l + '%)';
   };
 
   const Insert = () => {
@@ -171,15 +188,16 @@ const Search = () => {
                       styles.leftContainer,
                       {backgroundColor: item.color},
                     ]}>
-                    <Text style={styles.leftText}>{item.name.charAt(0)}</Text>
+                    <Text style={styles.leftText}>{item.Name.charAt(0)}</Text>
                   </View>
                 ) : (
                   <View
                     style={[
                       styles.leftContainer,
-                      {backgroundColor: '#B2E392'},
+                      {backgroundColor: getColor(item.Name)},
                     ]}>
-                    <Icon name="user-o" style={styles.leftText} />
+                    <Text style={styles.leftText}>{item.Name.charAt(0)}</Text>
+                    {/* <Icon name="user-o" style={styles.leftText} /> */}
                   </View>
                 )}
                 <View style={styles.right}>
