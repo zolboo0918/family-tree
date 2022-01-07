@@ -23,15 +23,16 @@ import {
 } from '../constants';
 import {ProfileContext} from '../context/ProfileContext';
 import TabViewExample from '../navigation/TabNavigator';
-import {loginUserInfo, setType, type} from './Login';
+import {loginUserInfo, setType} from './Login';
 import EvilIcon from 'react-native-vector-icons/EvilIcons';
 import {getBasePerson} from '../service/common';
 import Header from '../components/Header';
 import {DrawerActions, useNavigation} from '@react-navigation/native';
+import {loginUserInfo1, setLoginUserInfo1} from './TreeModel';
 
 // import MyTabs from '../navigation/TabNavigator';
 
-const Profile = () => {
+const Profile1 = () => {
   const [father, setFather] = useState();
   const [Mother, setMother] = useState();
   // const [child, setChild] = useState();
@@ -43,22 +44,23 @@ const Profile = () => {
   const [uragFamily, setUragFamily] = useState([]);
   const [children, setChildren] = useState([]);
 
-  const [userInfo, setUserInfo] = useState(loginUserInfo[0]);
-
+  const [userInfo, setUserInfo] = useState([]);
+  const [loginUserInfo2, setloginUserInfo2] = useState([]);
   const navigation = useNavigation();
-
   useEffect(() => {
+    setType(2);
     getUrag();
-    setType(1);
-    console.log(`loginUserInfo`, loginUserInfo);
-
-    // axios.get(`${URL}/SearchFamily/4`).then(res => {
-    //   console.log(`res.data`, res.data);
-    //   // setFather(res.data.response.father);
-    //   // setMother(res.data.response.Mother);
-    //   setChildren(res.data.response.children);
-    //   // setFamily(res.data.response.family);
-    // });
+    getBasePerson(loginUserInfo1.ID).then(res => {
+      setLoginUserInfo1(res);
+      setloginUserInfo2(res);
+      //   axios.get(`${URL}/SearchFamily/${res.family_ID}`).then(res => {
+      //     console.log(`res.data`, res.data);
+      //     // setFather(res.data.response.father);
+      //     // setMother(res.data.response.Mother);
+      //     // setChildren(res.data.response.children);
+      //     // setFamily(res.data.response.family);
+      //   });
+    });
   }, []);
   // useEffect(() => {
   //   axios
@@ -85,7 +87,6 @@ const Profile = () => {
       setModalShow(false);
     });
   };
-
   return (
     <>
       <Header
@@ -97,16 +98,16 @@ const Profile = () => {
         <View style={styles.topSection}>
           <Image
             source={{
-              uri: userInfo.Profile_Picture
-                ? userInfo.Profile_Picture
+              uri: loginUserInfo2.Profile_Picture
+                ? loginUserInfo2.Profile_Picture
                 : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSY-vJ07Repan238qwOLHGf1vsdK5Mjr-IyBA&usqp=CAU',
             }}
             style={styles.profileImage}
           />
           <View style={{marginLeft: 20, justifyContent: 'center'}}>
-            <Text style={styles.userName}>{userInfo.fName}</Text>
-            <Text style={styles.phone}>{userInfo.PhoneNumber}</Text>
-            <Text style={styles.phone}>{userInfo.lName}</Text>
+            <Text style={styles.userName}>{loginUserInfo2?.fName}</Text>
+            <Text style={styles.phone}>{loginUserInfo2?.PhoneNumber}</Text>
+            <Text style={styles.phone}>{loginUserInfo2?.lName}</Text>
           </View>
           <TouchableOpacity
             onPress={() => setModalShow(true)}
@@ -241,14 +242,14 @@ const Profile = () => {
           </Modal>
         </View>
         <View style={{height: '100%', width: '100%'}}>
-          <TabViewExample />
+          <TabViewExample data={loginUserInfo2} />
         </View>
       </View>
     </>
   );
 };
 
-export default Profile;
+export default Profile1;
 
 const styles = StyleSheet.create({
   container: {

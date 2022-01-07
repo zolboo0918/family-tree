@@ -116,14 +116,14 @@ const AddPeople = () => {
             })
             .then(resss => {
               if (resss.data.status == 'success') {
-                Toast.show({title: 'Гишүүнийг амжилттай бүртгэлээ'});
+                // Toast.show({title: 'Гишүүнийг амжилттай бүртгэлээ'});
+                Navigation.navigate('Эцэг эх сонгох', {
+                  ID: selectedFamilyID,
+                  childPersonId: res.data.response.insertId,
+                });
               }
             })
             .catch(err => {});
-          // Navigation.navigate('Эцэг эх сонгох', {
-          //   ID: selectedFamilyID,
-          //   childPersonId: res.data.response.insertId,
-          // });
         }
       })
       .catch(err => {});
@@ -164,9 +164,6 @@ const AddPeople = () => {
       });
   };
 
-  const addNewPerson = () => {
-    props.navigation.navigate('TreeModel');
-  };
   return (
     <>
       <Header

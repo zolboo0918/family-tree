@@ -8,21 +8,33 @@ import {COLORS, URL} from '../constants';
 import {AllTreeData, treedata, TreeData} from '../testData';
 import {loginUserInfo} from './Login';
 import Header from '../components/Header';
-import {DrawerActions, useNavigation} from '@react-navigation/native';
-
+import {
+  DrawerActions,
+  useIsFocused,
+  useNavigation,
+  useRoute,
+} from '@react-navigation/native';
+export let loginUserInfo1;
+export const setLoginUserInfo1 = val => {
+  loginUserInfo1 = val;
+};
 const Tree = () => {
-  const [treeData, setTreeData] = useState(treeData);
+  const [treeData, setTreeData] = useState([]);
   const navigation = useNavigation();
+  const isFocused = useIsFocused();
   useEffect(() => {
-    axios
-      .get(`${URL}/SearchFamily`)
-      .then(res => {
-        setTreeData(res.data.response);
-      })
-      .catch(err => {
-        setTreeData(treedata);
-      });
-  }, []);
+    if (isFocused) {
+      axios
+        .post(`${URL}/SearchFamily/DrawTree/${loginUserInfo[0].family_ID}`)
+        .then(res => {
+          setTreeData(res.data.response);
+        })
+        .catch(err => {
+          console.log(`err`, err);
+          setTreeData([]);
+        });
+    }
+  }, [isFocused]);
 
   return (
     <>
@@ -34,7 +46,7 @@ const Tree = () => {
       <View style={{flex: 1}}>
         <ScrollView style={{backgroundColor: '#F3F5F6'}}>
           <FamilyTree
-            title="Тангууд"
+            title={treeData[0]?.Name}
             pathColor={COLORS.TREE_COLOR}
             siblingGap={10}
             nodeStyle={styles.nodeStyle}
@@ -44,6 +56,10 @@ const Tree = () => {
             nodeTitleColor="#585858"
             familyGap={5}
             strokeWidth={1}
+            nodeClick={item => {
+              setLoginUserInfo1({ID: item.Child_ID});
+              navigation.navigate('Profile1');
+            }}
             titleColor="#585858"
           />
         </ScrollView>

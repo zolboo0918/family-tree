@@ -9,7 +9,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import {Button, Checkbox, Radio, Select} from 'native-base';
+import {Button, Checkbox, Radio, Select, Toast} from 'native-base';
 import Icon from 'react-native-vector-icons/AntDesign';
 import {COLORS, URL} from '../constants';
 import ImagePicker from 'react-native-image-crop-picker';
@@ -55,7 +55,7 @@ const SelectParent = props => {
 
   const getAllParents = () => {
     axios
-      .get(`${URL}/FamilyMember/${loginUserInfo[0].ID}`)
+      .get(`${URL}/FamilyMember/${ID}`)
       .then(res => {
         res.data.response.forEach(el => {
           axios.get(`${URL}/users/${el.personId}`).then(userResult => {
@@ -97,9 +97,9 @@ const SelectParent = props => {
         // }-${state.eventEndDate.getDate()}`,
       })
       .then(res => {
-        console.log(`res.data`, res.data);
         if (res.data.status == 'success') {
-          Alert.alert('Amjilttai');
+          Toast.show({title: 'Амжилттай'});
+          Navigation.navigate('Ургийн мод', {refresh: true});
         }
       })
       .catch(err => {
@@ -116,6 +116,8 @@ const SelectParent = props => {
       }}>
       <Select
         placeholder="Аав сонгох"
+        borderRadius={15}
+        marginBottom={5}
         style={{
           borderColor: '#e1e1e1',
           height: 40,
@@ -132,6 +134,8 @@ const SelectParent = props => {
       </Select>
       <Select
         placeholder="Ээж сонгох"
+        borderRadius={15}
+        marginBottom={5}
         style={{
           borderWidth: 0,
           borderColor: '#e1e1e1',
@@ -158,8 +162,9 @@ const SelectParent = props => {
         style={{
           borderWidth: 1,
           borderColor: '#e1e1e1',
-          borderRadius: 10,
+          borderRadius: 15,
           height: 40,
+          marginTop: 15,
           paddingHorizontal: 10,
           color: '#585858',
         }}
@@ -211,9 +216,10 @@ const SelectParent = props => {
       </View>
       <TextInput
         style={{
+          marginTop: 15,
           borderWidth: 1,
           borderColor: '#e1e1e1',
-          borderRadius: 10,
+          borderRadius: 15,
           height: 40,
           paddingHorizontal: 10,
           color: '#585858',

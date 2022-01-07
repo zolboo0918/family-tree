@@ -16,8 +16,8 @@ export default class FamilyTree extends Component {
     return member.children && member.children.length;
   }
 
-  getUserInfo() {
-    Alert.alert('user');
+  getUserInfo(item) {
+    this.props.nodeClick(item);
   }
 
   renderTree(data, level) {
@@ -43,7 +43,9 @@ export default class FamilyTree extends Component {
               }}>
               <View style={{alignItems: 'center'}}>
                 <TouchableOpacity
-                  onPress={this.getUserInfo}
+                  onPress={() => {
+                    this.getUserInfo(item);
+                  }}
                   style={{
                     ...this.props.nodeStyle,
                     flexDirection: 'row',

@@ -20,10 +20,12 @@ import {COLORS, getWidth, URL} from '../constants';
 import LinearGradient from 'react-native-linear-gradient';
 
 export let loginUserInfo = {};
+export let type;
+export const setType = val => (type = val);
 
 const Login = props => {
-  const [userName, setUserName] = useState('Susu');
-  const [password, setPassword] = useState('Mongolia123');
+  const [userName, setUserName] = useState('Uugan');
+  const [password, setPassword] = useState('Mongolia124');
   const [passwordShow, setpasswordShow] = useState(true);
   const [loading, setLoading] = useState(false);
 

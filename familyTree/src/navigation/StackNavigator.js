@@ -13,6 +13,7 @@ import Profile from '../screens/Profile';
 import Bottomtabs from './BottomNavigator';
 import AddPeople from '../screens/AddPeople';
 import SelectParent from '../screens/SelectParent';
+import Profile1 from '../screens/Profile1';
 
 const Stack = createNativeStackNavigator();
 const StackNavigator = () => {
@@ -34,6 +35,13 @@ const StackNavigator = () => {
         <Stack.Screen
           name="Эцэг эх сонгох"
           component={SelectParent}
+          options={{
+            headerShown: false,
+          }}
+        />
+        <Stack.Screen
+          name="Profile1"
+          component={Profile1}
           options={{
             headerShown: false,
           }}
