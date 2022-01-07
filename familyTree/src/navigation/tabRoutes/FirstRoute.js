@@ -11,7 +11,7 @@ export default function FirstRoute() {
   const [children, setChildren] = useState([]);
   useEffect(() => {
     axios
-      .get(`${URL}/SearchFamily/2`)
+      .get(`${URL}/SearchFamily/4`)
       .then(res => {
         // setFather(res.data.response.father);
         // setWife(res.data.response.wife);

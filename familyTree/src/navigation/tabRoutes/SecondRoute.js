@@ -12,9 +12,9 @@ export const SecondRoute = () => {
 
   useEffect(() => {
     axios
-      .get(`${URL}/SearchFamily/${loginUserInfo[0]}`)
+      .get(`${URL}/SearchFamily/4`)
       .then(res => {
-        const data = res.data.response.Mother;
+        const data = res.data.response.Mother.Mother;
         const arr = [{name: data}];
         console.log(`arr`, arr);
         setWife(arr);

@@ -1,5 +1,5 @@
 import axios from 'axios';
-import {Button, Select} from 'native-base';
+import {Button, Select, Toast} from 'native-base';
 import React, {Children, useContext, useEffect, useState} from 'react';
 import {
   ActivityIndicator,
@@ -41,6 +41,7 @@ const Profile = () => {
   const [urag, setUrag] = useState([]);
   const [selectedUrag, setSelectedUrag] = useState('');
   const [uragFamily, setUragFamily] = useState([]);
+  const [children, setChildren] = useState([]);
 
   const [userInfo, setUserInfo] = useState(loginUserInfo[0]);
 
@@ -48,17 +49,16 @@ const Profile = () => {
 
   useEffect(() => {
     getUrag();
-    axios
-      .get(`${URL}/SearchFamily/4}`)
-      .then(res => {
-        setFather(res.data.response.father);
-        setMother(res.data.response.Mother);
-        // setChildren(res.data.response.children);
-        setFamily(res.data.response.family);
-      })
-      .catch(err => console.log('aaaaaa', JSON.stringify(err)));
-  }, []);
+    console.log(`loginUserInfo`, loginUserInfo);
 
+    // axios.get(`${URL}/SearchFamily/4`).then(res => {
+    //   console.log(`res.data`, res.data);
+    //   // setFather(res.data.response.father);
+    //   // setMother(res.data.response.Mother);
+    //   setChildren(res.data.response.children);
+    //   // setFamily(res.data.response.family);
+    // });
+  }, []);
   // useEffect(() => {
   //   axios
   //     .get(`${URL}/`)
@@ -72,12 +72,21 @@ const Profile = () => {
     axios.get(`${URL}/UragOvog`).then(res => {
       setUrag(res.data.response);
     });
+    axios.get(`${URL}/SearchFamily`).then(res => {
+      setUragFamily(res.data.response);
+    });
   };
 
-  const updateProfile = () => {};
+  const updateProfile = () => {
+    loginUserInfo[0] = userInfo;
+    axios.post(`${URL}/SearchFamily`, userInfo).then(res => {
+      Toast.show({title: 'Мэдээлэл амжилттай засагдлаа'});
+      setModalShow(false);
+    });
+  };
 
   return (
-    <View>
+    <>
       <Header
         leftIcon={'menu'}
         title={'Хувийн мэдээлэл'}
@@ -92,9 +101,9 @@ const Profile = () => {
             style={styles.profileImage}
           />
           <View style={{marginLeft: 20, justifyContent: 'center'}}>
-            <Text style={styles.userName}>{loginUserInfo[0].fName}</Text>
-            <Text style={styles.email}>{loginUserInfo[0].eMail}</Text>
-            <Text style={styles.phone}>{loginUserInfo[0].lName}</Text>
+            <Text style={styles.userName}>{userInfo.fName}</Text>
+            <Text style={styles.phone}>{userInfo.PhoneNumber}</Text>
+            <Text style={styles.phone}>{userInfo.lName}</Text>
           </View>
           <TouchableOpacity
             onPress={() => setModalShow(true)}
@@ -131,7 +140,22 @@ const Profile = () => {
                       ? userInfo.Profile_Picture
                       : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSY-vJ07Repan238qwOLHGf1vsdK5Mjr-IyBA&usqp=CAU',
                   }}
-                  style={{height: 60, width: 60, borderRadius: 50}}
+                  style={{
+                    height: 80,
+                    width: 80,
+                    borderRadius: 50,
+                    marginBottom: 20,
+                  }}
+                />
+                <EvilIcon
+                  name="circle-edit-outline"
+                  style={{
+                    fontSize: 20,
+                    position: 'absolute',
+                    top: 60,
+                    right: setWidth(43),
+                    color: '#fff',
+                  }}
                 />
                 <View style={styles.infoContainer}>
                   <Text style={styles.label}>Регистрийн дугаар:</Text>
@@ -166,54 +190,49 @@ const Profile = () => {
                       setUserInfo({...userInfo, Marriage_Status: val})
                     }
                   />
-                  <Text style={styles.label}>Төрсөн өдөр: </Text>
-                  <TextInput
-                    value={userInfo.date_of_birth}
-                    style={styles.input}
-                  />
-                  <Text style={styles.label}>Миний тухай: </Text>
-                  <TextInput
-                    value={userInfo.Person_Intro}
-                    style={styles.input}
-                  />
-                </View>
-                <Text style={styles.label2}>Ургийн овог сонгох</Text>
 
-                <Select
-                  onValueChange={val => setSelectedUrag(val)}
-                  width={'80%'}
-                  style={{height: 35}}
-                  borderRadius={20}
-                  placeholder="Сонгох">
-                  {urag?.map(el => (
-                    <Select.Item label={el.Name} value={el.ID} />
-                  ))}
-                </Select>
-                <Text style={styles.label2}>Гэр бүл сонгох</Text>
-                <Select
-                  onValueChange={val => {}}
-                  width={'80%'}
-                  style={{height: 35}}
-                  borderRadius={20}
-                  placeholder="Сонгох">
-                  {uragFamily?.map(el => (
-                    <Select.Item label={el.Name} value={el.ID} />
-                  ))}
-                </Select>
-                {loading ? (
-                  <ActivityIndicator
-                    color={'#70A44E'}
-                    style={{marginTop: 30}}
-                  />
-                ) : (
-                  <TouchableOpacity
-                    style={styles.addBtn}
-                    onPress={updateProfile}>
-                    <Text style={{height: 30, color: '#fff', marginTop: 7}}>
-                      Хадгалах
-                    </Text>
-                  </TouchableOpacity>
-                )}
+                  <Text style={styles.label2}>Ургийн овог сонгох</Text>
+
+                  <Select
+                    onValueChange={val => {
+                      userInfo.urgiin_ovog_ID = val;
+                    }}
+                    width={'100%'}
+                    style={{height: 35}}
+                    borderRadius={20}
+                    placeholder="Сонгох">
+                    {urag?.map(el => (
+                      <Select.Item label={el.Name} value={el.ID} />
+                    ))}
+                  </Select>
+                  <Text style={styles.label2}>Гэр бүл сонгох</Text>
+                  <Select
+                    onValueChange={val => {
+                      userInfo.family_ID = val;
+                    }}
+                    width={'100%'}
+                    style={{height: 35}}
+                    borderRadius={20}
+                    placeholder="Сонгох">
+                    {uragFamily?.map(el => (
+                      <Select.Item label={el.Name} value={el.ID} />
+                    ))}
+                  </Select>
+                  {loading ? (
+                    <ActivityIndicator
+                      color={'#70A44E'}
+                      style={{marginTop: 30}}
+                    />
+                  ) : (
+                    <TouchableOpacity
+                      style={styles.addBtn}
+                      onPress={updateProfile}>
+                      <Text style={{height: 30, color: '#fff', marginTop: 7}}>
+                        Хадгалах
+                      </Text>
+                    </TouchableOpacity>
+                  )}
+                </View>
               </View>
             </ScrollView>
           </Modal>
@@ -222,7 +241,7 @@ const Profile = () => {
           <TabViewExample />
         </View>
       </View>
-    </View>
+    </>
   );
 };
 
@@ -248,11 +267,6 @@ const styles = StyleSheet.create({
     color: '#1D2E42',
   },
   phone: {
-    fontSize: 14,
-    color: '#a0a0a0',
-  },
-  email: {
-    width: 180,
     fontSize: 14,
     color: '#a0a0a0',
   },
@@ -322,6 +336,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#70A44E',
     justifyContent: 'center',
     alignItems: 'center',
+    alignSelf: 'center',
     borderRadius: 20,
   },
   insertPhoto: {
@@ -367,7 +382,7 @@ const styles = StyleSheet.create({
   },
   label2: {
     alignSelf: 'flex-start',
-    marginLeft: 40,
+    // marginLeft: 20,
     marginTop: 5,
   },
   infoContainer: {
